@@ -1,0 +1,125 @@
+@startuml
+
+class User {
+    -userId: int
+    -name: String
+    -age: int
+    -email: String
+    -address: String
+    -phone: String
+}
+
+class HairSalon {
+    -id: int
+    -hairCut: HairCut
+    -beardCut: BeardCut
+    -eyebrowFix: boolean
+    -hairDye: HairDye
+    -hairstyle: Hairstyle
+    -price: double
+    -duration: int
+}
+
+class Nails {
+    -id: int
+    -nailPolish: NailPolish
+    -nailPattern: boolean
+    -decorationId: id
+    -nailRemoval: boolean
+    -nailLength: NailLength
+    -price: double
+    -duration: int
+}
+
+class Makeup {
+    -id: int
+    -makeupType: MakeupType
+    -price: double
+    -duration: int
+}
+
+class Appointment {
+    -appointmentId: int
+    -user: User
+    -date: Date
+    -time: Time
+    -location: String
+    -serviceType: List<Class>
+    -partner: List<Partner>
+    -totalPrice: double
+}
+
+class Partner {
+    -id: int
+    -firstName: String
+    -lastName: String
+    -phone: String
+    -email: String
+    -specializations: List<Specialization>
+    -level: Level
+}
+
+class ApoinmentPartner{
+    -id: int
+    -appointment: Appointment
+    -partner: Partner
+}
+enum HairCut {
+    TAPER
+    BUZZ_CUT
+    MULLET
+    FRENCH_CROP
+}
+
+enum BeardCut {
+    FULL_BEARD
+    GOATEE
+    MOUSTACHE
+    THREE_DAY_BEARD
+}
+
+enum HairDye {
+    ROOTS
+    HIGHLIGHTS
+    FULL_COLOR
+    BALAYAGE
+}
+
+enum HairStyle {
+    STRAIGHT
+    CURLY
+    WAVY
+    BUN
+}
+
+enum NailPolish {
+    NORMAL
+    SEMI_PERMANENT
+    GEL
+}
+
+enum NailLength {
+    SHORT
+    MEDIUM
+    LONG
+}
+
+enum MakeupType {
+    EVERYDAY
+    NIGHT
+    BRIDE
+    FANTASY
+}
+
+
+'====Relationships===='
+ User "1" --> "0..*" Appointment
+
+Appointment "0..*" --> "0..1" HairSalon
+Appointment "0..*" --> "0..1" Nails
+Appointment "0..*" --> "0..1" Makeup
+Appointment "1" --> "1..*" ApoinmentPartner
+ApoinmentPartner "0..1" --> "1" Partner
+
+
+@enduml
