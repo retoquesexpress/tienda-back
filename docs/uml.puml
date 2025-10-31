@@ -1,125 +1,116 @@
 @startuml
 
 class User {
-    -userId: int
+    -Id: int
+    -username:String
+    -password:String
     -name: String
-    -age: int
     -email: String
-    -address: String
     -phone: String
 }
 
-class HairSalon {
-    -id: int
-    -hairCut: HairCut
-    -beardCut: BeardCut
-    -eyebrowFix: boolean
-    -hairDye: HairDye
-    -hairstyle: Hairstyle
-    -price: double
-    -duration: int
+class Partner {
+    -specializations: List<Specialization>
+    -level: Level
+}
+class Client {
+    -address: String
+}
+class Admin {
 }
 
-class Nails {
-    -id: int
-    -nailPolish: NailPolish
-    -nailPattern: boolean
-    -decorationId: id
-    -nailRemoval: boolean
-    -nailLength: NailLength
-    -price: double
-    -duration: int
+class Service{
+    -id:int
+    -name:string
+    -category:List<CategoryService>
 }
 
-class Makeup {
-    -id: int
-    -makeupType: MakeupType
-    -price: double
+class CategoryService{
+    -id:int
+    -name:string
+    -styles:List<Style>
+}
+class Style{
+    -id:int
+    -name:string
+    -price:double
     -duration: int
 }
 
 class Appointment {
     -appointmentId: int
-    -user: User
+    -client: Client
     -date: Date
     -time: Time
     -location: String
-    -serviceType: List<Class>
-    -partner: List<Partner>
+    -apoinmentService: List<ApoinmentService>
     -totalPrice: double
 }
 
-class Partner {
-    -id: int
-    -firstName: String
-    -lastName: String
-    -phone: String
-    -email: String
-    -specializations: List<Specialization>
-    -level: Level
+class AppoinmentService{
+    -partners: List<Partner>
+    -services: List<Service>
 }
 
-class ApoinmentPartner{
-    -id: int
-    -appointment: Appointment
-    -partner: Partner
-}
-enum HairCut {
-    TAPER
-    BUZZ_CUT
-    MULLET
-    FRENCH_CROP
-}
-
-enum BeardCut {
-    FULL_BEARD
-    GOATEE
-    MOUSTACHE
-    THREE_DAY_BEARD
-}
-
-enum HairDye {
-    ROOTS
-    HIGHLIGHTS
-    FULL_COLOR
-    BALAYAGE
-}
-
-enum HairStyle {
-    STRAIGHT
-    CURLY
-    WAVY
-    BUN
-}
-
-enum NailPolish {
-    NORMAL
-    SEMI_PERMANENT
-    GEL
-}
-
-enum NailLength {
-    SHORT
-    MEDIUM
-    LONG
-}
-
-enum MakeupType {
-    EVERYDAY
-    NIGHT
-    BRIDE
-    FANTASY
-}
+'enum HairCut {
+'    TAPER
+'    BUZZ_CUT
+'    MULLET
+'    FRENCH_CROP
+'}
+'
+'enum BeardCut {
+'    FULL_BEARD
+'    GOATEE
+'    MOUSTACHE
+'    THREE_DAY_BEARD
+'}
+'
+'enum HairDye {
+'    ROOTS
+'    HIGHLIGHTS
+'    FULL_COLOR
+'    BALAYAGE
+'}
+'
+'enum HairStyle {
+'    STRAIGHT
+'    CURLY
+'    WAVY
+'    BUN
+'}
+'
+'enum NailPolish {
+'    NORMAL
+'    SEMI_PERMANENT
+'    GEL
+'}
+'
+'enum NailLength {
+'    SHORT
+'    MEDIUM
+'    LONG
+'}
+'
+'enum MakeupType {
+'    EVERYDAY
+'    NIGHT
+'    BRIDE
+'    FANTASY
+'}
 
 
 '====Relationships===='
- User "1" --> "0..*" Appointment
+Service -- "1..*" CategoryService
+CategoryService -- "1..*" Style
 
-Appointment "0..*" --> "0..1" HairSalon
-Appointment "0..*" --> "0..1" Nails
-Appointment "0..*" --> "0..1" Makeup
-Appointment "1" --> "1..*" ApoinmentPartner
-ApoinmentPartner "0..1" --> "1" Partner
+Partner ..|> User
+Client ..|> User
+Admin ..|> User
+
+Appointment -- AppoinmentService
+AppoinmentService -- Service
+AppoinmentService -- Partner
 
 
 @enduml
