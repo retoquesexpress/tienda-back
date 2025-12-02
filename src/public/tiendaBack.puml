@@ -1,0 +1,130 @@
+@startuml
+'Direccion of the diagram'
+left to right direction
+'Used style'
+skinparam backgroundColor #F5E6CC
+'Classes'
+skinparam classBackgroundColor #A7C7E7
+skinparam classBorderColor #000000
+skinparam shadowing true
+skinparam roundcorner 15
+'Titles'
+skinparam classFontColor #000000
+skinparam classFontStyle bold
+'Relationships'
+skinparam classArrowColor #4CAF50
+skinparam classArrowThickness 2
+skinparam classArrowFontColor black
+skinparam classArrowFontSize 11
+skinparam nodesep 20
+skinparam ranksep 5
+
+class Cart{
+    +id_cart
+    +total_products
+    +total_price
+    +CartItem
+}
+
+class CartItem{
+    +id_item_cart
+    +quantity
+}
+
+'class Product{
+'    +id_product
+'    +name
+'    +product_description
+'    +price
+'    +discountedPrice
+'    +pictureProduct
+'    +CartItem
+'}
+
+'class ProductCategory{
+'    +id_category
+'    +name
+'    +description
+'}
+
+
+class User {
+    +id
+    +name
+    +username
+    +email
+    +password
+    +phone
+    +address
+    +profilePicture
+    +birthdate
+}
+
+class Employee {
+    -specializations: List<Specialization>
+    -level: Level
+}
+class Client {
+    -address: String
+}
+class Admin {
+
+}
+
+class Service{
+    -id:int
+    -name:string
+    -category:List<CategoryService>
+}
+
+class CategoryService{
+    -id:int
+    -name:string
+    -styles:List<Style>
+}
+class Style{
+    -id:int
+    -name:string
+    -price:double
+    -duration: int
+}
+
+class Appointment {
+    -appointmentId: int
+    -client: Client
+    -date: Date
+    -time: Time
+    -location: String
+    -apoinmentService: List<ApoinmentService>
+    -totalPrice: double
+}
+
+class AppoinmentService{
+    -employees: List<Employee>
+    -services: List<Service>
+}
+
+
+
+
+
+
+
+Cart "1" -- "N" CartItem : has >
+CartItem "N" -- "1" Service : contains >
+'Product "N" -- "N" ProductCategory : relates >
+
+Service -- "1..*" CategoryService
+CategoryService -- "1..*" Style
+
+Employee ..|> User
+Client ..|> User
+Admin ..|> User
+
+Appointment -- AppoinmentService
+AppoinmentService -- Service
+AppoinmentService -- Employee
+AppoinmentService -- Client
+
+
+@enduml
