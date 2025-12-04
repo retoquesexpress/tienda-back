@@ -20,111 +20,52 @@ skinparam nodesep 20
 skinparam ranksep 5
 
 class Cart{
-    +id_cart
-    +total_products
-    +total_price
-    +CartItem
+    +id_cart:string
+    +total_products:int
+    +total_price:double
+    +CartItem:CartItem[]
 }
 
 class CartItem{
-    +id_item_cart
-    +quantity
+    +id_item_cart:string
+    +quantity:int
 }
-
-'class Product{
-'    +id_product
-'    +name
-'    +product_description
-'    +price
-'    +discountedPrice
-'    +pictureProduct
-'    +CartItem
-'}
-
-'class ProductCategory{
-'    +id_category
-'    +name
-'    +description
-'}
-
 
 class User {
-    +id
-    +name
-    +username
-    +email
-    +password
-    +phone
-    +address
-    +profilePicture
-    +birthdate
-}
-
-class Employee {
-    -specializations: List<Specialization>
-    -level: Level
-}
-class Client {
-    -address: String
-}
-class Admin {
-
+    +id_user:int
+    +name:string
+    +username:string
+    +email:string
+    +password:string
+    +phone:string
+    +address:string
+    +profilePicture:string
+    +birthdate:date
+    +role:string
 }
 
 class Service{
-    -id:int
-    -name:string
-    -category:List<CategoryService>
+    +id_service:int
+    +name:string
+    +description:string
+    +price:double
+    +imageUrl:string
 }
 
 class CategoryService{
-    -id:int
-    -name:string
-    -styles:List<Style>
+    +id_service:int
+    +name:string
 }
-class Style{
-    -id:int
-    -name:string
-    -price:double
-    -duration: int
-}
-
-class Appointment {
-    -appointmentId: int
-    -client: Client
-    -date: Date
-    -time: Time
-    -location: String
-    -apoinmentService: List<ApoinmentService>
-    -totalPrice: double
-}
-
-class AppoinmentService{
-    -employees: List<Employee>
-    -services: List<Service>
-}
-
-
-
 
 
 
 
 Cart "1" -- "N" CartItem : has >
 CartItem "N" -- "1" Service : contains >
-'Product "N" -- "N" ProductCategory : relates >
 
 Service -- "1..*" CategoryService
-CategoryService -- "1..*" Style
 
-Employee ..|> User
-Client ..|> User
-Admin ..|> User
-
-Appointment -- AppoinmentService
-AppoinmentService -- Service
-AppoinmentService -- Employee
-AppoinmentService -- Client
+CartItem -- User
 
 
 @enduml
