@@ -3,6 +3,7 @@ package com.fpmislata.tienda_back.domain.service.impl;
 import com.fpmislata.tienda_back.domain.repository.UserRepository;
 import com.fpmislata.tienda_back.domain.service.UserService;
 import com.fpmislata.tienda_back.domain.service.dto.UserDto;
+import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty()) {
             return userRepository.save(userDto);
         } else {
-            throw new BusinessException("Author already exists");
+            throw new IllegalArgumentException("Author already exists");
         }    }
 
     @Override
