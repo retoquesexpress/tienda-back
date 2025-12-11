@@ -1,5 +1,6 @@
 package com.fpmislata.tienda_back.mapper;
 
+import com.fpmislata.tienda_back.controller.webModel.response.ServiceDetailResponse;
 import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
 
@@ -40,6 +41,32 @@ public class ServiceMapper {
                 serviceDto.description(),
                 serviceDto.price(),
                 serviceDto.pictureUrl()
+        );
+    }
+
+    public static ServiceDetailResponse fromServiceDtoToServiceDetailResponse(ServiceDto serviceDto) {
+        if (serviceDto == null) {
+            return null;
+        }
+        return new ServiceDetailResponse(
+                serviceDto.id_service(),
+                serviceDto.name(),
+                serviceDto.description(),
+                serviceDto.price(),
+                serviceDto.pictureUrl()
+        );
+    }
+
+    public static ServiceDto fromServiceDetailResponseToServiceDto(ServiceDetailResponse serviceDetailResponse) {
+        if (serviceDetailResponse == null) {
+            return null;
+        }
+        return new ServiceDto(
+                serviceDetailResponse.id_service(),
+                serviceDetailResponse.name(),
+                serviceDetailResponse.description(),
+                serviceDetailResponse.price(),
+                serviceDetailResponse.pictureUrl()
         );
     }
 }
