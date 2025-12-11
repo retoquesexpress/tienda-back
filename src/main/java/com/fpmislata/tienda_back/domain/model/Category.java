@@ -1,12 +1,10 @@
 package com.fpmislata.tienda_back.domain.model;
 
-import java.util.List;
-
-public class CategoryService {
+public class Category {
     private String id_category;
     private String name;
 
-    public CategoryService(String id_category, String name) {
+    public Category(String id_category, String name) {
         this.id_category = id_category;
         this.name = name;
     }
