@@ -47,4 +47,9 @@ public class UserJpaDaoImpl implements UserJpaDao {
         entityManager.persist(userDto);
         return userDto;
     }
+
+    @Override
+    public UserJpaEntity getById(String id_user) {
+        return entityManager.find(UserJpaEntity.class, id_user);
+    }
 }

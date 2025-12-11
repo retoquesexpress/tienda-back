@@ -12,4 +12,5 @@ public interface UserJpaDao {
     UserJpaEntity update(UserJpaEntity userDto);
     void delete(String id_user);
     UserJpaEntity insert(UserJpaEntity userDto);
+    UserJpaEntity getById(String id_user);
 }

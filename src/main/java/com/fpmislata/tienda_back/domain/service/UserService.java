@@ -11,4 +11,5 @@ public interface UserService {
     UserDto create(UserDto userDto);
     UserDto update(UserDto userDto);
     void delete(String id_user);
+    UserDto getById(String id_user);
 }

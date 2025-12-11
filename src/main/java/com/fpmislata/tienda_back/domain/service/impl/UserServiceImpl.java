@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             return user;
         } else {
-            throw new ResourceNotFoundException("Author not found");
+            throw new ResourceNotFoundException("User not found");
         }    }
 
     @Override
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         if (user.isEmpty()) {
             return userRepository.save(userDto);
         } else {
-            throw new IllegalArgumentException("Author already exists");
+            throw new IllegalArgumentException("User already exists");
         }    }
 
     @Override
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             return userRepository.save(userDto);
         } else  {
-            throw new ResourceNotFoundException("Author does not exists");
+            throw new ResourceNotFoundException("User does not exists");
         }
     }
 
@@ -55,7 +55,16 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             userRepository.delete(id_user);
         } else  {
-            throw new ResourceNotFoundException("Author does not exists");
+            throw new ResourceNotFoundException("User does not exists");
         }
+    }
+
+    @Override
+    public UserDto getById(String id_user) {
+        Optional<UserDto> user = userRepository.findUserById(id_user);
+        if (user.isEmpty()) {
+            throw new ResourceNotFoundException("User not found");
+        }
+        return user.get();
     }
 }

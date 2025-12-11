@@ -44,4 +44,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public UserDto getById(String id_user) {
+        return userJpaDao.findUserById(id_user)
+                .map(UserMapper.getInstance()::fromUserJpaEntityToUserDto)
+                .orElse(null);
+    }
 }
