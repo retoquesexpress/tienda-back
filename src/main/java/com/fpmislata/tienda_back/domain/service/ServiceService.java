@@ -1,6 +1,5 @@
 package com.fpmislata.tienda_back.domain.service;
 
-import com.fpmislata.tienda_back.domain.repository.entity.ServiceEntity;
 import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 
 import java.util.List;

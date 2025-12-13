@@ -5,6 +5,7 @@ import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 import com.fpmislata.tienda_back.mapper.ServiceMapper;
 import com.fpmislata.tienda_back.persistence.dao.jpa.ServiceJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,17 +41,21 @@ public class ServiceRepositoryImpl implements ServiceRepository {
 
     @Override
     public ServiceDto update(ServiceDto serviceDto) {
-        ServiceJpaEntity entity = ServiceMapper.fromServiceEntityToServiceJpaEntity(serviceDto);
-        return ServiceMapper.fromServiceJpaEntityToServiceEntity(
-                serviceJpaDao.update(entity)
-        );    }
+        String serviceId = serviceDto.id_service();
+        ServiceJpaEntity existingEntity = serviceJpaDao.findById(serviceId).orElseThrow(() -> new EntityNotFoundException("Servicio con ID " + serviceId + " no encontrado para actualizar."));
+        existingEntity.setName(serviceDto.name());
+        existingEntity.setDescription(serviceDto.description());
+        existingEntity.setPrice(serviceDto.price());
+        existingEntity.setPictureUrl(serviceDto.pictureUrl());
+        ServiceJpaEntity updatedEntity = serviceJpaDao.update(existingEntity);
+        return ServiceMapper.fromServiceJpaEntityToServiceEntity(updatedEntity);
+    }
 
     @Override
     public ServiceDto create(ServiceDto serviceDto) {
         ServiceJpaEntity entity = ServiceMapper.fromServiceEntityToServiceJpaEntity(serviceDto);
-        return ServiceMapper.fromServiceJpaEntityToServiceEntity(
-                serviceJpaDao.create(entity)
-        );
+        ServiceJpaEntity createdEntity = serviceJpaDao.create(entity);
+        return ServiceMapper.fromServiceJpaEntityToServiceEntity(createdEntity);
     }
 
     @Override

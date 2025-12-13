@@ -1,19 +1,21 @@
-USE retoquesexpresdb;
-
-CREATE TABLE categorias (
-    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) UNIQUE NOT NULL
+CREATE TABLE categories (
+    id_category VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL
 );
-CREATE TABLE servicios (
-    id VARCHAR(10) PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion TEXT,
-    precio DECIMAL(10,2) NOT NULL,
-    pictureUrl VARCHAR(100),
-    id_categoria INT NOT NULL,
-    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
+INSERT INTO categories (id_category,name) VALUES
+('c1','Uñas'),
+('c2','Maquillaje'),
+('c3','Peluqueria');
+CREATE TABLE services (
+    id_service VARCHAR(10) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    picture_url VARCHAR(100),
+    id_category VARCHAR(50) NOT NULL,
+    FOREIGN KEY (id_category) REFERENCES categories(id_category)
 );
-CREATE TABLE usuarios (
+CREATE TABLE users (
     id_user VARCHAR(50) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -30,14 +32,14 @@ CREATE TABLE cart (
     id_user VARCHAR(50) UNIQUE NOT NULL,
     total_products INT DEFAULT 0,
     total_price DECIMAL(10,2) DEFAULT 0,
-    FOREIGN KEY (id_user) REFERENCES usuarios(id_user)
+    FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
 
 CREATE TABLE cart_items (
     id_item_cart VARCHAR(50) PRIMARY KEY,
     id_cart INT NOT NULL,
-    id_servicio VARCHAR(10) NOT NULL,
+    id_service VARCHAR(10) NOT NULL,
     quantity INT NOT NULL DEFAULT 1,
     FOREIGN KEY (id_cart) REFERENCES cart(id_cart) ON DELETE CASCADE,
-    FOREIGN KEY (id_servicio) REFERENCES servicios(id)
+    FOREIGN KEY (id_service) REFERENCES services(id_service)
 );

@@ -54,7 +54,7 @@ private final ServiceRepository serviceRepository;
     public ServiceDto create(ServiceDto serviceDto) {
      Optional<ServiceDto> service = serviceRepository.findById(serviceDto.id_service());
         if (service.isPresent()) {
-            throw new IllegalArgumentException("Service with id " + serviceDto.id_service() + " already exists");
+            throw new IllegalArgumentException("Service already exists");
         }
         return serviceRepository.create(serviceDto);
     }
