@@ -56,17 +56,4 @@ public class ServiceMapper {
                 serviceDto.pictureUrl()
         );
     }
-
-    public static ServiceDto fromServiceDetailResponseToServiceDto(ServiceDetailResponse serviceDetailResponse) {
-        if (serviceDetailResponse == null) {
-            return null;
-        }
-        return new ServiceDto(
-                serviceDetailResponse.id_service(),
-                serviceDetailResponse.name(),
-                serviceDetailResponse.description(),
-                serviceDetailResponse.price(),
-                serviceDetailResponse.pictureUrl()
-        );
-    }
 }
