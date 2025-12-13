@@ -21,7 +21,6 @@ public class ServiceController{
         this.serviceService = serviceService;
     }
 
-
     @GetMapping("/{id_service}")
     public ResponseEntity<ServiceDetailResponse> getById(@PathVariable String id_service) {
         ServiceDetailResponse serviceDetailResponse =
