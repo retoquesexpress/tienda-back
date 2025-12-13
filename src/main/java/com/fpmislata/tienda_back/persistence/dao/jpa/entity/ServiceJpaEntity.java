@@ -6,10 +6,9 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "service")
+@Table(name = "services")
 public class ServiceJpaEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id_service;
 
     @Column(name = "name")
@@ -21,7 +20,7 @@ public class ServiceJpaEntity implements Serializable {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "picture_url")
+    @Column(name = "pictureUrl")
     private String pictureUrl;
 
 

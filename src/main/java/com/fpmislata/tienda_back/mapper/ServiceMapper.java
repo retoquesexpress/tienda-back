@@ -1,5 +1,7 @@
 package com.fpmislata.tienda_back.mapper;
 
+import com.fpmislata.tienda_back.controller.webModel.request.ServiceInsertRequest;
+import com.fpmislata.tienda_back.controller.webModel.request.ServiceUpdateRequest;
 import com.fpmislata.tienda_back.controller.webModel.response.ServiceDetailResponse;
 import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
@@ -54,6 +56,32 @@ public class ServiceMapper {
                 serviceDto.description(),
                 serviceDto.price(),
                 serviceDto.pictureUrl()
+        );
+    }
+
+    public static ServiceDto fromServiceInsertRequestToServiceDto(ServiceInsertRequest serviceInsertRequest) {
+        if (serviceInsertRequest == null) {
+            return null;
+        }
+        return new ServiceDto(
+                serviceInsertRequest.id_service(),
+                serviceInsertRequest.name(),
+                serviceInsertRequest.description(),
+                serviceInsertRequest.price(),
+                serviceInsertRequest.pictureUrl()
+        );
+    }
+
+    public static ServiceDto fromServiceUpdateRequestToServiceDto(ServiceUpdateRequest serviceUpdateRequest) {
+        if (serviceUpdateRequest == null) {
+            return null;
+        }
+        return new ServiceDto(
+                serviceUpdateRequest.id_service(),
+                serviceUpdateRequest.name(),
+                serviceUpdateRequest.description(),
+                serviceUpdateRequest.price(),
+                null
         );
     }
 }
