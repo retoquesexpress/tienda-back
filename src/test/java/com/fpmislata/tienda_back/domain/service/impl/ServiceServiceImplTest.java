@@ -84,7 +84,7 @@ class ServiceServiceImplTest {
         @Test
         @DisplayName("Test create should return created service")
         void testCreateShouldReturnCreatedService() {
-            ServiceDto serviceToCreate = new ServiceDto(null, "New Service", "New Description", 150.0,"img.jpg");
+            ServiceDto serviceToCreate = new ServiceDto("u1", "New Service", "New Description", 150.0,"img.jpg");
             ServiceDto expectedCreatedService = new ServiceDto("1", "New Service", "New Description", 150.0,"img.jpg");
 
             when(serviceRepository.create(serviceToCreate)).thenReturn(expectedCreatedService);

@@ -12,5 +12,12 @@ public record ServiceDto(
         double price,
         String pictureUrl
 ) {
-
+        public ServiceDto {
+                if (id_service == null) {
+                        throw new NullPointerException("id_service must not be null");
+                }
+                if (Double.isNaN(price)) {
+                        throw new NullPointerException("price must not be null");
+                }
+        }
 }

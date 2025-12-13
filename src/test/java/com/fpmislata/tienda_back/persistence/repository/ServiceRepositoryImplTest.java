@@ -1,5 +1,6 @@
 package com.fpmislata.tienda_back.persistence.repository;
 
+import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.ServiceJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 
+
 @ExtendWith(MockitoExtension.class)
 class ServiceRepositoryImplTest {
 
@@ -22,13 +24,12 @@ class ServiceRepositoryImplTest {
     @InjectMocks
     private ServiceRepositoryImpl serviceRepositoryImpl;
 
-    //SIN TERMINAR
     @Nested
     class FindAll {
         @Test
         @DisplayName("Test findAll should return list of services when services exist")
         void testFindAllShouldReturnListOfServicesWhenServicesExist() {
-        /*    ServiceJpaEntity entity1 = new ServiceJpaEntity();
+            ServiceJpaEntity entity1 = new ServiceJpaEntity();
             entity1.setId_service("1");
             entity1.setName("Service 1");
             entity1.setDescription("Description 1");
@@ -45,12 +46,37 @@ class ServiceRepositoryImplTest {
             List<ServiceJpaEntity> mockEntities = List.of(entity1, entity2);
 
             when(serviceJpaDao.findAll()).thenReturn(mockEntities);
-            */
+
+            List<ServiceDto> result = serviceRepositoryImpl.findAll();
+            assert(result.size() == 2);
+        }
+
+        @Test
+        @DisplayName("Test findAll should return empty list when no services exist")
+        void testFindAllShouldReturnEmptyListWhenNoServicesExist() {
+            when(serviceJpaDao.findAll()).thenReturn(List.of());
+            List<ServiceDto> result = serviceRepositoryImpl.findAll();
+            assert(result.isEmpty());
         }
     }
 
     @Nested
-    class GetById {}
+    class GetById {
+        @Test
+        @DisplayName("Test getById should return ServiceDto when service exists")
+        void testGetByIdShouldReturnServiceWhenServiceExists() {
+            String serviceId = "1";
+            ServiceJpaEntity entity = new ServiceJpaEntity();
+            entity.setId_service(serviceId);
+            entity.setName("Service 1");
+            entity.setDescription("Description 1");
+            entity.setPrice(100.0);
+            entity.setPictureUrl("img1.jpg");
+
+            when(serviceJpaDao.findById(serviceId)).thenReturn(java.util.Optional.of(entity));
+            ServiceDto result = serviceRepositoryImpl.getById(serviceId);
+        }
+    }
 
     @Nested
     class FindById {}
