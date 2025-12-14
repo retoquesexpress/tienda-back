@@ -8,14 +8,17 @@ public class Service {
     private String description;
     private double price;
     private String pictureUrl;
+    private Category category;
 
-    public Service(String id_service, String name, String description, double price, String pictureUrl) {
+    public Service(String id_service, String name, String description, double price, String pictureUrl, Category category) {
         this.id_service = id_service;
         this.name = name;
         this.description = description;
         this.price = price;
         this.pictureUrl = pictureUrl;
+        this.category = category;
     }
+
 
     public String getId() {
         return id_service;
@@ -56,4 +59,8 @@ public class Service {
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
+
+    public Category getCategory() {return category;}
+
+    public void setCategory(Category category) {this.category = category;}
 }

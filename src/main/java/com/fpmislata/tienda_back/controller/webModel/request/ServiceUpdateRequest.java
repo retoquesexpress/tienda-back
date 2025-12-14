@@ -4,6 +4,8 @@ public record ServiceUpdateRequest(
         String id_service,
         String name,
         String description,
-        double price
+        double price,
+        String pictureUrl,
+        CategoryUpdateRequest categoryUpdateRequest
 ) {
 }

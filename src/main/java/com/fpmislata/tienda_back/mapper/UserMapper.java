@@ -7,16 +7,16 @@ import com.fpmislata.tienda_back.persistence.dao.jpa.entity.UserJpaEntity;
 
 public class UserMapper {
 
-    private static UserMapper instance;
+    private static UserMapper INSTANCE;
 
     private UserMapper() {
     }
 
     public static UserMapper getInstance() {
-        if (instance == null) {
-            instance = new UserMapper();
+        if (INSTANCE == null) {
+            INSTANCE = new UserMapper();
         }
-        return instance;
+        return INSTANCE;
     }
 
     public UserDto fromUserJpaEntityToUserDto(UserJpaEntity userJpaEntity) {
@@ -53,7 +53,7 @@ public class UserMapper {
         );
     }
 
-    public static UserDetailResponse fromUserDtoToUserDetailResponse(UserDto userDto) {
+    public UserDetailResponse fromUserDtoToUserDetailResponse(UserDto userDto) {
         if (userDto == null) {
             return null;
         }
@@ -71,7 +71,7 @@ public class UserMapper {
         );
     }
 
-    public static UserDto fromUserDetailResponseToUserDto(UserDetailResponse userDetailResponse) {
+    public UserDto fromUserDetailResponseToUserDto(UserDetailResponse userDetailResponse) {
         if (userDetailResponse == null) {
             return null;
         }

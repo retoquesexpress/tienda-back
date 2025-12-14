@@ -5,6 +5,7 @@ public record ServiceDetailResponse (
         String name,
         String description,
         double price,
-        String pictureUrl
+        String pictureUrl,
+        CategoryDetailResponse categoryDetailResponse
 ) {
 }

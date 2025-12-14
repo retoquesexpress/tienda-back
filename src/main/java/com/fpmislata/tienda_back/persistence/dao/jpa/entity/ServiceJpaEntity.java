@@ -21,18 +21,23 @@ public class ServiceJpaEntity implements Serializable {
     private Double price;
 
     @Column(name = "pictureUrl")
-    private String pictureUrl;
+    private String pictureUrl;;
+
+    @ManyToOne
+    @JoinColumn(name = "id_category")
+    private CategoryJpaEntity category;
 
 
     public ServiceJpaEntity() {
     }
 
-    public ServiceJpaEntity (String id_service, String name, String description, Double price, String pictureUrl) {
+    public ServiceJpaEntity (String id_service, String name, String description, Double price, String pictureUrl, CategoryJpaEntity category) {
         this.id_service = id_service;
         this.name = name;
         this.description = description;
         this.price = price;
         this.pictureUrl = pictureUrl;
+        this.category = category;
     }
 
     public String getId_service() {
@@ -65,6 +70,8 @@ public class ServiceJpaEntity implements Serializable {
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
+    public CategoryJpaEntity getCategory() {return category;}
+    public void setCategory(CategoryJpaEntity category) {this.category = category;}
 
 
     @Override

@@ -8,6 +8,7 @@ public record ServiceInsertRequest(
         String name,
         String description,
         double price,
-        String pictureUrl
+        String pictureUrl,
+        CategoryInsertRequest categoryInsertRequest
 ) {
 }

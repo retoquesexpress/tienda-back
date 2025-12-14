@@ -3,7 +3,7 @@ package com.fpmislata.tienda_back.persistence.dao.jpa.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 public class CategoryJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

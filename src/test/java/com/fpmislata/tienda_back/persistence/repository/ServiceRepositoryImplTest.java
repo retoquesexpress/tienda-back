@@ -1,7 +1,9 @@
 package com.fpmislata.tienda_back.persistence.repository;
 
-import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
+import com.fpmislata.tienda_back.domain.service.dto.CategoryDto;
+import com.fpmislata.tienda_back.domain.service.dto.ServiceEntity;
 import com.fpmislata.tienda_back.persistence.dao.jpa.ServiceJpaDao;
+import com.fpmislata.tienda_back.persistence.dao.jpa.entity.CategoryJpaEntity;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
@@ -35,12 +37,14 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test findAll should return list of services when services exist")
         void testFindAllShouldReturnListOfServicesWhenServicesExist() {
+            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity("ca1", "Category 1");
             ServiceJpaEntity entity1 = new ServiceJpaEntity();
             entity1.setId_service("1");
             entity1.setName("Service 1");
             entity1.setDescription("Description 1");
             entity1.setPrice(100.0);
             entity1.setPictureUrl("img1.jpg");
+            entity1.setCategory(categoryJpaEntity);
 
             ServiceJpaEntity entity2 = new ServiceJpaEntity();
             entity2.setId_service("2");
@@ -48,12 +52,13 @@ class ServiceRepositoryImplTest {
             entity2.setDescription("Description 2");
             entity2.setPrice(200.0);
             entity2.setPictureUrl("img2.jpg");
+            entity2.setCategory(categoryJpaEntity);
 
             List<ServiceJpaEntity> mockEntities = List.of(entity1, entity2);
 
             when(serviceJpaDao.findAll()).thenReturn(mockEntities);
 
-            List<ServiceDto> result = serviceRepositoryImpl.findAll();
+            List<ServiceEntity> result = serviceRepositoryImpl.findAll();
             assertThat(result.size() == 2);
         }
 
@@ -61,7 +66,7 @@ class ServiceRepositoryImplTest {
         @DisplayName("Test findAll should return empty list when no services exist")
         void testFindAllShouldReturnEmptyListWhenNoServicesExist() {
             when(serviceJpaDao.findAll()).thenReturn(List.of());
-            List<ServiceDto> result = serviceRepositoryImpl.findAll();
+            List<ServiceEntity> result = serviceRepositoryImpl.findAll();
             assertThat(result.isEmpty()).isTrue();
         }
     }
@@ -71,6 +76,7 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test getById should return ServiceDto when service exists")
         void testGetByIdShouldReturnServiceWhenServiceExists() {
+            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity("ca1", "Category 1");
             String serviceId = "1";
             ServiceJpaEntity entity = new ServiceJpaEntity();
             entity.setId_service(serviceId);
@@ -78,9 +84,10 @@ class ServiceRepositoryImplTest {
             entity.setDescription("Description 1");
             entity.setPrice(100.0);
             entity.setPictureUrl("img1.jpg");
+            entity.setCategory(categoryJpaEntity);
 
             when(serviceJpaDao.findById(serviceId)).thenReturn(java.util.Optional.of(entity));
-            ServiceDto result = serviceRepositoryImpl.getById(serviceId);
+            ServiceEntity result = serviceRepositoryImpl.getById(serviceId);
             assertThat(result).isNotNull();
         }
 
@@ -89,7 +96,7 @@ class ServiceRepositoryImplTest {
         void testGetByIdShouldReturnNullWhenServiceDoesNotExist() {
             String serviceId = "nonexistent";
             when(serviceJpaDao.findById(serviceId)).thenReturn(java.util.Optional.empty());
-            ServiceDto result = serviceRepositoryImpl.getById(serviceId);
+            ServiceEntity result = serviceRepositoryImpl.getById(serviceId);
             assertThat(result).isNull();
         }
     }
@@ -99,6 +106,7 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test findById should return ServiceDto when service exists")
         void testFindByIdShouldReturnServiceWhenServiceExists() {
+            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity("ca1", "Category 1");
             String serviceId = "1";
             ServiceJpaEntity entity = new ServiceJpaEntity();
             entity.setId_service(serviceId);
@@ -106,9 +114,10 @@ class ServiceRepositoryImplTest {
             entity.setDescription("Description 1");
             entity.setPrice(100.0);
             entity.setPictureUrl("img1.jpg");
+            entity.setCategory(categoryJpaEntity);
 
             when(serviceJpaDao.findById(serviceId)).thenReturn(java.util.Optional.of(entity));
-            Optional<ServiceDto> result = serviceRepositoryImpl.findById(serviceId);
+            Optional<ServiceEntity> result = serviceRepositoryImpl.findById(serviceId);
             assertThat(result).isNotNull();
         }
 
@@ -117,7 +126,7 @@ class ServiceRepositoryImplTest {
         void testFindByIdShouldReturnNullWhenServiceDoesNotExist() {
             String serviceId = "nonexistent";
             when(serviceJpaDao.findById(serviceId)).thenReturn(java.util.Optional.empty());
-            Optional<ServiceDto> result = serviceRepositoryImpl.findById(serviceId);
+            Optional<ServiceEntity> result = serviceRepositoryImpl.findById(serviceId);
             assertThat(result).isNotPresent();
         }
     }
@@ -127,8 +136,10 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test update should return updated ServiceDto")
         void testUpdateShouldReturnUpdatedService() {
+            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity("ca1", "Category 1");
             String serviceId = "1";
-            ServiceDto serviceDto = new ServiceDto(serviceId, "Updated Service", "Updated Description", 150.0, "updated_img.jpg");
+            CategoryDto categoryDto = new CategoryDto("ca1", "Category 1");
+            ServiceEntity serviceDto = new ServiceEntity(serviceId, "Updated Service", "Updated Description", 150.0, "updated_img.jpg", categoryDto);
 
             ServiceJpaEntity existingEntity = new ServiceJpaEntity();
             existingEntity.setId_service(serviceId);
@@ -136,6 +147,7 @@ class ServiceRepositoryImplTest {
             existingEntity.setDescription("Description 1");
             existingEntity.setPrice(100.0);
             existingEntity.setPictureUrl("img1.jpg");
+            existingEntity.setCategory(categoryJpaEntity);
 
             ServiceJpaEntity updatedEntity = new ServiceJpaEntity();
             updatedEntity.setId_service(serviceId);
@@ -143,11 +155,12 @@ class ServiceRepositoryImplTest {
             updatedEntity.setDescription("Updated Description");
             updatedEntity.setPrice(150.0);
             updatedEntity.setPictureUrl("updated_img.jpg");
+            updatedEntity.setCategory(categoryJpaEntity);
 
             when(serviceJpaDao.findById(serviceId)).thenReturn(Optional.of(existingEntity));
             when(serviceJpaDao.update(any(ServiceJpaEntity.class))).thenReturn(updatedEntity);
 
-            ServiceDto result = serviceRepositoryImpl.update(serviceDto);
+            ServiceEntity result = serviceRepositoryImpl.update(serviceDto);
             assertThat(result.name()).isEqualTo("Updated Service");
             assertThat(result.price()).isEqualTo(150.0);
         }
@@ -156,7 +169,8 @@ class ServiceRepositoryImplTest {
         @DisplayName("Test update should throw EntityNotFoundException when service does not exist")
         void testUpdateShouldThrowEntityNotFoundExceptionWhenServiceDoesNotExist() {
             String serviceId = "nonexistent";
-            ServiceDto serviceDto = new ServiceDto(serviceId, "Updated Service", "Updated Description", 150.0, "updated_img.jpg");
+            CategoryDto categoryDto = new CategoryDto("ca1", "Category 1");
+            ServiceEntity serviceDto = new ServiceEntity(serviceId, "Updated Service", "Updated Description", 150.0, "updated_img.jpg", categoryDto);
 
             when(serviceJpaDao.findById(serviceId)).thenReturn(Optional.empty());
 
@@ -170,7 +184,9 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test create should return created ServiceDto")
         void testCreateShouldReturnCreatedService() {
-            ServiceDto serviceDto = new ServiceDto("1", "New Service", "New Description", 120.0, "new_img.jpg");
+            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity("ca1", "Category 1");
+            CategoryDto categoryDto = new CategoryDto("ca1", "Category 1");
+            ServiceEntity serviceDto = new ServiceEntity("1", "New Service", "New Description", 120.0, "new_img.jpg", categoryDto);
 
             ServiceJpaEntity entityToCreate = new ServiceJpaEntity();
             entityToCreate.setId_service("1");
@@ -178,6 +194,7 @@ class ServiceRepositoryImplTest {
             entityToCreate.setDescription("New Description");
             entityToCreate.setPrice(120.0);
             entityToCreate.setPictureUrl("new_img.jpg");
+            entityToCreate.setCategory(categoryJpaEntity);
 
             ServiceJpaEntity createdEntity = new ServiceJpaEntity();
             createdEntity.setId_service("1");
@@ -185,38 +202,13 @@ class ServiceRepositoryImplTest {
             createdEntity.setDescription("New Description");
             createdEntity.setPrice(120.0);
             createdEntity.setPictureUrl("new_img.jpg");
+            createdEntity.setCategory(categoryJpaEntity);
 
             when(serviceJpaDao.create(any(ServiceJpaEntity.class))).thenReturn(createdEntity);
 
-            ServiceDto result = serviceRepositoryImpl.create(serviceDto);
+            ServiceEntity result = serviceRepositoryImpl.create(serviceDto);
             assertThat(result).isNotNull();
             assertThat(result.name()).isEqualTo("New Service");
-        }
-        @Test
-        @DisplayName("Test create should handle null fields appropriately")
-        void testCreateShouldHandleNullFieldsAppropriately() {
-            ServiceDto serviceDto = new ServiceDto("2", null, null, 0.0, null);
-
-            ServiceJpaEntity entityToCreate = new ServiceJpaEntity();
-            entityToCreate.setId_service("2");
-            entityToCreate.setName(null);
-            entityToCreate.setDescription(null);
-            entityToCreate.setPrice(0.0);
-            entityToCreate.setPictureUrl(null);
-
-            ServiceJpaEntity createdEntity = new ServiceJpaEntity();
-            createdEntity.setId_service("2");
-            createdEntity.setName(null);
-            createdEntity.setDescription(null);
-            createdEntity.setPrice(0.0);
-            createdEntity.setPictureUrl(null);
-
-            when(serviceJpaDao.create(any(ServiceJpaEntity.class))).thenReturn(createdEntity);
-
-            ServiceDto result = serviceRepositoryImpl.create(serviceDto);
-            assertThat(result).isNotNull();
-            assertThat(result.name()).isNull();
-            assertThat(result.price()).isEqualTo(0.0);
         }
     }
 

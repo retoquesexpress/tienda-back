@@ -9,18 +9,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
+    @GetMapping
+    public ResponseEntity<UserDetailResponse>findAll(){
+        List<UserDetailResponse> userDetailResponse = userService.findAllUsers()
+                .stream()
+                .map(UserMapper.getInstance()::fromUserDtoToUserDetailResponse)
+                .toList();
+        return new ResponseEntity(userDetailResponse, HttpStatus.OK);
+    }
+    
     @GetMapping("/{id_user}")
     public ResponseEntity<UserDetailResponse> getById(@PathVariable String id_user) {
         UserDto userDto = userService.getById(id_user);
-        UserDetailResponse userDetailResponse = UserMapper.fromUserDtoToUserDetailResponse(userDto);
+        UserDetailResponse userDetailResponse = UserMapper.getInstance().fromUserDtoToUserDetailResponse(userDto);
         return new ResponseEntity<>(userDetailResponse, HttpStatus.OK);
     }
 
@@ -40,7 +51,7 @@ public class UserController {
 
         UserDto createdUser = userService.create(userDto);
         UserDetailResponse createdUserResponse =
-                UserMapper.fromUserDtoToUserDetailResponse(createdUser);
+                UserMapper.getInstance().fromUserDtoToUserDetailResponse(createdUser);
 
         return new ResponseEntity<>(createdUserResponse, HttpStatus.CREATED);
     }
@@ -64,7 +75,7 @@ public class UserController {
 
         UserDto updatedUser = userService.update(userDto);
         UserDetailResponse updatedUserResponse =
-                UserMapper.fromUserDtoToUserDetailResponse(updatedUser);
+                UserMapper.getInstance().fromUserDtoToUserDetailResponse(updatedUser);
 
         return new ResponseEntity<>(updatedUserResponse, HttpStatus.OK);
     }

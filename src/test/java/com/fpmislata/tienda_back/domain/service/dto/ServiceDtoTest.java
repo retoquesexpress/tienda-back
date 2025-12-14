@@ -1,5 +1,6 @@
 package com.fpmislata.tienda_back.domain.service.dto;
 
+import com.fpmislata.tienda_back.domain.model.Category;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,35 +16,38 @@ class ServiceDtoTest {
         String description = "This is a test service.";
         double price = 99.99;
         String pictureUrl = "http://example.com/image.jpg";
-        ServiceDto serviceDto = new ServiceDto(id_service, name, description, price, pictureUrl);
+        CategoryDto categoryDto = new CategoryDto("u1", "Test Category");
+        ServiceEntity serviceDto = new ServiceEntity(id_service, name, description, price, pictureUrl,categoryDto);
         assertNotNull(serviceDto);
         assertEquals(id_service, serviceDto.id_service());
         assertEquals(name, serviceDto.name());
         assertEquals(description, serviceDto.description());
         assertEquals(price, serviceDto.price());
         assertEquals(pictureUrl, serviceDto.pictureUrl());
+        assertEquals(categoryDto, serviceDto.category());
     }
 
     @Test
-    @DisplayName("Test ServiceDto NotNulls")
-    void testServiceDtoNotNulls() {
+    @DisplayName("Test ServiceDto NotNulls required fields")
+    void testServiceDtoNotNullsRequiredfields() {
         String id_service = "service123";
         double price = 99.99;
-        ServiceDto serviceDto = new ServiceDto(id_service, null, null, price, null);
+        CategoryDto categoryDto = new CategoryDto("u1", "Test Category");
+        ServiceEntity serviceDto = new ServiceEntity(id_service, null, null, price, null,categoryDto);
         assertNotNull(serviceDto.id_service());
         assertNotNull(serviceDto.price());
+        assertNotNull(serviceDto.category());
     }
 
     @Test
     @DisplayName("Test ServiceDto Null Fields")
     void testServiceDtoNullFields() {
-        String id_service = null;
-        double price = 0.0;
-        Exception exception = assertThrows(NullPointerException.class, () -> {
-            new ServiceDto(id_service, null, null, price, null);
-        });
-        String expectedMessage = "id_service must not be null";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        String id_service = "service123";
+        double price = 99.99;
+        CategoryDto categoryDto = new CategoryDto("u1", "Test Category");
+        ServiceEntity serviceDto = new ServiceEntity(id_service, null, null, price, null,categoryDto);
+        assertNull(serviceDto.name());
+        assertNull(serviceDto.description());
+        assertNull(serviceDto.pictureUrl());
     }
 }

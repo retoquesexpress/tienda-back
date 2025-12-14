@@ -6,6 +6,7 @@ INSERT INTO categories (id_category,name) VALUES
 ('c1','Uñas'),
 ('c2','Maquillaje'),
 ('c3','Peluqueria');
+
 CREATE TABLE services (
     id_service VARCHAR(10) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -19,11 +20,11 @@ CREATE TABLE users (
     id_user VARCHAR(50) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    userName VARCHAR(50) UNIQUE NOT NULL,
+    user_name VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    phoneNumber VARCHAR(20),
+    phone_number VARCHAR(20),
     address VARCHAR(200),
-    birthDate DATE,
+    birth_date DATE,
     role VARCHAR(20) NOT NULL
 );
 

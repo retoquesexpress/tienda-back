@@ -9,18 +9,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/api/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
+    public CategoryController(CategoryService categoryCategory) {
+        this.categoryService = categoryCategory;
+    }
+
+    @GetMapping
+    public ResponseEntity<CategoryDetailResponse>findAll(){
+        List<CategoryDetailResponse> categoryDetailResponse = categoryService.findAll()
+                .stream()
+                .map(CategoryMapper.getInstance()::fromCategoryDtoToCategoryDetailResponse)
+                .toList();
+        return new ResponseEntity(categoryDetailResponse, HttpStatus.OK);
     }
 
     @GetMapping("/{id_category}")
     public ResponseEntity<CategoryDetailResponse> getById(@PathVariable String id_category) {
         CategoryDto categoryDto = categoryService.getById(id_category);
-        CategoryDetailResponse categoryDetailResponse = CategoryMapper.fromCategoryDtoToCategoryDetailResponse(categoryDto);
+        CategoryDetailResponse categoryDetailResponse = CategoryMapper.getInstance().fromCategoryDtoToCategoryDetailResponse(categoryDto);
         return new ResponseEntity<>(categoryDetailResponse, HttpStatus.OK);
     }
 
@@ -33,7 +44,7 @@ public class CategoryController {
 
         CategoryDto createdCategory = categoryService.create(categoryDto);
         CategoryDetailResponse createdCategoryResponse =
-                CategoryMapper.fromCategoryDtoToCategoryDetailResponse(createdCategory);
+                CategoryMapper.getInstance().fromCategoryDtoToCategoryDetailResponse(createdCategory);
 
         return new ResponseEntity<>(createdCategoryResponse, HttpStatus.CREATED);
     }
@@ -50,7 +61,7 @@ public class CategoryController {
 
         CategoryDto updatedCategory = categoryService.update(categoryDto);
         CategoryDetailResponse updatedCategoryResponse =
-                CategoryMapper.fromCategoryDtoToCategoryDetailResponse(updatedCategory);
+                CategoryMapper.getInstance().fromCategoryDtoToCategoryDetailResponse(updatedCategory);
 
         return new ResponseEntity<>(updatedCategoryResponse, HttpStatus.OK);
     }

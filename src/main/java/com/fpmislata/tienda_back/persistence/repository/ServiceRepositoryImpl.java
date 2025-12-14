@@ -1,7 +1,7 @@
 package com.fpmislata.tienda_back.persistence.repository;
 
 import com.fpmislata.tienda_back.domain.repository.ServiceRepository;
-import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
+import com.fpmislata.tienda_back.domain.service.dto.ServiceEntity;
 import com.fpmislata.tienda_back.mapper.ServiceMapper;
 import com.fpmislata.tienda_back.persistence.dao.jpa.ServiceJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
@@ -19,48 +19,47 @@ public class ServiceRepositoryImpl implements ServiceRepository {
     }
 
     @Override
-    public List<ServiceDto> findAll() {
+    public List<ServiceEntity> findAll() {
         return serviceJpaDao.findAll()
                 .stream()
-                .map(ServiceMapper::fromServiceJpaEntityToServiceEntity)
+                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceEntity)
                 .toList();
     }
 
     @Override
-    public ServiceDto getById(String id_service) {
+    public ServiceEntity getById(String id_service) {
         return serviceJpaDao.findById(id_service)
-                .map(ServiceMapper::fromServiceJpaEntityToServiceEntity)
+                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceEntity)
                 .orElse(null);
     }
 
     @Override
-    public Optional<ServiceDto> findById(String id_service) {
+    public Optional<ServiceEntity> findById(String id_service) {
         return serviceJpaDao.findById(id_service)
-                .map(ServiceMapper::fromServiceJpaEntityToServiceEntity);
+                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceEntity);
     }
 
     @Override
-    public ServiceDto update(ServiceDto serviceDto) {
-        String serviceId = serviceDto.id_service();
+    public ServiceEntity update(ServiceEntity serviceEntity) {
+        String serviceId = serviceEntity.id_service();
         ServiceJpaEntity existingEntity = serviceJpaDao.findById(serviceId).orElseThrow(() -> new EntityNotFoundException("Servicio con ID " + serviceId + " no encontrado para actualizar."));
-        existingEntity.setName(serviceDto.name());
-        existingEntity.setDescription(serviceDto.description());
-        existingEntity.setPrice(serviceDto.price());
-        existingEntity.setPictureUrl(serviceDto.pictureUrl());
+        existingEntity.setName(serviceEntity.name());
+        existingEntity.setDescription(serviceEntity.description());
+        existingEntity.setPrice(serviceEntity.price());
+        existingEntity.setPictureUrl(serviceEntity.pictureUrl());
         ServiceJpaEntity updatedEntity = serviceJpaDao.update(existingEntity);
-        return ServiceMapper.fromServiceJpaEntityToServiceEntity(updatedEntity);
+        return ServiceMapper.getInstance().fromServiceJpaEntityToServiceEntity(updatedEntity);
     }
 
     @Override
-    public ServiceDto create(ServiceDto serviceDto) {
-        ServiceJpaEntity entity = ServiceMapper.fromServiceEntityToServiceJpaEntity(serviceDto);
+    public ServiceEntity create(ServiceEntity serviceEntity) {
+        ServiceJpaEntity entity = ServiceMapper.getInstance().fromServiceEntityToServiceJpaEntity(serviceEntity);
         ServiceJpaEntity createdEntity = serviceJpaDao.create(entity);
-        return ServiceMapper.fromServiceJpaEntityToServiceEntity(createdEntity);
+        return ServiceMapper.getInstance().fromServiceJpaEntityToServiceEntity(createdEntity);
     }
 
     @Override
     public void deleteById(String id_service) {
         serviceJpaDao.deleteById(id_service);
-
     }
 }
