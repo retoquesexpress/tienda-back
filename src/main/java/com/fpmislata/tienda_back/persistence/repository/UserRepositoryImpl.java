@@ -50,4 +50,9 @@ public class UserRepositoryImpl implements UserRepository {
                 .map(UserMapper.getInstance()::fromUserJpaEntityToUserDto)
                 .orElse(null);
     }
+
+    @Override
+    public Optional<UserDto> findUserByUserName(String userName) {
+        return userJpaDao.findUserByUserName(userName).map(UserMapper.getInstance()::fromUserJpaEntityToUserDto);
+    }
 }

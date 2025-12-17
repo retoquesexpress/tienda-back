@@ -31,6 +31,16 @@ public class UserServiceImpl implements UserService {
         }    }
 
     @Override
+    public Optional<UserDto> findUserByUserName(String userName) {
+        Optional<UserDto> user = userRepository.findUserByUserName(userName);
+        if (user.isPresent()) {
+            return user;
+        } else {
+            throw new ResourceNotFoundException("User not found");
+        }
+    }
+
+    @Override
     public UserDto create(UserDto userDto) {
         Optional<UserDto> user = userRepository.findUserById(userDto.id_user());
         if (user.isEmpty()) {

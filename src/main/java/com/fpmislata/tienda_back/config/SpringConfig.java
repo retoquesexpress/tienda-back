@@ -1,11 +1,14 @@
 package com.fpmislata.tienda_back.config;
 
+import com.fpmislata.tienda_back.domain.repository.AuthRepository;
 import com.fpmislata.tienda_back.domain.repository.CategoryRepository;
 import com.fpmislata.tienda_back.domain.repository.ServiceRepository;
 import com.fpmislata.tienda_back.domain.repository.UserRepository;
+import com.fpmislata.tienda_back.domain.service.AuthService;
 import com.fpmislata.tienda_back.domain.service.CategoryService;
 import com.fpmislata.tienda_back.domain.service.ServiceService;
 import com.fpmislata.tienda_back.domain.service.UserService;
+import com.fpmislata.tienda_back.domain.service.impl.AuthServiceImpl;
 import com.fpmislata.tienda_back.domain.service.impl.CategoryServiceImpl;
 import com.fpmislata.tienda_back.domain.service.impl.ServiceServiceImpl;
 import com.fpmislata.tienda_back.domain.service.impl.UserServiceImpl;
@@ -13,6 +16,7 @@ import com.fpmislata.tienda_back.persistence.PersistenceConfig;
 import com.fpmislata.tienda_back.persistence.dao.jpa.CategoryJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.ServiceJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.UserJpaDao;
+import com.fpmislata.tienda_back.persistence.repository.AuthRepositoryImpl;
 import com.fpmislata.tienda_back.persistence.repository.CategoryRepositoryImpl;
 import com.fpmislata.tienda_back.persistence.repository.ServiceRepositoryImpl;
 import com.fpmislata.tienda_back.persistence.repository.UserRepositoryImpl;
@@ -28,6 +32,7 @@ public class SpringConfig {
     public CategoryRepository categoryRepository(CategoryJpaDao categoryJpaDao) {
         return new CategoryRepositoryImpl(categoryJpaDao);
     }
+
     @Bean
     public CategoryService categoryService(CategoryRepository categoryRepository) {
         return new CategoryServiceImpl(categoryRepository);
@@ -43,7 +48,6 @@ public class SpringConfig {
         return new UserServiceImpl(userRepository);
     }
 
-
     @Bean
     public ServiceRepository serviceRepository(ServiceJpaDao serviceJpaDao) {
         return new ServiceRepositoryImpl(serviceJpaDao);
@@ -52,6 +56,16 @@ public class SpringConfig {
     @Bean
     public ServiceService serviceService(ServiceRepository serviceRepository) {
         return new ServiceServiceImpl(serviceRepository);
+    }
+
+    @Bean
+    public AuthService authService(AuthRepository authRepository) {
+        return new AuthServiceImpl(authRepository);
+    }
+
+    @Bean
+    public AuthRepository authRepository(UserJpaDao userJpaDao) {
+        return new AuthRepositoryImpl(userJpaDao);
     }
 
 }

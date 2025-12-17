@@ -11,4 +11,5 @@ public interface UserRepository {
     void delete(String id_user);
     UserDto save(UserDto userDto);
     UserDto getById(String id_user);
+    Optional<UserDto> findUserByUserName(String userName);
 }

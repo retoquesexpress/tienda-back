@@ -1,6 +1,8 @@
 package com.fpmislata.tienda_back.mapper;
 
 import com.fpmislata.tienda_back.controller.webModel.response.UserDetailResponse;
+import com.fpmislata.tienda_back.domain.model.User;
+import com.fpmislata.tienda_back.domain.repository.entity.UserEntity;
 import com.fpmislata.tienda_back.domain.service.dto.UserDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.UserJpaEntity;
 
@@ -8,6 +10,7 @@ import com.fpmislata.tienda_back.persistence.dao.jpa.entity.UserJpaEntity;
 public class UserMapper {
 
     private static UserMapper INSTANCE;
+
 
     private UserMapper() {
     }
@@ -88,5 +91,72 @@ public class UserMapper {
         );
     }
 
+    public UserDto fromUserEntityToUserDto(UserEntity userEntity) {
+        if (userEntity == null) {
+            return null;
+        }
+        return new UserDto(
+                userEntity.id_user(),
+                userEntity.name(),
+                userEntity.email(),
+                userEntity.userName(),
+                userEntity.password(),
+                userEntity.phoneNumber(),
+                userEntity.address(),
+                userEntity.birthDate(),
+                userEntity.role()
+        );
+    }
+
+    public User fromUserDtoToUser(UserDto userDto) {
+        if (userDto == null) {
+            return null;
+        }
+        return new User(
+                userDto.id_user(),
+                userDto.name(),
+                userDto.email(),
+                userDto.userName(),
+                userDto.password(),
+                userDto.phoneNumber(),
+                userDto.address(),
+                userDto.birthDate(),
+                userDto.role()
+        );
+    }
+
+    public UserEntity fromUserJpaEntityToUserEntity(UserJpaEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+        return new UserEntity(
+                entity.getId_user(),
+                entity.getName(),
+                entity.getEmail(),
+                entity.getUserName(),
+                entity.getPassword(),
+                entity.getPhoneNumber(),
+                entity.getAddress(),
+                entity.getBirthDate(),
+                entity.getRole()
+        );
+    }
+
+    public UserJpaEntity fromUserEntityToUserJpaEntity(UserEntity userEntity) {
+        if (userEntity == null) {
+            return null;
+        }
+        return new UserJpaEntity(
+                userEntity.id_user(),
+                userEntity.name(),
+                userEntity.email(),
+                userEntity.userName(),
+                userEntity.password(),
+                userEntity.phoneNumber(),
+                userEntity.address(),
+                userEntity.birthDate(),
+                userEntity.role()
+        );
+    }
 }
 

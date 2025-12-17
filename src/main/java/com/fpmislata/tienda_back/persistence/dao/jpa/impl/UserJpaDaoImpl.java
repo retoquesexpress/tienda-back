@@ -52,4 +52,16 @@ public class UserJpaDaoImpl implements UserJpaDao {
     public UserJpaEntity getById(String id_user) {
         return entityManager.find(UserJpaEntity.class, id_user);
     }
+
+    @Override
+    public Optional<UserJpaEntity> findUserByUserName(String userName) {
+        List<UserJpaEntity> result = entityManager.createQuery("SELECT u FROM UserJpaEntity u WHERE u.userName = :userName", UserJpaEntity.class)
+                .setParameter("userName", userName)
+                .getResultList();
+        if (result.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(result.get(0));
+        }
+    }
 }
