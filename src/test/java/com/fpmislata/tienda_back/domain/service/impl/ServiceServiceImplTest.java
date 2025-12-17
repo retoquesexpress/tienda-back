@@ -34,8 +34,8 @@ class ServiceServiceImplTest {
         void testFindAllShouldReturnListOfServiceWhenServiceExist() {
             CategoryDto categoryDto = new CategoryDto(1, "Category 1");
             List<ServiceEntity> expectedServices = List.of(
-                    new ServiceEntity("1", "Service 1", "Description 1", 100.0, "img.jpg", categoryDto),
-                    new ServiceEntity("2", "Service 2", "Description 2", 200.0, "img.jpg", categoryDto));
+                    new ServiceEntity(1, "Service 1", "Description 1", 100.0, "img.jpg", categoryDto),
+                    new ServiceEntity(2, "Service 2", "Description 2", 200.0, "img.jpg", categoryDto));
             when(serviceRepository.findAll()).thenReturn(expectedServices);
             List<ServiceEntity> actualServices = serviceService.findAll();
 
@@ -59,7 +59,7 @@ class ServiceServiceImplTest {
         @Test
         @DisplayName("Test getById should return service when service exists")
         void testGetByIdShouldReturnServiceWhenServiceExists() {
-            String serviceId = "1";
+            Integer serviceId = 1;
             CategoryDto categoryDto = new CategoryDto(1, "Category 1");
             ServiceEntity expectedService = new ServiceEntity(serviceId, "Service 1", "Description 1", 100.0, "img.jpg",
                     categoryDto);
@@ -73,7 +73,7 @@ class ServiceServiceImplTest {
         @Test
         @DisplayName("Test getById should throw ResourceNotFoundException when service does not exist")
         void testGetByIdShouldThrowResourceNotFoundExceptionWhenServiceDoesNotExist() {
-            String serviceId = "1";
+            Integer serviceId = 1;
             when(serviceRepository.findById(serviceId)).thenReturn(Optional.empty());
             try {
                 serviceService.getById(serviceId);
@@ -89,12 +89,12 @@ class ServiceServiceImplTest {
         @DisplayName("Test create should return created service")
         void testCreateShouldReturnCreatedService() {
             CategoryDto categoryDto = new CategoryDto(1, "Category 1");
-            ServiceEntity serviceToCreate = new ServiceEntity("u1", "New Service", "New Description", 150.0, "img.jpg",
+            ServiceEntity serviceToCreate = new ServiceEntity(1, "New Service", "New Description", 150.0, "img.jpg",
                     categoryDto);
-            ServiceEntity expectedCreatedService = new ServiceEntity("1", "New Service", "New Description", 150.0,
+            ServiceEntity expectedCreatedService = new ServiceEntity(1, "New Service", "New Description", 150.0,
                     "img.jpg", categoryDto);
 
-            when(serviceRepository.findById("u1")).thenReturn(Optional.empty());
+            when(serviceRepository.findById(1)).thenReturn(Optional.empty());
 
             when(serviceRepository.create(serviceToCreate)).thenReturn(expectedCreatedService);
 
@@ -107,10 +107,10 @@ class ServiceServiceImplTest {
         @DisplayName("Test create should throw IllegalArgumentException when service exists")
         void testCreateShouldThrowIllegalArgumentExceptionWhenServiceExists() {
             CategoryDto categoryDto = new CategoryDto(1, "Category 1");
-            ServiceEntity serviceToCreate = new ServiceEntity("1", "Existing Service", "Existing Description", 150.0,
+            ServiceEntity serviceToCreate = new ServiceEntity(1, "Existing Service", "Existing Description", 150.0,
                     "img.jpg", categoryDto);
 
-            when(serviceRepository.findById("1")).thenReturn(Optional.of(serviceToCreate));
+            when(serviceRepository.findById(1)).thenReturn(Optional.of(serviceToCreate));
 
             try {
                 serviceService.create(serviceToCreate);
@@ -126,12 +126,12 @@ class ServiceServiceImplTest {
         @DisplayName("Test update should return updated service")
         void testUpdateShouldReturnUpdatedService() {
             CategoryDto categoryDto = new CategoryDto(1, "Category 1");
-            ServiceEntity serviceToUpdate = new ServiceEntity("1", "Updated Service", "Updated Description", 120.0,
+            ServiceEntity serviceToUpdate = new ServiceEntity(1, "Updated Service", "Updated Description", 120.0,
                     "img.jpg", categoryDto);
-            ServiceEntity expectedUpdatedService = new ServiceEntity("1", "Updated Service", "Updated Description",
+            ServiceEntity expectedUpdatedService = new ServiceEntity(1, "Updated Service", "Updated Description",
                     160.0, "img.jpg", categoryDto);
 
-            when(serviceRepository.findById("1")).thenReturn(Optional.of(serviceToUpdate));
+            when(serviceRepository.findById(1)).thenReturn(Optional.of(serviceToUpdate));
             when(serviceRepository.update(serviceToUpdate)).thenReturn(expectedUpdatedService);
 
             ServiceEntity actualUpdatedService = serviceService.update(serviceToUpdate);
@@ -142,10 +142,10 @@ class ServiceServiceImplTest {
         @DisplayName("Test update should throw ResourceNotFoundException when service does not exist")
         void testUpdateShouldThrowResourceNotFoundExceptionWhenServiceDoesNotExist() {
             CategoryDto categoryDto = new CategoryDto(1, "Category 1");
-            ServiceEntity serviceToUpdate = new ServiceEntity("1", "Non-existing Service", "Non-existing Description",
+            ServiceEntity serviceToUpdate = new ServiceEntity(1, "Non-existing Service", "Non-existing Description",
                     120.0, "img.jpg", categoryDto);
 
-            when(serviceRepository.findById("1")).thenReturn(Optional.empty());
+            when(serviceRepository.findById(1)).thenReturn(Optional.empty());
 
             try {
                 serviceService.update(serviceToUpdate);
@@ -160,7 +160,7 @@ class ServiceServiceImplTest {
         @Test
         @DisplayName("Test deleteById should call repository deleteById method")
         void testDeleteByIdShouldCallRepositoryDeleteByIdMethod() {
-            String serviceId = "1";
+            Integer serviceId = 1;
             CategoryDto categoryDto = new CategoryDto(1, "Category 1");
             ServiceEntity existingService = new ServiceEntity(serviceId, "Service 1", "Description 1", 100.0, "img.jpg",
                     categoryDto);
@@ -175,7 +175,7 @@ class ServiceServiceImplTest {
         @Test
         @DisplayName("Test deleteById should throw ResourceNotFoundException when service does not exist")
         void testDeleteByIdShouldThrowResourceNotFoundExceptionWhenServiceDoesNotExist() {
-            String serviceId = "id_Inexistente";
+            Integer serviceId = 1111;
 
             when(serviceRepository.findById(serviceId)).thenReturn(Optional.empty());
             try {

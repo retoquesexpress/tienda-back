@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class ServiceMapperTest {
-    private final String id_pruebas= "a1";
+    private final Integer id_pruebas= 1;
     private final String name_pruebas= "Service Pruebas";
     private final String description_pruebas= "Description Pruebas";
     private final Double price_pruebas= 99.99;

@@ -11,7 +11,7 @@ class ServiceDtoTest {
     @Test
     @DisplayName("Test ServiceDto Creation")
     void testServiceDtoCreation() {
-        String id_service = "service123";
+        Integer id_service = 1;
         String name = "Test Service";
         String description = "This is a test service.";
         double price = 99.99;
@@ -30,7 +30,7 @@ class ServiceDtoTest {
     @Test
     @DisplayName("Test ServiceDto NotNulls required fields")
     void testServiceDtoNotNullsRequiredfields() {
-        String id_service = "service123";
+        Integer id_service = 1;
         double price = 99.99;
         CategoryDto categoryDto = new CategoryDto(1, "Test Category");
         ServiceEntity serviceDto = new ServiceEntity(id_service, null, null, price, null, categoryDto);
@@ -42,7 +42,7 @@ class ServiceDtoTest {
     @Test
     @DisplayName("Test ServiceDto Null Fields")
     void testServiceDtoNullFields() {
-        String id_service = "service123";
+        Integer id_service = 1;
         double price = 99.99;
         CategoryDto categoryDto = new CategoryDto(1, "Test Category");
         ServiceEntity serviceDto = new ServiceEntity(id_service, null, null, price, null, categoryDto);
