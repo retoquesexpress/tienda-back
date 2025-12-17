@@ -19,7 +19,6 @@ public class ServiceMapper {
         return INSTANCE;
     }
 
-
     public ServiceDetailResponse fromServiceDtoToServiceDetailResponse(ServiceEntity serviceDto) {
         if (serviceDto == null) {
             return null;
@@ -30,8 +29,7 @@ public class ServiceMapper {
                 serviceDto.description(),
                 serviceDto.price(),
                 serviceDto.pictureUrl(),
-                CategoryMapper.getInstance().fromCategoryDtoToCategoryDetailResponse(serviceDto.category())
-        );
+                CategoryMapper.getInstance().fromCategoryDtoToCategoryDetailResponse(serviceDto.category()));
     }
 
     public ServiceEntity fromServiceInsertRequestToServiceDto(ServiceInsertRequest serviceInsertRequest) {
@@ -39,13 +37,12 @@ public class ServiceMapper {
             return null;
         }
         return new ServiceEntity(
-                serviceInsertRequest.id_service(),
+                null,
                 serviceInsertRequest.name(),
                 serviceInsertRequest.description(),
                 serviceInsertRequest.price(),
                 serviceInsertRequest.pictureUrl(),
-                CategoryMapper.getInstance().fromCategoryInsertRequestToCategoryDto(serviceInsertRequest.categoryInsertRequest())
-        );
+                CategoryMapper.getInstance().fromCategoryInsertRequestToCategoryDto(serviceInsertRequest.category()));
     }
 
     public ServiceEntity fromServiceUpdateRequestToServiceDto(ServiceUpdateRequest serviceUpdateRequest) {
@@ -58,8 +55,7 @@ public class ServiceMapper {
                 serviceUpdateRequest.description(),
                 serviceUpdateRequest.price(),
                 serviceUpdateRequest.pictureUrl(),
-                CategoryMapper.getInstance().fromCategoryUpdateRequestToCategoryDto(serviceUpdateRequest.categoryUpdateRequest())
-        );
+                CategoryMapper.getInstance().fromCategoryUpdateRequestToCategoryDto(serviceUpdateRequest.category()));
     }
 
     public ServiceEntity fromServiceJpaEntityToServiceEntity(ServiceJpaEntity serviceJpaEntity) {
@@ -72,8 +68,7 @@ public class ServiceMapper {
                 serviceJpaEntity.getDescription(),
                 serviceJpaEntity.getPrice(),
                 serviceJpaEntity.getPictureUrl(),
-                CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryDto(serviceJpaEntity.getCategory())
-        );
+                CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryDto(serviceJpaEntity.getCategory()));
 
     }
 
@@ -87,7 +82,6 @@ public class ServiceMapper {
                 serviceEntity.description(),
                 serviceEntity.price(),
                 serviceEntity.pictureUrl(),
-                CategoryMapper.getInstance().fromCategoryDtoToCategoryJpaEntity(serviceEntity.category())
-        );
+                CategoryMapper.getInstance().fromCategoryDtoToCategoryJpaEntity(serviceEntity.category()));
     }
 }

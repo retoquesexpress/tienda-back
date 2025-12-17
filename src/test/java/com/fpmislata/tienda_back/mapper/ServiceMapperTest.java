@@ -16,8 +16,8 @@ class ServiceMapperTest {
     private final String description_pruebas= "Description Pruebas";
     private final Double price_pruebas= 99.99;
     private final String pictureUrl_pruebas= "http://example.com/picture.jpg";
-    private final CategoryJpaEntity categoryJpaEntity_pruebas = new CategoryJpaEntity("c1", "Category Pruebas");
-    private final CategoryDto categoryDto_pruebas = new CategoryDto("c1", "Category Pruebas");
+    private final CategoryJpaEntity categoryJpaEntity_pruebas = new CategoryJpaEntity(1, "Category Pruebas");
+    private final CategoryDto categoryDto_pruebas = new CategoryDto(1, "Category Pruebas");
 
     private ServiceJpaEntity createServiceJpaEntityTest() {
         return new ServiceJpaEntity(
@@ -112,8 +112,8 @@ class ServiceMapperTest {
             assertThat(resultResponse.description()).isEqualTo(serviceDto.description());
             assertThat(resultResponse.price()).isEqualTo(serviceDto.price());
             assertThat(resultResponse.pictureUrl()).isEqualTo(serviceDto.pictureUrl());
-            assertThat(resultResponse.categoryDetailResponse().id_category()).isEqualTo(serviceDto.category().id_category());
-            assertThat(resultResponse.categoryDetailResponse().name()).isEqualTo(serviceDto.category().name());
+            assertThat(resultResponse.category().id_category()).isEqualTo(serviceDto.category().id_category());
+            assertThat(resultResponse.category().name()).isEqualTo(serviceDto.category().name());
         }
         @Test
         @DisplayName("Mapeo Dto nulo->Response nulo")

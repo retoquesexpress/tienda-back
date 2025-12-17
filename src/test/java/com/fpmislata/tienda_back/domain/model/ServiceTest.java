@@ -10,7 +10,7 @@ class ServiceTest {
     @Test
     @DisplayName("Test Service Constructor and Getters")
     void testServiceConstructorAndGetters() {
-        Category category = new Category("uñas", "Servicios de uñas");
+        Category category = new Category(1, "Servicios de uñas");
         Service service = new Service("1", "Test Service", "This is a test service", 99.99, "http://example.com/image.jpg", category);
         assertEquals("1", service.getId());
         assertEquals("Test Service", service.getName());
@@ -23,8 +23,8 @@ class ServiceTest {
     @Test
     @DisplayName("Test Service Setters")
     void testServiceSetters() {
-        Category category = new Category("uñas", "Servicios de uñas");
-        Category newCategory = new Category("corte", "Servicios de corte de pelo");
+        Category category = new Category(1, "Servicios de uñas");
+        Category newCategory = new Category(2, "Servicios de corte de pelo");
         Service service = new Service("1", "Test Service", "This is a test service", 99.99, "http://example.com/image.jpg", category);
         service.setId("2");
         service.setName("Updated Service");

@@ -1,19 +1,19 @@
 package com.fpmislata.tienda_back.domain.model;
 
 public class Category {
-    private String id_category;
+    private Integer id_category;
     private String name;
 
-    public Category(String id_category, String name) {
+    public Category(Integer id_category, String name) {
         this.id_category = id_category;
         this.name = name;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id_category;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id_category = id;
     }
 

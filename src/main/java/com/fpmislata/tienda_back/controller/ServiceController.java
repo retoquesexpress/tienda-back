@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services")
-public class ServiceController{
+public class ServiceController {
     private final ServiceService serviceService;
 
     public ServiceController(ServiceService serviceService) {
@@ -22,7 +22,7 @@ public class ServiceController{
     }
 
     @GetMapping
-    public ResponseEntity<ServiceDetailResponse>findAll(){
+    public ResponseEntity<ServiceDetailResponse> findAll() {
         List<ServiceDetailResponse> serviceDetailResponse = serviceService.findAll()
                 .stream()
                 .map(ServiceMapper.getInstance()::fromServiceDtoToServiceDetailResponse)
@@ -30,34 +30,37 @@ public class ServiceController{
         return new ResponseEntity(serviceDetailResponse, HttpStatus.OK);
     }
 
-
     @GetMapping("/{id_service}")
-    public ResponseEntity<ServiceDetailResponse> getById(@PathVariable String id_service) {
-        ServiceDetailResponse serviceDetailResponse =
-                ServiceMapper.getInstance().fromServiceDtoToServiceDetailResponse(serviceService.getById(id_service));
+    public ResponseEntity<ServiceDetailResponse> getById(@PathVariable Integer id_service) {
+        ServiceDetailResponse serviceDetailResponse = ServiceMapper.getInstance()
+                .fromServiceDtoToServiceDetailResponse(serviceService.getById(id_service));
         return new ResponseEntity<>(serviceDetailResponse, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<ServiceDetailResponse> create(@RequestBody ServiceInsertRequest serviceInsertRequest) {
-        ServiceEntity serviceDto = ServiceMapper.getInstance().fromServiceInsertRequestToServiceDto(serviceInsertRequest);
+        ServiceEntity serviceDto = ServiceMapper.getInstance()
+                .fromServiceInsertRequestToServiceDto(serviceInsertRequest);
         ServiceEntity createdService = serviceService.create(serviceDto);
-        return new ResponseEntity<>(ServiceMapper.getInstance().fromServiceDtoToServiceDetailResponse(createdService), HttpStatus.CREATED);
+        return new ResponseEntity<>(ServiceMapper.getInstance().fromServiceDtoToServiceDetailResponse(createdService),
+                HttpStatus.CREATED);
     }
 
     @PutMapping("/{id_service}")
-    public ResponseEntity<ServiceDetailResponse> update(@PathVariable String id_service,
-                                                        @RequestBody ServiceUpdateRequest serviceUpdateRequest) {
+    public ResponseEntity<ServiceDetailResponse> update(@PathVariable Integer id_service,
+            @RequestBody ServiceUpdateRequest serviceUpdateRequest) {
         if (!id_service.equals(serviceUpdateRequest.id_service())) {
             throw new IllegalArgumentException("ID in path and request body must match");
         }
-        ServiceEntity serviceDto = ServiceMapper.getInstance().fromServiceUpdateRequestToServiceDto(serviceUpdateRequest);
+        ServiceEntity serviceDto = ServiceMapper.getInstance()
+                .fromServiceUpdateRequestToServiceDto(serviceUpdateRequest);
         ServiceEntity updatedService = serviceService.update(serviceDto);
-        return new ResponseEntity<>(ServiceMapper.getInstance().fromServiceDtoToServiceDetailResponse(updatedService), HttpStatus.OK);
+        return new ResponseEntity<>(ServiceMapper.getInstance().fromServiceDtoToServiceDetailResponse(updatedService),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/{id_service}")
-    public ResponseEntity<Void> delete(@PathVariable String id_service) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id_service) {
         serviceService.deleteById(id_service);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

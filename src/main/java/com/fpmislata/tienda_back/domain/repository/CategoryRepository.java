@@ -7,8 +7,17 @@ import java.util.Optional;
 
 public interface CategoryRepository {
     List<CategoryDto> findAll();
-    Optional<CategoryDto> findCategoryById(String id_category);
-    void delete(String id_category);
-    CategoryDto save(CategoryDto categoryDto);
-    CategoryDto getById(String id_category);
+
+    Optional<CategoryDto> findCategoryById(Integer id_category);
+
+    void delete(Integer id_category);
+
+    /*
+     * CategoryDto save(CategoryDto categoryDto);
+     */
+    CategoryDto create(CategoryDto categoryDto);
+
+    CategoryDto update(CategoryDto categoryDto);
+
+    CategoryDto getById(Integer id_category);
 }

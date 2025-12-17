@@ -15,37 +15,43 @@ public class CategoryJpaDaoImpl implements CategoryJpaDao {
 
     @Override
     public List<CategoryJpaEntity> findAll() {
-        return entityManager.createQuery("SELECT c FROM CategoryJpaEntity c ORDER BY c.id_category", CategoryJpaEntity.class)
+        return entityManager
+                .createQuery("SELECT c FROM CategoryJpaEntity c ORDER BY c.id_category", CategoryJpaEntity.class)
                 .getResultList();
     }
 
     @Override
-    public Optional<CategoryJpaEntity> findCategoryById(String id_category) {
+    public Optional<CategoryJpaEntity> findCategoryById(Integer id_category) {
+        if (id_category == null) {
+            return Optional.empty();
+        }
         CategoryJpaEntity categoryJpaEntity = entityManager.find(CategoryJpaEntity.class, id_category);
-        return Optional.ofNullable(categoryJpaEntity);    }
+        return Optional.ofNullable(categoryJpaEntity);
+    }
 
     @Override
     public CategoryJpaEntity update(CategoryJpaEntity categoryDto) {
         entityManager.flush();
         entityManager.merge(categoryDto);
-        return categoryDto;    }
+        return categoryDto;
+    }
 
     @Override
-    public void delete(String id_category) {
+    public void delete(Integer id_category) {
         CategoryJpaEntity categoryJpaEntity = entityManager.find(CategoryJpaEntity.class, id_category);
-        entityManager.createQuery("DELETE FROM CategoryJpaEntity c WHERE category.id_category = :id_category")
-                .setParameter("id_category", id_category)
-                .executeUpdate();
-        entityManager.remove(categoryJpaEntity);
+        if (categoryJpaEntity != null) {
+            entityManager.remove(categoryJpaEntity);
+        }
     }
 
     @Override
     public CategoryJpaEntity insert(CategoryJpaEntity categoryDto) {
         entityManager.persist(categoryDto);
-        return categoryDto;    }
+        return categoryDto;
+    }
 
     @Override
-    public CategoryJpaEntity getById(String id_category) {
+    public CategoryJpaEntity getById(Integer id_category) {
         return entityManager.find(CategoryJpaEntity.class, id_category);
     }
 }

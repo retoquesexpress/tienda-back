@@ -4,12 +4,13 @@ import com.fpmislata.tienda_back.domain.repository.ServiceRepository;
 import com.fpmislata.tienda_back.domain.service.ServiceService;
 import com.fpmislata.tienda_back.domain.service.dto.ServiceEntity;
 import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ServiceServiceImpl implements ServiceService {
-private final ServiceRepository serviceRepository;
+    private final ServiceRepository serviceRepository;
 
     public ServiceServiceImpl(ServiceRepository serviceRepository) {
         this.serviceRepository = serviceRepository;
@@ -17,14 +18,14 @@ private final ServiceRepository serviceRepository;
 
     @Override
     public List<ServiceEntity> findAll() {
-       if (serviceRepository.findAll().isEmpty()) {
-           throw new ResourceNotFoundException("No services found");
-       }
+        if (serviceRepository.findAll().isEmpty()) {
+            throw new ResourceNotFoundException("No services found");
+        }
         return serviceRepository.findAll();
     }
 
     @Override
-    public ServiceEntity getById(String id_service) {
+    public ServiceEntity getById(Integer id_service) {
         Optional<ServiceEntity> service = serviceRepository.findById(id_service);
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");
@@ -33,7 +34,7 @@ private final ServiceRepository serviceRepository;
     }
 
     @Override
-    public Optional<ServiceEntity> findById(String id_service) {
+    public Optional<ServiceEntity> findById(Integer id_service) {
         Optional<ServiceEntity> service = serviceRepository.findById(id_service);
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");
@@ -41,6 +42,7 @@ private final ServiceRepository serviceRepository;
         return service;
     }
 
+    @Transactional
     @Override
     public ServiceEntity update(ServiceEntity serviceDto) {
         Optional<ServiceEntity> service = serviceRepository.findById(serviceDto.id_service());
@@ -50,17 +52,15 @@ private final ServiceRepository serviceRepository;
         return serviceRepository.update(serviceDto);
     }
 
+    @Transactional
     @Override
     public ServiceEntity create(ServiceEntity serviceDto) {
-     Optional<ServiceEntity> service = serviceRepository.findById(serviceDto.id_service());
-        if (service.isPresent()) {
-            throw new IllegalArgumentException("Service already exists");
-        }
         return serviceRepository.create(serviceDto);
     }
 
+    @Transactional
     @Override
-    public void deleteById(String id_service) {
+    public void deleteById(Integer id_service) {
         Optional<ServiceEntity> service = serviceRepository.findById(id_service);
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");

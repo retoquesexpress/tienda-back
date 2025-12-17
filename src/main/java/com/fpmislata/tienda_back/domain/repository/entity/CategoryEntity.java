@@ -3,11 +3,10 @@ package com.fpmislata.tienda_back.domain.repository.entity;
 import java.util.Date;
 
 public record CategoryEntity(
-        String id_category,
-        String name
-) {
+        Integer id_category,
+        String name) {
     public CategoryEntity(
-            String id_category,
+            Integer id_category,
             String name
 
     ) {

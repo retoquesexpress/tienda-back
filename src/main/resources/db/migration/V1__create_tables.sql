@@ -1,19 +1,19 @@
 CREATE TABLE categories (
-    id_category VARCHAR(50) PRIMARY KEY,
+    id_category INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) UNIQUE NOT NULL
 );
 INSERT INTO categories (id_category,name) VALUES
-('c1','Uñas'),
-('c2','Maquillaje'),
-('c3','Peluqueria');
+(1,'Uñas'),
+(2,'Maquillaje'),
+(3,'Peluqueria');
 
 CREATE TABLE services (
-    id_service VARCHAR(10) PRIMARY KEY,
+    id_service INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     description TEXT,
     price DECIMAL(10,2) NOT NULL,
     picture_url VARCHAR(100),
-    id_category VARCHAR(50) NOT NULL,
+    id_category INT NOT NULL,
     FOREIGN KEY (id_category) REFERENCES categories(id_category)
 );
 CREATE TABLE users (
@@ -39,7 +39,7 @@ CREATE TABLE cart (
 CREATE TABLE cart_items (
     id_item_cart VARCHAR(50) PRIMARY KEY,
     id_cart INT NOT NULL,
-    id_service VARCHAR(10) NOT NULL,
+    id_service INT NOT NULL,
     quantity INT NOT NULL DEFAULT 1,
     FOREIGN KEY (id_cart) REFERENCES cart(id_cart) ON DELETE CASCADE,
     FOREIGN KEY (id_service) REFERENCES services(id_service)

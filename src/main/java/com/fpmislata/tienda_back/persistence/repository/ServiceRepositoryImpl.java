@@ -27,22 +27,23 @@ public class ServiceRepositoryImpl implements ServiceRepository {
     }
 
     @Override
-    public ServiceEntity getById(String id_service) {
+    public ServiceEntity getById(Integer id_service) {
         return serviceJpaDao.findById(id_service)
                 .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceEntity)
                 .orElse(null);
     }
 
     @Override
-    public Optional<ServiceEntity> findById(String id_service) {
+    public Optional<ServiceEntity> findById(Integer id_service) {
         return serviceJpaDao.findById(id_service)
                 .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceEntity);
     }
 
     @Override
     public ServiceEntity update(ServiceEntity serviceEntity) {
-        String serviceId = serviceEntity.id_service();
-        ServiceJpaEntity existingEntity = serviceJpaDao.findById(serviceId).orElseThrow(() -> new EntityNotFoundException("Servicio con ID " + serviceId + " no encontrado para actualizar."));
+        Integer serviceId = serviceEntity.id_service();
+        ServiceJpaEntity existingEntity = serviceJpaDao.findById(serviceId).orElseThrow(
+                () -> new EntityNotFoundException("Servicio con ID " + serviceId + " no encontrado para actualizar."));
         existingEntity.setName(serviceEntity.name());
         existingEntity.setDescription(serviceEntity.description());
         existingEntity.setPrice(serviceEntity.price());
@@ -59,7 +60,7 @@ public class ServiceRepositoryImpl implements ServiceRepository {
     }
 
     @Override
-    public void deleteById(String id_service) {
+    public void deleteById(Integer id_service) {
         serviceJpaDao.deleteById(id_service);
     }
 }

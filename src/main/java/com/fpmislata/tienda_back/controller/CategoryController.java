@@ -15,12 +15,13 @@ import java.util.List;
 @RequestMapping("/api/categories")
 public class CategoryController {
     private final CategoryService categoryService;
+
     public CategoryController(CategoryService categoryCategory) {
         this.categoryService = categoryCategory;
     }
 
     @GetMapping
-    public ResponseEntity<CategoryDetailResponse>findAll(){
+    public ResponseEntity<CategoryDetailResponse> findAll() {
         List<CategoryDetailResponse> categoryDetailResponse = categoryService.findAll()
                 .stream()
                 .map(CategoryMapper.getInstance()::fromCategoryDtoToCategoryDetailResponse)
@@ -29,9 +30,10 @@ public class CategoryController {
     }
 
     @GetMapping("/{id_category}")
-    public ResponseEntity<CategoryDetailResponse> getById(@PathVariable String id_category) {
+    public ResponseEntity<CategoryDetailResponse> getById(@PathVariable Integer id_category) {
         CategoryDto categoryDto = categoryService.getById(id_category);
-        CategoryDetailResponse categoryDetailResponse = CategoryMapper.getInstance().fromCategoryDtoToCategoryDetailResponse(categoryDto);
+        CategoryDetailResponse categoryDetailResponse = CategoryMapper.getInstance()
+                .fromCategoryDtoToCategoryDetailResponse(categoryDto);
         return new ResponseEntity<>(categoryDetailResponse, HttpStatus.OK);
     }
 
@@ -39,19 +41,18 @@ public class CategoryController {
     public ResponseEntity<CategoryDetailResponse> create(@RequestBody CategoryInsertRequest categoryInsertRequest) {
         CategoryDto categoryDto = new CategoryDto(
                 categoryInsertRequest.id_category(),
-                categoryInsertRequest.name()
-        );
+                categoryInsertRequest.name());
 
         CategoryDto createdCategory = categoryService.create(categoryDto);
-        CategoryDetailResponse createdCategoryResponse =
-                CategoryMapper.getInstance().fromCategoryDtoToCategoryDetailResponse(createdCategory);
+        CategoryDetailResponse createdCategoryResponse = CategoryMapper.getInstance()
+                .fromCategoryDtoToCategoryDetailResponse(createdCategory);
 
         return new ResponseEntity<>(createdCategoryResponse, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id_category}")
-    public ResponseEntity<CategoryDetailResponse> update(@PathVariable String id_category,
-                                                     @RequestBody CategoryInsertRequest categoryInsertRequest) {
+    public ResponseEntity<CategoryDetailResponse> update(@PathVariable Integer id_category,
+            @RequestBody CategoryInsertRequest categoryInsertRequest) {
 
         CategoryDto categoryDto = new CategoryDto(
                 id_category,
@@ -60,14 +61,14 @@ public class CategoryController {
         );
 
         CategoryDto updatedCategory = categoryService.update(categoryDto);
-        CategoryDetailResponse updatedCategoryResponse =
-                CategoryMapper.getInstance().fromCategoryDtoToCategoryDetailResponse(updatedCategory);
+        CategoryDetailResponse updatedCategoryResponse = CategoryMapper.getInstance()
+                .fromCategoryDtoToCategoryDetailResponse(updatedCategory);
 
         return new ResponseEntity<>(updatedCategoryResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id_category}")
-    public ResponseEntity<Void> delete(@PathVariable String id_category) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id_category) {
         categoryService.delete(id_category);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

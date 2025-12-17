@@ -8,7 +8,7 @@ import jakarta.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-public class ServiceJpaDaoImpl  implements ServiceJpaDao {
+public class ServiceJpaDaoImpl implements ServiceJpaDao {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -20,12 +20,12 @@ public class ServiceJpaDaoImpl  implements ServiceJpaDao {
     }
 
     @Override
-    public ServiceJpaEntity getById(String id_service) {
+    public ServiceJpaEntity getById(Integer id_service) {
         return entityManager.find(ServiceJpaEntity.class, id_service);
     }
 
     @Override
-    public Optional<ServiceJpaEntity> findById(String id_service) {
+    public Optional<ServiceJpaEntity> findById(Integer id_service) {
         return Optional.ofNullable(entityManager.find(ServiceJpaEntity.class, id_service));
     }
 
@@ -40,7 +40,7 @@ public class ServiceJpaDaoImpl  implements ServiceJpaDao {
     }
 
     @Override
-    public void deleteById(String id_service) {
+    public void deleteById(Integer id_service) {
         ServiceJpaEntity serviceJpaEntity = entityManager.find(ServiceJpaEntity.class, id_service);
         if (serviceJpaEntity != null) {
             entityManager.remove(serviceJpaEntity);

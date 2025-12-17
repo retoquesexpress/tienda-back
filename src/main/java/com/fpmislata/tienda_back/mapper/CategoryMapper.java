@@ -7,7 +7,6 @@ import com.fpmislata.tienda_back.domain.model.Category;
 import com.fpmislata.tienda_back.domain.repository.entity.CategoryEntity;
 import com.fpmislata.tienda_back.domain.service.dto.CategoryDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.CategoryJpaEntity;
-import jakarta.validation.constraints.NotNull;
 
 public class CategoryMapper {
 
@@ -29,8 +28,7 @@ public class CategoryMapper {
         }
         return new CategoryDto(
                 category.id_category(),
-                category.name()
-        );
+                category.name());
     }
 
     public CategoryDto fromCategoryJpaEntityToCategoryDto(CategoryJpaEntity categoryJpaEntity) {
@@ -39,8 +37,7 @@ public class CategoryMapper {
         }
         return new CategoryDto(
                 categoryJpaEntity.getId_category(),
-                categoryJpaEntity.getName()
-        );
+                categoryJpaEntity.getName());
     }
 
     public CategoryJpaEntity fromCategoryDtoToCategoryJpaEntity(CategoryDto categoryDto) {
@@ -49,11 +46,10 @@ public class CategoryMapper {
         }
         return new CategoryJpaEntity(
                 categoryDto.id_category(),
-                categoryDto.name()
-        );
+                categoryDto.name());
     }
 
-    public  CategoryDetailResponse fromCategoryDtoToCategoryDetailResponse(CategoryDto categoryDto) {
+    public CategoryDetailResponse fromCategoryDtoToCategoryDetailResponse(CategoryDto categoryDto) {
         if (categoryDto == null) {
             return null;
         }
@@ -64,14 +60,13 @@ public class CategoryMapper {
         );
     }
 
-    public  CategoryDto fromCategoryDetailResponseToCategoryDto(CategoryDetailResponse categoryDetailResponse) {
+    public CategoryDto fromCategoryDetailResponseToCategoryDto(CategoryDetailResponse categoryDetailResponse) {
         if (categoryDetailResponse == null) {
             return null;
         }
         return new CategoryDto(
                 categoryDetailResponse.id_category(),
-                categoryDetailResponse.name()
-        );
+                categoryDetailResponse.name());
     }
 
     public CategoryEntity fromCategoryDtoToCategoryEntity(CategoryDto categoryDto) {
@@ -80,8 +75,7 @@ public class CategoryMapper {
         }
         return new CategoryEntity(
                 categoryDto.id_category(),
-                categoryDto.name()
-        );
+                categoryDto.name());
     }
 
     public CategoryDto fromCategoryInsertRequestToCategoryDto(CategoryInsertRequest categoryInsertRequest) {
@@ -90,8 +84,7 @@ public class CategoryMapper {
         }
         return new CategoryDto(
                 categoryInsertRequest.id_category(),
-                categoryInsertRequest.name()
-        );
+                categoryInsertRequest.name());
     }
 
     public CategoryDto fromCategoryUpdateRequestToCategoryDto(CategoryUpdateRequest categoryUpdateRequest) {
@@ -100,7 +93,6 @@ public class CategoryMapper {
         }
         return new CategoryDto(
                 categoryUpdateRequest.id_category(),
-                categoryUpdateRequest.name()
-        );
+                categoryUpdateRequest.name());
     }
 }

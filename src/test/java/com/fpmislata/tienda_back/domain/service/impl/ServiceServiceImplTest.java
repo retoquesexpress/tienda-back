@@ -32,11 +32,10 @@ class ServiceServiceImplTest {
         @Test
         @DisplayName("Test findAll should return list of service when service exist")
         void testFindAllShouldReturnListOfServiceWhenServiceExist() {
-            CategoryDto categoryDto = new CategoryDto("u1", "Category 1");
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
             List<ServiceEntity> expectedServices = List.of(
-                    new ServiceEntity("1", "Service 1", "Description 1", 100.0,"img.jpg", categoryDto),
-                    new ServiceEntity("2", "Service 2", "Description 2", 200.0,"img.jpg", categoryDto)
-            );
+                    new ServiceEntity("1", "Service 1", "Description 1", 100.0, "img.jpg", categoryDto),
+                    new ServiceEntity("2", "Service 2", "Description 2", 200.0, "img.jpg", categoryDto));
             when(serviceRepository.findAll()).thenReturn(expectedServices);
             List<ServiceEntity> actualServices = serviceService.findAll();
 
@@ -61,8 +60,9 @@ class ServiceServiceImplTest {
         @DisplayName("Test getById should return service when service exists")
         void testGetByIdShouldReturnServiceWhenServiceExists() {
             String serviceId = "1";
-            CategoryDto categoryDto = new CategoryDto("u1", "Category 1");
-            ServiceEntity expectedService = new ServiceEntity(serviceId, "Service 1", "Description 1", 100.0,"img.jpg", categoryDto);
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
+            ServiceEntity expectedService = new ServiceEntity(serviceId, "Service 1", "Description 1", 100.0, "img.jpg",
+                    categoryDto);
             when(serviceRepository.findById(serviceId)).thenReturn(java.util.Optional.of(expectedService));
 
             ServiceEntity actualService = serviceService.getById(serviceId);
@@ -88,9 +88,11 @@ class ServiceServiceImplTest {
         @Test
         @DisplayName("Test create should return created service")
         void testCreateShouldReturnCreatedService() {
-            CategoryDto categoryDto = new CategoryDto("u1", "Category 1");
-            ServiceEntity serviceToCreate = new ServiceEntity("u1", "New Service", "New Description", 150.0,"img.jpg", categoryDto);
-            ServiceEntity expectedCreatedService = new ServiceEntity("1", "New Service", "New Description", 150.0,"img.jpg", categoryDto);
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
+            ServiceEntity serviceToCreate = new ServiceEntity("u1", "New Service", "New Description", 150.0, "img.jpg",
+                    categoryDto);
+            ServiceEntity expectedCreatedService = new ServiceEntity("1", "New Service", "New Description", 150.0,
+                    "img.jpg", categoryDto);
 
             when(serviceRepository.findById("u1")).thenReturn(Optional.empty());
 
@@ -104,8 +106,9 @@ class ServiceServiceImplTest {
         @Test
         @DisplayName("Test create should throw IllegalArgumentException when service exists")
         void testCreateShouldThrowIllegalArgumentExceptionWhenServiceExists() {
-            CategoryDto categoryDto = new CategoryDto("u1", "Category 1");
-            ServiceEntity serviceToCreate = new ServiceEntity("1", "Existing Service", "Existing Description", 150.0,"img.jpg", categoryDto);
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
+            ServiceEntity serviceToCreate = new ServiceEntity("1", "Existing Service", "Existing Description", 150.0,
+                    "img.jpg", categoryDto);
 
             when(serviceRepository.findById("1")).thenReturn(Optional.of(serviceToCreate));
 
@@ -122,9 +125,11 @@ class ServiceServiceImplTest {
         @Test
         @DisplayName("Test update should return updated service")
         void testUpdateShouldReturnUpdatedService() {
-            CategoryDto categoryDto = new CategoryDto("u1", "Category 1");
-            ServiceEntity serviceToUpdate = new ServiceEntity("1", "Updated Service", "Updated Description", 120.0, "img.jpg", categoryDto);
-            ServiceEntity expectedUpdatedService = new ServiceEntity("1", "Updated Service", "Updated Description", 160.0, "img.jpg", categoryDto);
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
+            ServiceEntity serviceToUpdate = new ServiceEntity("1", "Updated Service", "Updated Description", 120.0,
+                    "img.jpg", categoryDto);
+            ServiceEntity expectedUpdatedService = new ServiceEntity("1", "Updated Service", "Updated Description",
+                    160.0, "img.jpg", categoryDto);
 
             when(serviceRepository.findById("1")).thenReturn(Optional.of(serviceToUpdate));
             when(serviceRepository.update(serviceToUpdate)).thenReturn(expectedUpdatedService);
@@ -136,8 +141,9 @@ class ServiceServiceImplTest {
         @Test
         @DisplayName("Test update should throw ResourceNotFoundException when service does not exist")
         void testUpdateShouldThrowResourceNotFoundExceptionWhenServiceDoesNotExist() {
-            CategoryDto categoryDto = new CategoryDto("u1", "Category 1");
-            ServiceEntity serviceToUpdate = new ServiceEntity("1", "Non-existing Service", "Non-existing Description", 120.0,"img.jpg",categoryDto);
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
+            ServiceEntity serviceToUpdate = new ServiceEntity("1", "Non-existing Service", "Non-existing Description",
+                    120.0, "img.jpg", categoryDto);
 
             when(serviceRepository.findById("1")).thenReturn(Optional.empty());
 
@@ -155,8 +161,9 @@ class ServiceServiceImplTest {
         @DisplayName("Test deleteById should call repository deleteById method")
         void testDeleteByIdShouldCallRepositoryDeleteByIdMethod() {
             String serviceId = "1";
-            CategoryDto categoryDto = new CategoryDto("u1", "Category 1");
-            ServiceEntity existingService = new ServiceEntity(serviceId, "Service 1", "Description 1", 100.0,"img.jpg", categoryDto);
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
+            ServiceEntity existingService = new ServiceEntity(serviceId, "Service 1", "Description 1", 100.0, "img.jpg",
+                    categoryDto);
 
             when(serviceRepository.findById(serviceId)).thenReturn(Optional.of(existingService));
 

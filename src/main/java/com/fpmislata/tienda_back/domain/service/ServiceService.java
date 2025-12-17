@@ -7,9 +7,14 @@ import java.util.Optional;
 
 public interface ServiceService {
     List<ServiceEntity> findAll();
-    ServiceEntity getById(String id_service);
-    Optional<ServiceEntity> findById(String id_service);
-    ServiceEntity update (ServiceEntity serviceEntity);
-    ServiceEntity create (ServiceEntity serviceEntity);
-    void deleteById(String id_service);
+
+    ServiceEntity getById(Integer id_service);
+
+    Optional<ServiceEntity> findById(Integer id_service);
+
+    ServiceEntity update(ServiceEntity serviceEntity);
+
+    ServiceEntity create(ServiceEntity serviceEntity);
+
+    void deleteById(Integer id_service);
 }

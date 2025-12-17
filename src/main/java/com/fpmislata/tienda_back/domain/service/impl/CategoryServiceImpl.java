@@ -4,6 +4,7 @@ import com.fpmislata.tienda_back.domain.repository.CategoryRepository;
 import com.fpmislata.tienda_back.domain.service.CategoryService;
 import com.fpmislata.tienda_back.domain.service.dto.CategoryDto;
 import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import java.util.Optional;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
+
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
@@ -21,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<CategoryDto> findCategoryById(String id_category) {
+    public Optional<CategoryDto> findCategoryById(Integer id_category) {
         Optional<CategoryDto> category = categoryRepository.findCategoryById(id_category);
         if (category.isPresent()) {
             return category;
@@ -30,40 +32,41 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
+
+    @Transactional
     @Override
     public CategoryDto create(CategoryDto categoryDto) {
-        Optional<CategoryDto> category = categoryRepository.findCategoryById(categoryDto.id_category());
-        if (category.isEmpty()) {
-            return categoryRepository.save(categoryDto);
-        } else {
-            throw new IllegalArgumentException("category already exists");
-        }
+        return categoryRepository.create(categoryDto);
     }
 
+    @Transactional
     @Override
     public CategoryDto update(CategoryDto categoryDto) {
         Optional<CategoryDto> category = categoryRepository.findCategoryById(categoryDto.id_category());
         if (category.isPresent()) {
-            return categoryRepository.save(categoryDto);
-        } else  {
+            return categoryRepository.update(categoryDto);
+        } else {
             throw new ResourceNotFoundException("category does not exists");
-        }    }
+        }
+    }
 
+    @Transactional
     @Override
-    public void delete(String id_category) {
+    public void delete(Integer id_category) {
         Optional<CategoryDto> category = categoryRepository.findCategoryById(id_category);
         if (category.isPresent()) {
             categoryRepository.delete(id_category);
-        } else  {
+        } else {
             throw new ResourceNotFoundException("category does not exists");
         }
     }
 
     @Override
-    public CategoryDto getById(String id_category) {
+    public CategoryDto getById(Integer id_category) {
         Optional<CategoryDto> category = categoryRepository.findCategoryById(id_category);
         if (category.isEmpty()) {
             throw new ResourceNotFoundException("category not found");
         }
-        return category.get();    }
+        return category.get();
+    }
 }

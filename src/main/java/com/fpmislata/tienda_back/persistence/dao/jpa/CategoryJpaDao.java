@@ -7,9 +7,14 @@ import java.util.Optional;
 
 public interface CategoryJpaDao {
     List<CategoryJpaEntity> findAll();
-    Optional<CategoryJpaEntity> findCategoryById(String id_category);
-    CategoryJpaEntity update (CategoryJpaEntity categoryDto);
-    void delete(String id_category);
-    CategoryJpaEntity insert (CategoryJpaEntity categoryDto);
-    CategoryJpaEntity getById(String id_category);
+
+    Optional<CategoryJpaEntity> findCategoryById(Integer id_category);
+
+    CategoryJpaEntity update(CategoryJpaEntity categoryDto);
+
+    void delete(Integer id_category);
+
+    CategoryJpaEntity insert(CategoryJpaEntity categoryDto);
+
+    CategoryJpaEntity getById(Integer id_category);
 }

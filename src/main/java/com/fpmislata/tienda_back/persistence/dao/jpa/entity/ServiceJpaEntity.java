@@ -9,7 +9,8 @@ import java.util.List;
 @Table(name = "services")
 public class ServiceJpaEntity implements Serializable {
     @Id
-    private String id_service;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_service;
 
     @Column(name = "name")
     private String name;
@@ -27,11 +28,11 @@ public class ServiceJpaEntity implements Serializable {
     @JoinColumn(name = "id_category")
     private CategoryJpaEntity category;
 
-
     public ServiceJpaEntity() {
     }
 
-    public ServiceJpaEntity (String id_service, String name, String description, Double price, String pictureUrl, CategoryJpaEntity category) {
+    public ServiceJpaEntity(Integer id_service, String name, String description, Double price, String pictureUrl,
+            CategoryJpaEntity category) {
         this.id_service = id_service;
         this.name = name;
         this.description = description;
@@ -40,47 +41,63 @@ public class ServiceJpaEntity implements Serializable {
         this.category = category;
     }
 
-    public String getId_service() {
+    public Integer getId_service() {
         return id_service;
     }
-    public void setId_service(String id_service) {
+
+    public void setId_service(Integer id_service) {
         this.id_service = id_service;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public Double getPrice() {
         return price;
     }
+
     public void setPrice(Double price) {
         this.price = price;
     }
+
     public String getPictureUrl() {
         return pictureUrl;
     }
+
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
-    public CategoryJpaEntity getCategory() {return category;}
-    public void setCategory(CategoryJpaEntity category) {this.category = category;}
 
+    public CategoryJpaEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryJpaEntity category) {
+        this.category = category;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof ServiceJpaEntity other)) {
             return false;
         }
-        return (this.id_service != null || other.id_service == null) && (this.id_service == null || this.id_service.equals(other.id_service));
+        return (this.id_service != null || other.id_service == null)
+                && (this.id_service == null || this.id_service.equals(other.id_service));
     }
+
     @Override
     public int hashCode() {
         int hash = 0;

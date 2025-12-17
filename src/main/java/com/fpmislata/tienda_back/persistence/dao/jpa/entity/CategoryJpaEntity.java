@@ -7,22 +7,22 @@ import jakarta.persistence.*;
 public class CategoryJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id_category;
+    private Integer id_category;
     private String name;
 
     public CategoryJpaEntity() {
     }
 
-    public CategoryJpaEntity(String id_category, String name) {
+    public CategoryJpaEntity(Integer id_category, String name) {
         this.id_category = id_category;
         this.name = name;
     }
 
-    public String getId_category() {
+    public Integer getId_category() {
         return id_category;
     }
 
-    public void setId_category(String id_category) {
+    public void setId_category(Integer id_category) {
         this.id_category = id_category;
     }
 
@@ -39,7 +39,8 @@ public class CategoryJpaEntity {
         if (!(o instanceof CategoryJpaEntity other)) {
             return false;
         }
-        return (this.id_category != null || other.id_category == null) && (this.id_category == null || this.id_category.equals(other.id_category));
+        return (this.id_category != null || other.id_category == null)
+                && (this.id_category == null || this.id_category.equals(other.id_category));
     }
 
     @Override

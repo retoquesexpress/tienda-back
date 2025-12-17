@@ -16,6 +16,7 @@ import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
 import com.fpmislata.tienda_back.util.JwtUtil;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import jakarta.transaction.Transactional;
 
 import javax.crypto.SecretKey;
 import java.time.LocalDateTime;
@@ -50,7 +51,7 @@ public class AuthServiceImpl implements AuthService {
         LocalDateTime expirationDate = JwtUtil.getExpirationTime();
         return TokenMapper.getInstance().fromStringToToken(tokenString, expirationDate);
     }
-
+    @Transactional
     @Override
     public AuthResponse login(AuthRequest request) {
         UserEntity userEntity = authRepository.findByUsername(request.username())
@@ -68,7 +69,7 @@ public class AuthServiceImpl implements AuthService {
 
         return authResponse;
     }
-
+    @Transactional
     @Override
     public AuthResponse register(RegisterRequest request) {
         if (authRepository.findByUsername(request.userName()).isPresent()) {

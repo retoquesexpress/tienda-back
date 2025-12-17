@@ -4,6 +4,7 @@ import com.fpmislata.tienda_back.domain.repository.UserRepository;
 import com.fpmislata.tienda_back.domain.service.UserService;
 import com.fpmislata.tienda_back.domain.service.dto.UserDto;
 import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("User not found");
         }
     }
-
+    @Transactional
     @Override
     public UserDto create(UserDto userDto) {
         Optional<UserDto> user = userRepository.findUserById(userDto.id_user());
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new IllegalArgumentException("User already exists");
         }    }
-
+    @Transactional
     @Override
     public UserDto update(UserDto userDto) {
         Optional<UserDto> user = userRepository.findUserById(userDto.id_user());
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("User does not exists");
         }
     }
-
+    @Transactional
     @Override
     public void delete(String id_user) {
         Optional<UserDto> user = userRepository.findUserById(id_user);

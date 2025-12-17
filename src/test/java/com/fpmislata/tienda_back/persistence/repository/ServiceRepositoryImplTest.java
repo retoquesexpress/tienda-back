@@ -23,7 +23,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
 @ExtendWith(MockitoExtension.class)
 class ServiceRepositoryImplTest {
 
@@ -37,7 +36,7 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test findAll should return list of services when services exist")
         void testFindAllShouldReturnListOfServicesWhenServicesExist() {
-            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity("ca1", "Category 1");
+            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity(1, "Category 1");
             ServiceJpaEntity entity1 = new ServiceJpaEntity();
             entity1.setId_service("1");
             entity1.setName("Service 1");
@@ -76,7 +75,7 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test getById should return ServiceDto when service exists")
         void testGetByIdShouldReturnServiceWhenServiceExists() {
-            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity("ca1", "Category 1");
+            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity(1, "Category 1");
             String serviceId = "1";
             ServiceJpaEntity entity = new ServiceJpaEntity();
             entity.setId_service(serviceId);
@@ -106,7 +105,7 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test findById should return ServiceDto when service exists")
         void testFindByIdShouldReturnServiceWhenServiceExists() {
-            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity("ca1", "Category 1");
+            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity(1, "Category 1");
             String serviceId = "1";
             ServiceJpaEntity entity = new ServiceJpaEntity();
             entity.setId_service(serviceId);
@@ -136,10 +135,11 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test update should return updated ServiceDto")
         void testUpdateShouldReturnUpdatedService() {
-            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity("ca1", "Category 1");
+            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity(1, "Category 1");
             String serviceId = "1";
-            CategoryDto categoryDto = new CategoryDto("ca1", "Category 1");
-            ServiceEntity serviceDto = new ServiceEntity(serviceId, "Updated Service", "Updated Description", 150.0, "updated_img.jpg", categoryDto);
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
+            ServiceEntity serviceDto = new ServiceEntity(serviceId, "Updated Service", "Updated Description", 150.0,
+                    "updated_img.jpg", categoryDto);
 
             ServiceJpaEntity existingEntity = new ServiceJpaEntity();
             existingEntity.setId_service(serviceId);
@@ -169,12 +169,15 @@ class ServiceRepositoryImplTest {
         @DisplayName("Test update should throw EntityNotFoundException when service does not exist")
         void testUpdateShouldThrowEntityNotFoundExceptionWhenServiceDoesNotExist() {
             String serviceId = "nonexistent";
-            CategoryDto categoryDto = new CategoryDto("ca1", "Category 1");
-            ServiceEntity serviceDto = new ServiceEntity(serviceId, "Updated Service", "Updated Description", 150.0, "updated_img.jpg", categoryDto);
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
+            ServiceEntity serviceDto = new ServiceEntity(serviceId, "Updated Service", "Updated Description", 150.0,
+                    "updated_img.jpg", categoryDto);
 
             when(serviceJpaDao.findById(serviceId)).thenReturn(Optional.empty());
 
-            assertThrows(EntityNotFoundException.class, () -> {serviceRepositoryImpl.update(serviceDto);},"No Existe");
+            assertThrows(EntityNotFoundException.class, () -> {
+                serviceRepositoryImpl.update(serviceDto);
+            }, "No Existe");
             verify(serviceJpaDao).findById(serviceId);
         }
     }
@@ -184,9 +187,10 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test create should return created ServiceDto")
         void testCreateShouldReturnCreatedService() {
-            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity("ca1", "Category 1");
-            CategoryDto categoryDto = new CategoryDto("ca1", "Category 1");
-            ServiceEntity serviceDto = new ServiceEntity("1", "New Service", "New Description", 120.0, "new_img.jpg", categoryDto);
+            CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity(1, "Category 1");
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
+            ServiceEntity serviceDto = new ServiceEntity("1", "New Service", "New Description", 120.0, "new_img.jpg",
+                    categoryDto);
 
             ServiceJpaEntity entityToCreate = new ServiceJpaEntity();
             entityToCreate.setId_service("1");
