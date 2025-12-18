@@ -129,4 +129,82 @@ class UserRepositoryImplTest {
         }
     }
 
+    @Nested
+    class getUserById {
+        @Test
+        @DisplayName("Test getById should return user when user exists")
+        void testGetById_ReturnsUser_WhenUserExists() {
+            //Arrange
+            UserJpaEntity expectedUser = new UserJpaEntity("u1", "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            when(userJpaDao.findUserById(expectedUser.getIdUser())).thenReturn(Optional.of(expectedUser));
+            //Act
+            UserDto actualUser = userRepositoryImpl.getById(expectedUser.getIdUser());
+            //Assert
+            assertAll(
+                    () -> assertEquals(expectedUser.getIdUser(), actualUser.idUser()),
+                    () -> assertEquals(expectedUser.getName(), actualUser.name()),
+                    () -> assertEquals(expectedUser.getEmail(), actualUser.email()),
+                    () -> assertEquals(expectedUser.getUserName(), actualUser.userName()),
+                    () -> assertEquals(expectedUser.getPassword(), actualUser.password()),
+                    () -> assertEquals(expectedUser.getPhoneNumber(), actualUser.phoneNumber()),
+                    () -> assertEquals(expectedUser.getAddress(), actualUser.address()),
+                    () -> assertEquals(expectedUser.getRole(), actualUser.role())
+            );
+            verify(userJpaDao).findUserById(expectedUser.getIdUser());
+        }
+
+        @Test
+        @DisplayName("Test getById should return null when user does not exist")
+        void testGetById_ReturnsNull_WhenUserDoesNotExist() {
+            //Arrange
+            String userId = "nonexistent";
+            when(userJpaDao.findUserById(userId)).thenReturn(Optional.empty());
+            //Act
+            UserDto actualUser = userRepositoryImpl.getById(userId);
+            //Assert
+            assertNull(actualUser);
+            verify(userJpaDao).findUserById(userId);
+        }
+
+    }
+
+    @Nested
+    class FindUserByUserName {
+        @Test
+        @DisplayName("Test findUserByUserName should return user when user exists")
+        void testFindUserByUserName_ReturnsUser_WhenUserExists() {
+            //Arrange
+            UserJpaEntity expectedUser = new UserJpaEntity("u1", "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            when(userJpaDao.findUserByUserName(expectedUser.getUserName())).thenReturn(Optional.of(expectedUser));
+            //Act
+            Optional<UserDto> actualUser = userRepositoryImpl.findUserByUserName(expectedUser.getUserName());
+            //Assert
+            assertAll(
+                    () -> assertEquals(expectedUser.getIdUser(), actualUser.get().idUser()),
+                    () -> assertEquals(expectedUser.getName(), actualUser.get().name()),
+                    () -> assertEquals(expectedUser.getEmail(), actualUser.get().email()),
+                    () -> assertEquals(expectedUser.getUserName(), actualUser.get().userName()),
+                    () -> assertEquals(expectedUser.getPassword(), actualUser.get().password()),
+                    () -> assertEquals(expectedUser.getPhoneNumber(), actualUser.get().phoneNumber()),
+                    () -> assertEquals(expectedUser.getAddress(), actualUser.get().address()),
+                    () -> assertEquals(expectedUser.getRole(), actualUser.get().role())
+            );
+            verify(userJpaDao).findUserByUserName(expectedUser.getUserName());
+        }
+
+        @Test
+        @DisplayName("Test findUserByUserName should return empty when user does not exist")
+        void testFindUserByUserName_ReturnsEmpty_WhenUserDoesNotExist() {
+            //Arrange
+            String userName = "nonexistent";
+            when(userJpaDao.findUserByUserName(userName)).thenReturn(Optional.empty());
+            //Act
+            Optional<UserDto> actualUser = userRepositoryImpl.findUserByUserName(userName);
+            //Assert
+            assertTrue(actualUser.isEmpty());
+            verify(userJpaDao).findUserByUserName(userName);
+        }
+    }
+
+
 }

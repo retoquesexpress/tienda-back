@@ -259,4 +259,41 @@ class UserServiceImplTest {
         }
     }
 
+    @Nested
+    class TestsFindUserByUserName {
+        @Test
+        @DisplayName("Test findUserByUserName should return user when user exists")
+        void testFindUserByUserName_ShouldReturnUser_WhenUserExists() {
+            // Arrange
+            String userName = "user1";
+            UserDto expectedUserDto = new UserDto("u1", "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            when(userRepository.findUserByUserName(userName)).thenReturn(Optional.of(expectedUserDto));
+            // Act
+            Optional<UserDto> actualUser = userService.findUserByUserName(userName);
+            // Assert
+            assertAll(
+                    () -> assertEquals(expectedUserDto.idUser(), actualUser.get().idUser()),
+                    () -> assertEquals(expectedUserDto.name(), actualUser.get().name()),
+                    () -> assertEquals(expectedUserDto.email(), actualUser.get().email()),
+                    () -> assertEquals(expectedUserDto.userName(), actualUser.get().userName()),
+                    () -> assertEquals(expectedUserDto.password(), actualUser.get().password()),
+                    () -> assertEquals(expectedUserDto.phoneNumber(), actualUser.get().phoneNumber()),
+                    () -> assertEquals(expectedUserDto.address(), actualUser.get().address()),
+                    () -> assertEquals(expectedUserDto.role(), actualUser.get().role())
+            );
+            verify(userRepository).findUserByUserName(userName);
+
+        }
+        @Test
+        @DisplayName("Test findUserByUserName should throw ResourceNotFoundException when user does not exist")
+        void testFindUserByUserName_ShouldThrowResourceNotFoundException_WhenUserDoesNotExist() {
+            // Arrange
+            String userName = "user1";
+            when(userRepository.findUserByUserName(userName)).thenReturn(Optional.empty());
+            // Act & Assert
+            assertThrows(ResourceNotFoundException.class, () -> userService.findUserByUserName(userName));
+            verify(userRepository).findUserByUserName(userName);
+        }
+    }
+
 }
