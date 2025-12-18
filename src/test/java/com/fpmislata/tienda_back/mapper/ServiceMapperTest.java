@@ -107,12 +107,12 @@ class ServiceMapperTest {
             var resultResponse = ServiceMapper.getInstance().fromServiceDtoToServiceDetailResponse(serviceDto);
 
             assertThat(resultResponse).isNotNull();
-            assertThat(resultResponse.id_service()).isEqualTo(serviceDto.idService());
+            assertThat(resultResponse.idService()).isEqualTo(serviceDto.idService());
             assertThat(resultResponse.name()).isEqualTo(serviceDto.name());
             assertThat(resultResponse.description()).isEqualTo(serviceDto.description());
             assertThat(resultResponse.price()).isEqualTo(serviceDto.price());
             assertThat(resultResponse.pictureUrl()).isEqualTo(serviceDto.pictureUrl());
-            assertThat(resultResponse.category().id_category()).isEqualTo(serviceDto.category().idCategory());
+            assertThat(resultResponse.category().idCategory()).isEqualTo(serviceDto.category().idCategory());
             assertThat(resultResponse.category().name()).isEqualTo(serviceDto.category().name());
         }
         @Test

@@ -1,6 +1,11 @@
 package com.fpmislata.tienda_back.mapper;
 
+import com.fpmislata.tienda_back.controller.webModel.request.CategoryInsertRequest;
+import com.fpmislata.tienda_back.domain.model.User;
+import com.fpmislata.tienda_back.domain.repository.entity.CategoryEntity;
 import com.fpmislata.tienda_back.domain.repository.entity.UserEntity;
+import com.fpmislata.tienda_back.domain.service.dto.CategoryDto;
+import com.fpmislata.tienda_back.domain.service.dto.UserDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.CategoryJpaEntity;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.UserJpaEntity;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.UserJpaEntity;
@@ -41,7 +46,22 @@ class UserMapperTest {
         );
     }
 
-    private UserEntity createUserDtoTest() {
+    private UserDto createUserDtoTest() {
+        return new UserDto(
+                idPruebas,
+                namePruebas,
+                emailPruebas,
+                usernamePruebas,
+                passwordPruebas,
+                phoneNumberPruebas,
+                addressPruebas,
+                birthDatePruebas,
+                rolePruebas
+
+        );
+    }
+
+    private UserEntity createUserEntityTest() {
         return new UserEntity(
                 idPruebas,
                 namePruebas,
@@ -55,6 +75,10 @@ class UserMapperTest {
 
         );
     }
+
+
+
+
 
     @Nested
     class FromJpaEntityToDto {
@@ -92,7 +116,7 @@ class UserMapperTest {
         @Test
         @DisplayName("Mapeo Dto->Entity")
         void testFromDtoToJpaEntityShouldMapAllFields() {
-            UserEntity userDto = createUserDtoTest();
+            UserEntity userDto = createUserEntityTest();
 
             UserJpaEntity resultEntity = UserMapper.getInstance().fromUserEntityToUserJpaEntity(userDto);
 
@@ -115,25 +139,135 @@ class UserMapperTest {
             assertThat(resultEntity).isNull();
         }
     }
-//
-//    @Nested class FromDtoToResponse {
-//        @Test
-//        @DisplayName("Mapeo Dto->Response")
-//        void testFromDtoToResponseShouldMapAllFields() {
-//            UserEntity userDto = createUserDtoTest();
-//
-//            var resultResponse = UserMapper.getInstance().fromUserDtoToUserDetailResponse(userDto);
-//
-//            assertThat(resultResponse).isNotNull();
-//            assertThat(resultResponse.idUser()).isEqualTo(UserDto.id_User());
-//            assertThat(resultResponse.name()).isEqualTo(UserDto.name())
-//        }
-//        @Test
-//        @DisplayName("Mapeo Dto nulo->Response nulo")
-//        void testFromDtoToResponseShouldReturnNullWhenInputIsNull() {
-//            var resultResponse = UserMapper.getInstance().fromUserDtoToUserDetailResponse(null);
-//            assertThat(resultResponse).isNull();
-//        }
-//    }
+
+    @Nested
+    class fromUserEntityToUserDto {
+        @Test
+        @DisplayName("Mapeo Entity->Dto")
+        void testFromEntityToDtoShouldMapAllFields() {
+
+            UserEntity userEntity = createUserEntityTest();
+
+
+            UserDto result = UserMapper.getInstance().fromUserEntityToUserDto(userEntity);
+
+            assertThat(result).isNotNull();
+            assertThat(result.idUser()).isEqualTo(userEntity.idUser());
+            assertThat(result.name()).isEqualTo(userEntity.name());
+            assertThat(result.email()).isEqualTo(userEntity.email());
+            assertThat(result.userName()).isEqualTo(userEntity.userName());
+            assertThat(result.password()).isEqualTo(userEntity.password());
+            assertThat(result.phoneNumber()).isEqualTo(userEntity.phoneNumber());
+            assertThat(result.address()).isEqualTo(userEntity.address());
+            assertThat(result.birthDate()).isEqualTo(userEntity.birthDate());
+            assertThat(result.role()).isEqualTo(userEntity.role());
+        }
+
+
+        @Test
+        @DisplayName("Mapeo Entity nulo->Dto nulo")
+        void testFromEntityToDtoShouldReturnNullWhenInputIsNull() {
+            UserDto result = UserMapper.getInstance().fromUserEntityToUserDto(null);
+            assertThat(result).isNull();
+        }
+    }
+
+    @Nested
+    class fromUserDtoToUser {
+        @Test
+        @DisplayName("Mapeo Dto->User")
+        void testFromDtoToUserShouldMapAllFields() {
+
+            UserDto userDto = createUserDtoTest();
+
+
+            User result = UserMapper.getInstance().fromUserDtoToUser(userDto);
+
+            assertThat(result).isNotNull();
+            assertThat(result.getId()).isEqualTo(userDto.idUser());
+            assertThat(result.getName()).isEqualTo(userDto.name());
+            assertThat(result.getEmail()).isEqualTo(userDto.email());
+            assertThat(result.getUserName()).isEqualTo(userDto.userName());
+            assertThat(result.getPassword()).isEqualTo(userDto.password());
+            assertThat(result.getPhoneNumber()).isEqualTo(userDto.phoneNumber());
+            assertThat(result.getAddress()).isEqualTo(userDto.address());
+            assertThat(result.getBirthDate()).isEqualTo(userDto.birthDate());
+            assertThat(result.getRole()).isEqualTo(userDto.role());
+        }
+
+
+        @Test
+        @DisplayName("Mapeo InsertRequest nulo->Dto nulo")
+        void testFromDtoToUserShouldReturnNullWhenInputIsNull() {
+            User result = UserMapper.getInstance().fromUserDtoToUser(null);
+            assertThat(result).isNull();
+        }
+    }
+
+    @Nested
+    class fromUserJpaEntityToUserEntity {
+        @Test
+        @DisplayName("Mapeo JpaEntity->Entity")
+        void testFromUserJpaEntityToUserEntityShouldMapAllFields() {
+
+            UserJpaEntity userJpaEntity = createUserJpaEntityTest();
+
+
+            UserEntity result = UserMapper.getInstance().fromUserJpaEntityToUserEntity(userJpaEntity);
+
+            assertThat(result).isNotNull();
+            assertThat(result.idUser()).isEqualTo(userJpaEntity.getIdUser());
+            assertThat(result.name()).isEqualTo(userJpaEntity.getName());
+            assertThat(result.email()).isEqualTo(userJpaEntity.getEmail());
+            assertThat(result.userName()).isEqualTo(userJpaEntity.getUserName());
+            assertThat(result.password()).isEqualTo(userJpaEntity.getPassword());
+            assertThat(result.phoneNumber()).isEqualTo(userJpaEntity.getPhoneNumber());
+            assertThat(result.address()).isEqualTo(userJpaEntity.getAddress());
+            assertThat(result.birthDate()).isEqualTo(userJpaEntity.getBirthDate());
+            assertThat(result.role()).isEqualTo(userJpaEntity.getRole());
+        }
+
+
+        @Test
+        @DisplayName("Mapeo JpaEntity nulo->Entity nulo")
+        void testFromUserJpaEntityToUserEntityShouldReturnNullWhenInputIsNull() {
+            UserEntity result = UserMapper.getInstance().fromUserJpaEntityToUserEntity(null);
+            assertThat(result).isNull();
+        }
+    }
+
+    @Nested
+    class fromUserEntityToUserJpaEntity {
+        @Test
+        @DisplayName("Mapeo Entity->JpaEntity")
+        void testFromUserEntityToUserJpaEntityShouldMapAllFields() {
+
+            UserEntity userEntity = createUserEntityTest();
+
+
+            UserJpaEntity result = UserMapper.getInstance().fromUserEntityToUserJpaEntity(userEntity);
+
+            assertThat(result).isNotNull();
+            assertThat(result.getIdUser()).isEqualTo(userEntity.idUser());
+            assertThat(result.getName()).isEqualTo(userEntity.name());
+            assertThat(result.getEmail()).isEqualTo(userEntity.email());
+            assertThat(result.getUserName()).isEqualTo(userEntity.userName());
+            assertThat(result.getPassword()).isEqualTo(userEntity.password());
+            assertThat(result.getPhoneNumber()).isEqualTo(userEntity.phoneNumber());
+            assertThat(result.getAddress()).isEqualTo(userEntity.address());
+            assertThat(result.getBirthDate()).isEqualTo(userEntity.birthDate());
+            assertThat(result.getRole()).isEqualTo(userEntity.role());
+        }
+
+
+        @Test
+        @DisplayName("Mapeo Entity nulo->JpaEntity nulo")
+        void testFromUserEntityToUserJpaEntityShouldReturnNullWhenInputIsNull() {
+            UserJpaEntity result = UserMapper.getInstance().fromUserEntityToUserJpaEntity(null);
+            assertThat(result).isNull();
+        }
+    }
 
 }
+
+
