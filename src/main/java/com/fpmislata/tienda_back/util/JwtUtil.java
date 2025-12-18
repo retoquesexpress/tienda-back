@@ -17,8 +17,7 @@ import java.util.Map;
 
 public class JwtUtil {
     private static final String SECRET_KEY = "UnaClaveSecretaMuyLargaYSeguraDeAlMenos64CaracteresParaHS512";
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hora
-
+    private static final long EXPIRATION_TIME = 1000L * 60 * 60 * 24 * 365; // 1 año
     private static final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 
     public static String generateToken(User user) {

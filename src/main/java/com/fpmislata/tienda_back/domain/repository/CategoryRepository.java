@@ -12,9 +12,6 @@ public interface CategoryRepository {
 
     void delete(Integer id_category);
 
-    /*
-     * CategoryDto save(CategoryDto categoryDto);
-     */
     CategoryDto create(CategoryDto categoryDto);
 
     CategoryDto update(CategoryDto categoryDto);

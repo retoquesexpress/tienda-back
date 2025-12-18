@@ -56,23 +56,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
     }
 
-    // o separa los metodos de insertar y actualizar
-    // o si no existe insertar y si existe actualizar
-    /*
-     * @Override
-     * public CategoryDto save(CategoryDto categoryDto) {
-     * if (categoryDto.id_category() == null) {
-     * return CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryDto(
-     * categoryJpaDao.insert(CategoryMapper.getInstance().
-     * fromCategoryDtoToCategoryJpaEntity(categoryDto)));
-     * } else {
-     * return CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryDto(
-     * categoryJpaDao.update(CategoryMapper.getInstance().
-     * fromCategoryDtoToCategoryJpaEntity(categoryDto)));
-     * }
-     * }
-     */
-
     @Override
     public CategoryDto getById(Integer id_category) {
         return categoryJpaDao.findCategoryById(id_category)

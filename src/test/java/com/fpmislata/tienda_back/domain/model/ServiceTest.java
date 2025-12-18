@@ -12,7 +12,8 @@ class ServiceTest {
     void testServiceConstructorAndGetters() {
         Category category = new Category(1, "Servicios de uñas");
         Service service = new Service(1, "Test Service", "This is a test service", 99.99, "http://example.com/image.jpg", category);
-        assertEquals("1", service.getId());
+
+        assertEquals(1, service.getId());
         assertEquals("Test Service", service.getName());
         assertEquals("This is a test service", service.getDescription());
         assertEquals(99.99, service.getPrice());

@@ -74,23 +74,6 @@ public class UserMapper {
         );
     }
 
-    public UserDto fromUserDetailResponseToUserDto(UserDetailResponse userDetailResponse) {
-        if (userDetailResponse == null) {
-            return null;
-        }
-        return new UserDto(
-                userDetailResponse.id_user(),
-                userDetailResponse.name(),
-                userDetailResponse.email(),
-                userDetailResponse.userName(),
-                userDetailResponse.phoneNumber(),
-                userDetailResponse.address(),
-                userDetailResponse.role(),
-                userDetailResponse.birthDate(),
-                userDetailResponse.password()
-        );
-    }
-
     public UserDto fromUserEntityToUserDto(UserEntity userEntity) {
         if (userEntity == null) {
             return null;
@@ -142,6 +125,7 @@ public class UserMapper {
         );
     }
 
+
     public UserJpaEntity fromUserEntityToUserJpaEntity(UserEntity userEntity) {
         if (userEntity == null) {
             return null;
@@ -175,5 +159,6 @@ public class UserMapper {
                 user.getRole()
         );
     }
+
 }
 

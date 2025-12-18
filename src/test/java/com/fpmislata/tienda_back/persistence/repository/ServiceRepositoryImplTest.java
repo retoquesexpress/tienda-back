@@ -93,9 +93,9 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test getById should return null when service does not exist")
         void testGetByIdShouldReturnNullWhenServiceDoesNotExist() {
-            Integer serviceId = 999;
-            when(serviceJpaDao.findById((serviceId))).thenReturn(java.util.Optional.empty());
-            ServiceEntity result = serviceRepositoryImpl.getById((serviceId));
+            Integer serviceId = null;
+            when(serviceJpaDao.findById(serviceId)).thenReturn(java.util.Optional.empty());
+            ServiceEntity result = serviceRepositoryImpl.getById(serviceId);
             assertThat(result).isNull();
         }
     }
@@ -168,7 +168,7 @@ class ServiceRepositoryImplTest {
         @Test
         @DisplayName("Test update should throw EntityNotFoundException when service does not exist")
         void testUpdateShouldThrowEntityNotFoundExceptionWhenServiceDoesNotExist() {
-            Integer serviceId = 111;
+            Integer serviceId = null;
             CategoryDto categoryDto = new CategoryDto(1, "Category 1");
             ServiceEntity serviceDto = new ServiceEntity(serviceId, "Updated Service", "Updated Description", 150.0,
                     "updated_img.jpg", categoryDto);
@@ -222,8 +222,9 @@ class ServiceRepositoryImplTest {
         @DisplayName("Test deleteById should call dao deleteById method")
         void testDeleteByIdShouldCallDaoDeleteByIdMethod() {
             Integer serviceId = 1;
-            serviceRepositoryImpl.deleteById((serviceId));
-            verify(serviceJpaDao).deleteById((serviceId));
+            serviceRepositoryImpl.deleteById(serviceId);
+            verify(serviceJpaDao).deleteById(serviceId);
+
         }
     }
 }

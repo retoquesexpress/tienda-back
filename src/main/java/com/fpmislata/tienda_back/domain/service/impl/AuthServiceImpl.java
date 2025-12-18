@@ -54,7 +54,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     @Override
     public AuthResponse login(AuthRequest request) {
-        UserEntity userEntity = authRepository.findByUsername(request.username())
+        UserEntity userEntity = authRepository.findByUsername(request.userName())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         if (!userEntity.password().equals(request.password())) {

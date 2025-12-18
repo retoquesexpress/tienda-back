@@ -17,7 +17,7 @@ class ServiceDtoTest {
         double price = 99.99;
         String pictureUrl = "http://example.com/image.jpg";
         CategoryDto categoryDto = new CategoryDto(1, "Test Category");
-        ServiceEntity serviceDto = new ServiceEntity(id_service, name, description, price, pictureUrl, categoryDto);
+        ServiceEntity serviceDto = new ServiceEntity(1, name, description, price, pictureUrl, categoryDto);
         assertNotNull(serviceDto);
         assertEquals(id_service, serviceDto.id_service());
         assertEquals(name, serviceDto.name());
@@ -33,7 +33,7 @@ class ServiceDtoTest {
         Integer id_service = 1;
         double price = 99.99;
         CategoryDto categoryDto = new CategoryDto(1, "Test Category");
-        ServiceEntity serviceDto = new ServiceEntity(id_service, null, null, price, null, categoryDto);
+        ServiceEntity serviceDto = new ServiceEntity(1, null, null, price, null, categoryDto);
         assertNotNull(serviceDto.id_service());
         assertNotNull(serviceDto.price());
         assertNotNull(serviceDto.category());
@@ -45,7 +45,7 @@ class ServiceDtoTest {
         Integer id_service = 1;
         double price = 99.99;
         CategoryDto categoryDto = new CategoryDto(1, "Test Category");
-        ServiceEntity serviceDto = new ServiceEntity(id_service, null, null, price, null, categoryDto);
+        ServiceEntity serviceDto = new ServiceEntity(1, null, null, price, null, categoryDto);
         assertNull(serviceDto.name());
         assertNull(serviceDto.description());
         assertNull(serviceDto.pictureUrl());
