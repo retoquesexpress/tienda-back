@@ -65,7 +65,8 @@ public class AuthServiceImpl implements AuthService {
         User user = UserMapper.getInstance().fromUserDtoToUser(userDto);
 
         Token token = generateTokenForUser(user);
-        AuthResponse authResponse = new AuthResponse(token.getToken(), token.getExpirationDate(), userDto);
+        user.setPassword(null);
+        AuthResponse authResponse = new AuthResponse(token.getToken(), token.getExpirationDate(), UserMapper.getInstance().fromUserToUserDto(user));
 
         return authResponse;
     }
@@ -93,4 +94,6 @@ public class AuthServiceImpl implements AuthService {
         AuthResponse authResponse = new AuthResponse(token.getToken(), token.getExpirationDate(), userDto);
         return authResponse;
     }
+
+    //setpaswrdnull userdto o saveduser
 }

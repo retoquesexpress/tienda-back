@@ -20,6 +20,7 @@ public record UserDto (
         Date birthDate,
         @NotNull
         String role
-) {}
+) {
+}
 
 

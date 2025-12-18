@@ -1,5 +1,5 @@
-/*
-package com.fpmislata.tienda_back.config;
+
+package com.fpmislata.tienda_back.filter;
 
 
 import com.fpmislata.tienda_back.domain.model.Token;
@@ -41,4 +41,3 @@ public class AuthFilter implements Filter {
         }
     }
 
-*/
