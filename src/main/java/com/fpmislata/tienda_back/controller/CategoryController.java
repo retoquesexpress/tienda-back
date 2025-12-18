@@ -29,9 +29,9 @@ public class CategoryController {
         return new ResponseEntity(categoryDetailResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/{id_category}")
-    public ResponseEntity<CategoryDetailResponse> getById(@PathVariable Integer id_category) {
-        CategoryDto categoryDto = categoryService.getById(id_category);
+    @GetMapping("/{idCategory}")
+    public ResponseEntity<CategoryDetailResponse> getById(@PathVariable Integer idCategory) {
+        CategoryDto categoryDto = categoryService.getById(idCategory);
         CategoryDetailResponse categoryDetailResponse = CategoryMapper.getInstance()
                 .fromCategoryDtoToCategoryDetailResponse(categoryDto);
         return new ResponseEntity<>(categoryDetailResponse, HttpStatus.OK);
@@ -40,7 +40,7 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<CategoryDetailResponse> create(@RequestBody CategoryInsertRequest categoryInsertRequest) {
         CategoryDto categoryDto = new CategoryDto(
-                categoryInsertRequest.id_category(),
+                categoryInsertRequest.idCategory(),
                 categoryInsertRequest.name());
 
         CategoryDto createdCategory = categoryService.create(categoryDto);
@@ -50,12 +50,12 @@ public class CategoryController {
         return new ResponseEntity<>(createdCategoryResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id_category}")
-    public ResponseEntity<CategoryDetailResponse> update(@PathVariable Integer id_category,
+    @PutMapping("/{idCategory}")
+    public ResponseEntity<CategoryDetailResponse> update(@PathVariable Integer idCategory,
             @RequestBody CategoryInsertRequest categoryInsertRequest) {
 
         CategoryDto categoryDto = new CategoryDto(
-                id_category,
+                idCategory,
                 categoryInsertRequest.name()
 
         );
@@ -67,9 +67,9 @@ public class CategoryController {
         return new ResponseEntity<>(updatedCategoryResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id_category}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id_category) {
-        categoryService.delete(id_category);
+    @DeleteMapping("/{idCategory}")
+    public ResponseEntity<Void> delete(@PathVariable Integer idCategory) {
+        categoryService.delete(idCategory);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -25,8 +25,8 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public ServiceEntity getById(Integer id_service) {
-        Optional<ServiceEntity> service = serviceRepository.findById(id_service);
+    public ServiceEntity getById(Integer idService) {
+        Optional<ServiceEntity> service = serviceRepository.findById(idService);
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");
         }
@@ -34,8 +34,8 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Optional<ServiceEntity> findById(Integer id_service) {
-        Optional<ServiceEntity> service = serviceRepository.findById(id_service);
+    public Optional<ServiceEntity> findById(Integer idService) {
+        Optional<ServiceEntity> service = serviceRepository.findById(idService);
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");
         }
@@ -45,7 +45,7 @@ public class ServiceServiceImpl implements ServiceService {
     @Transactional
     @Override
     public ServiceEntity update(ServiceEntity serviceDto) {
-        Optional<ServiceEntity> service = serviceRepository.findById(serviceDto.id_service());
+        Optional<ServiceEntity> service = serviceRepository.findById(serviceDto.idService());
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");
         }
@@ -60,11 +60,11 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Transactional
     @Override
-    public void deleteById(Integer id_service) {
-        Optional<ServiceEntity> service = serviceRepository.findById(id_service);
+    public void deleteById(Integer idService) {
+        Optional<ServiceEntity> service = serviceRepository.findById(idService);
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");
         }
-        serviceRepository.deleteById(id_service);
+        serviceRepository.deleteById(idService);
     }
 }

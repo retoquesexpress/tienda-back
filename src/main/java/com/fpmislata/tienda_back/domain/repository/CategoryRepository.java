@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CategoryRepository {
     List<CategoryDto> findAll();
 
-    Optional<CategoryDto> findCategoryById(Integer id_category);
+    Optional<CategoryDto> findCategoryById(Integer idCategory);
 
     void delete(Integer id_category);
 
@@ -16,5 +16,5 @@ public interface CategoryRepository {
 
     CategoryDto update(CategoryDto categoryDto);
 
-    CategoryDto getById(Integer id_category);
+    CategoryDto getById(Integer idCategory);
 }

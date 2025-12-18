@@ -8,13 +8,13 @@ import java.util.Optional;
 public interface CategoryService {
     List<CategoryDto> findAll();
 
-    Optional<CategoryDto> findCategoryById(Integer id_category);
+    Optional<CategoryDto> findCategoryById(Integer idCategory);
 
     CategoryDto create(CategoryDto categoryDto);
 
     CategoryDto update(CategoryDto categoryDto);
 
-    void delete(Integer id_category);
+    void delete(Integer idCategory);
 
-    CategoryDto getById(Integer id_category);
+    CategoryDto getById(Integer idCategory);
 }

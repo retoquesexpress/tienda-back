@@ -16,13 +16,13 @@ public class UserJpaDaoImpl implements UserJpaDao {
 
     @Override
     public List<UserJpaEntity> findAllUsers() {
-        return entityManager.createQuery("SELECT u FROM UserJpaEntity u ORDER BY u.id_user", UserJpaEntity.class)
+        return entityManager.createQuery("SELECT u FROM UserJpaEntity u ORDER BY u.idUser", UserJpaEntity.class)
                 .getResultList();
     }
 
     @Override
-    public Optional<UserJpaEntity> findUserById(String id_user) {
-        UserJpaEntity userJpaEntity = entityManager.find(UserJpaEntity.class, id_user);
+    public Optional<UserJpaEntity> findUserById(String idUser) {
+        UserJpaEntity userJpaEntity = entityManager.find(UserJpaEntity.class, idUser);
         return Optional.ofNullable(userJpaEntity);
     }
 
@@ -34,10 +34,10 @@ public class UserJpaDaoImpl implements UserJpaDao {
     }
 
     @Override
-    public void delete(String id_user) {
-        UserJpaEntity userJpaEntity = entityManager.find(UserJpaEntity.class, id_user);
-        entityManager.createQuery("DELETE FROM UserJpaEntity u WHERE user.id_user = :id_user")
-                .setParameter("id_user", id_user)
+    public void delete(String idUser) {
+        UserJpaEntity userJpaEntity = entityManager.find(UserJpaEntity.class, idUser);
+        entityManager.createQuery("DELETE FROM UserJpaEntity u WHERE user.idUser = :idUser")
+                .setParameter("idUser", idUser)
                 .executeUpdate();
         entityManager.remove(userJpaEntity);
     }
@@ -49,13 +49,14 @@ public class UserJpaDaoImpl implements UserJpaDao {
     }
 
     @Override
-    public UserJpaEntity getById(String id_user) {
-        return entityManager.find(UserJpaEntity.class, id_user);
+    public UserJpaEntity getById(String idUser) {
+        return entityManager.find(UserJpaEntity.class, idUser);
     }
 
     @Override
     public Optional<UserJpaEntity> findUserByUserName(String userName) {
-        List<UserJpaEntity> result = entityManager.createQuery("SELECT u FROM UserJpaEntity u WHERE u.userName = :userName", UserJpaEntity.class)
+        List<UserJpaEntity> result = entityManager
+                .createQuery("SELECT u FROM UserJpaEntity u WHERE u.userName = :userName", UserJpaEntity.class)
                 .setParameter("userName", userName)
                 .getResultList();
         if (result.isEmpty()) {

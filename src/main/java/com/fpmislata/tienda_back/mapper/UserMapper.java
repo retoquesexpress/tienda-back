@@ -6,11 +6,9 @@ import com.fpmislata.tienda_back.domain.repository.entity.UserEntity;
 import com.fpmislata.tienda_back.domain.service.dto.UserDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.UserJpaEntity;
 
-
 public class UserMapper {
 
     private static UserMapper INSTANCE;
-
 
     private UserMapper() {
     }
@@ -27,7 +25,7 @@ public class UserMapper {
             return null;
         }
         return new UserDto(
-                userJpaEntity.getId_user(),
+                userJpaEntity.getIdUser(),
                 userJpaEntity.getName(),
                 userJpaEntity.getEmail(),
                 userJpaEntity.getUserName(),
@@ -35,8 +33,7 @@ public class UserMapper {
                 userJpaEntity.getPhoneNumber(),
                 userJpaEntity.getAddress(),
                 userJpaEntity.getBirthDate(),
-                userJpaEntity.getRole()
-        );
+                userJpaEntity.getRole());
     }
 
     public UserJpaEntity fromUserDtoToUserJpaEntity(UserDto userDto) {
@@ -44,7 +41,7 @@ public class UserMapper {
             return null;
         }
         return new UserJpaEntity(
-                userDto.id_user(),
+                userDto.idUser(),
                 userDto.name(),
                 userDto.email(),
                 userDto.userName(),
@@ -52,8 +49,7 @@ public class UserMapper {
                 userDto.phoneNumber(),
                 userDto.address(),
                 userDto.birthDate(),
-                userDto.role()
-        );
+                userDto.role());
     }
 
     public UserDetailResponse fromUserDtoToUserDetailResponse(UserDto userDto) {
@@ -61,7 +57,7 @@ public class UserMapper {
             return null;
         }
         return new UserDetailResponse(
-                userDto.id_user(),
+                userDto.idUser(),
                 userDto.name(),
                 userDto.email(),
                 userDto.userName(),
@@ -79,7 +75,7 @@ public class UserMapper {
             return null;
         }
         return new UserDto(
-                userEntity.id_user(),
+                userEntity.idUser(),
                 userEntity.name(),
                 userEntity.email(),
                 userEntity.userName(),
@@ -87,8 +83,7 @@ public class UserMapper {
                 userEntity.phoneNumber(),
                 userEntity.address(),
                 userEntity.birthDate(),
-                userEntity.role()
-        );
+                userEntity.role());
     }
 
     public User fromUserDtoToUser(UserDto userDto) {
@@ -96,7 +91,7 @@ public class UserMapper {
             return null;
         }
         return new User(
-                userDto.id_user(),
+                userDto.idUser(),
                 userDto.name(),
                 userDto.email(),
                 userDto.userName(),
@@ -104,8 +99,7 @@ public class UserMapper {
                 userDto.phoneNumber(),
                 userDto.address(),
                 userDto.birthDate(),
-                userDto.role()
-        );
+                userDto.role());
     }
 
     public UserEntity fromUserJpaEntityToUserEntity(UserJpaEntity entity) {
@@ -113,7 +107,7 @@ public class UserMapper {
             return null;
         }
         return new UserEntity(
-                entity.getId_user(),
+                entity.getIdUser(),
                 entity.getName(),
                 entity.getEmail(),
                 entity.getUserName(),
@@ -121,17 +115,15 @@ public class UserMapper {
                 entity.getPhoneNumber(),
                 entity.getAddress(),
                 entity.getBirthDate(),
-                entity.getRole()
-        );
+                entity.getRole());
     }
-
 
     public UserJpaEntity fromUserEntityToUserJpaEntity(UserEntity userEntity) {
         if (userEntity == null) {
             return null;
         }
         return new UserJpaEntity(
-                userEntity.id_user(),
+                userEntity.idUser(),
                 userEntity.name(),
                 userEntity.email(),
                 userEntity.userName(),
@@ -139,11 +131,10 @@ public class UserMapper {
                 userEntity.phoneNumber(),
                 userEntity.address(),
                 userEntity.birthDate(),
-                userEntity.role()
-        );
+                userEntity.role());
     }
 
-    public UserDto fromUserToUserDto( User user) {
+    public UserDto fromUserToUserDto(User user) {
         if (user == null) {
             return null;
         }
@@ -156,9 +147,7 @@ public class UserMapper {
                 user.getPhoneNumber(),
                 user.getAddress(),
                 user.getBirthDate(),
-                user.getRole()
-        );
+                user.getRole());
     }
 
 }
-

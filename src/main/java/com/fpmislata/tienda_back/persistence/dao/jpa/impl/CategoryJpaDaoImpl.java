@@ -16,16 +16,16 @@ public class CategoryJpaDaoImpl implements CategoryJpaDao {
     @Override
     public List<CategoryJpaEntity> findAll() {
         return entityManager
-                .createQuery("SELECT c FROM CategoryJpaEntity c ORDER BY c.id_category", CategoryJpaEntity.class)
+                .createQuery("SELECT c FROM CategoryJpaEntity c ORDER BY c.idCategory", CategoryJpaEntity.class)
                 .getResultList();
     }
 
     @Override
-    public Optional<CategoryJpaEntity> findCategoryById(Integer id_category) {
-        if (id_category == null) {
+    public Optional<CategoryJpaEntity> findCategoryById(Integer idCategory) {
+        if (idCategory == null) {
             return Optional.empty();
         }
-        CategoryJpaEntity categoryJpaEntity = entityManager.find(CategoryJpaEntity.class, id_category);
+        CategoryJpaEntity categoryJpaEntity = entityManager.find(CategoryJpaEntity.class, idCategory);
         return Optional.ofNullable(categoryJpaEntity);
     }
 
@@ -37,8 +37,8 @@ public class CategoryJpaDaoImpl implements CategoryJpaDao {
     }
 
     @Override
-    public void delete(Integer id_category) {
-        CategoryJpaEntity categoryJpaEntity = entityManager.find(CategoryJpaEntity.class, id_category);
+    public void delete(Integer idCategory) {
+        CategoryJpaEntity categoryJpaEntity = entityManager.find(CategoryJpaEntity.class, idCategory);
         if (categoryJpaEntity != null) {
             entityManager.remove(categoryJpaEntity);
         }
@@ -51,7 +51,7 @@ public class CategoryJpaDaoImpl implements CategoryJpaDao {
     }
 
     @Override
-    public CategoryJpaEntity getById(Integer id_category) {
-        return entityManager.find(CategoryJpaEntity.class, id_category);
+    public CategoryJpaEntity getById(Integer idCategory) {
+        return entityManager.find(CategoryJpaEntity.class, idCategory);
     }
 }

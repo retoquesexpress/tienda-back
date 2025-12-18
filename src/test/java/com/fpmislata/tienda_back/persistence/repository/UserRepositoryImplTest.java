@@ -43,7 +43,7 @@ class UserRepositoryImplTest {
             List<UserDto> actualUsers = userRepositoryImpl.findAllUsers();
             //Assert
             assertAll(
-                    () -> assertEquals(expectedUsers.get(0).getId_user(), actualUsers.get(0).id_user()),
+                    () -> assertEquals(expectedUsers.get(0).getIdUser(), actualUsers.get(0).idUser()),
                     () -> assertEquals(expectedUsers.get(0).getName(), actualUsers.get(0).name()),
                     () -> assertEquals(expectedUsers.get(0).getEmail(), actualUsers.get(0).email()),
                     () -> assertEquals(expectedUsers.get(0).getUserName(), actualUsers.get(0).userName()),
@@ -52,7 +52,7 @@ class UserRepositoryImplTest {
                     () -> assertEquals(expectedUsers.get(0).getAddress(), actualUsers.get(0).address()),
                     () -> assertEquals(expectedUsers.get(0).getRole(), actualUsers.get(0).role()),
 
-                    () -> assertEquals(expectedUsers.get(1).getId_user(), actualUsers.get(1).id_user()),
+                    () -> assertEquals(expectedUsers.get(1).getIdUser(), actualUsers.get(1).idUser()),
                     () -> assertEquals(expectedUsers.get(1).getName(), actualUsers.get(1).name()),
                     () -> assertEquals(expectedUsers.get(1).getEmail(), actualUsers.get(1).email()),
                     () -> assertEquals(expectedUsers.get(1).getUserName(), actualUsers.get(1).userName()),
@@ -84,12 +84,12 @@ class UserRepositoryImplTest {
         void testFindUserById_ReturnsUser_WhenUserExists() {
             //Arrange
             UserJpaEntity expectedUser = new UserJpaEntity("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
-            when(userJpaDao.findUserById(expectedUser.getId_user())).thenReturn(Optional.of(expectedUser));
+            when(userJpaDao.findUserById(expectedUser.getIdUser())).thenReturn(Optional.of(expectedUser));
             //Act
-            Optional<UserDto> actualUser = userRepositoryImpl.findUserById(expectedUser.getId_user());
+            Optional<UserDto> actualUser = userRepositoryImpl.findUserById(expectedUser.getIdUser());
             //Assert
             assertAll(
-                    () -> assertEquals(expectedUser.getId_user(), actualUser.get().id_user()),
+                    () -> assertEquals(expectedUser.getIdUser(), actualUser.get().idUser()),
                     () -> assertEquals(expectedUser.getName(), actualUser.get().name()),
                     () -> assertEquals(expectedUser.getEmail(), actualUser.get().email()),
                     () -> assertEquals(expectedUser.getUserName(), actualUser.get().userName()),
@@ -98,7 +98,7 @@ class UserRepositoryImplTest {
                     () -> assertEquals(expectedUser.getAddress(), actualUser.get().address()),
                     () -> assertEquals(expectedUser.getRole(), actualUser.get().role())
             );
-            verify(userJpaDao).findUserById(expectedUser.getId_user());
+            verify(userJpaDao).findUserById(expectedUser.getIdUser());
         }
 
         @Test

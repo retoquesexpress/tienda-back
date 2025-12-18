@@ -8,13 +8,13 @@ import java.util.Optional;
 public interface ServiceJpaDao {
     List<ServiceJpaEntity> findAll();
 
-    ServiceJpaEntity getById(Integer id_service);
+    ServiceJpaEntity getById(Integer idService);
 
-    Optional<ServiceJpaEntity> findById(Integer id_service);
+    Optional<ServiceJpaEntity> findById(Integer idService);
 
     ServiceJpaEntity update(ServiceJpaEntity serviceJpaEntity);
 
     ServiceJpaEntity create(ServiceJpaEntity serviceJpaEntity);
 
-    void deleteById(Integer id_service);
+    void deleteById(Integer idService);
 }

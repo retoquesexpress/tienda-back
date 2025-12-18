@@ -68,7 +68,7 @@ class UserMapperTest {
             UserEntity resultDto = UserMapper.getInstance().fromUserJpaEntityToUserEntity(jpaEntity);
 
             assertThat(resultDto).isNotNull();
-            assertThat(resultDto.id_user()).isEqualTo(jpaEntity.getId_user());
+            assertThat(resultDto.idUser()).isEqualTo(jpaEntity.getIdUser());
             assertThat(resultDto.name()).isEqualTo(jpaEntity.getName());
             assertThat(resultDto.email()).isEqualTo(jpaEntity.getEmail());
             assertThat(resultDto.userName()).isEqualTo(jpaEntity.getUserName());
@@ -97,7 +97,7 @@ class UserMapperTest {
             UserJpaEntity resultEntity = UserMapper.getInstance().fromUserEntityToUserJpaEntity(userDto);
 
             assertThat(resultEntity).isNotNull();
-            assertThat(resultEntity.getId_user()).isEqualTo(userDto.id_user());
+            assertThat(resultEntity.getIdUser()).isEqualTo(userDto.idUser());
             assertThat(resultEntity.getName()).isEqualTo(userDto.name());
             assertThat(resultEntity.getEmail()).isEqualTo(userDto.email());
             assertThat(resultEntity.getUserName()).isEqualTo(userDto.userName());

@@ -26,7 +26,7 @@ class UserDtoTest {
 
         UserEntity userDto = new UserEntity(id_user, name, email, userName, password, phoneNumber, address, birthDate, role);
         assertNotNull(userDto);
-        assertEquals(id_user, userDto.id_user());
+        assertEquals(id_user, userDto.idUser());
         assertEquals(name, userDto.name());
         assertEquals(email, userDto.email());
         assertEquals(userName, userDto.userName());
@@ -48,7 +48,7 @@ class UserDtoTest {
         String role = "USER";
 
         UserEntity userDto = new UserEntity(id_user, name, email, userName, password, null, null, null, role);
-        assertNotNull(userDto.id_user());
+        assertNotNull(userDto.idUser());
     }
 
     @Test

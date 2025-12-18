@@ -10,7 +10,8 @@ import java.util.List;
 public class ServiceJpaEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_service;
+    @Column(name = "id_service")
+    private Integer idService;
 
     @Column(name = "name")
     private String name;
@@ -31,9 +32,9 @@ public class ServiceJpaEntity implements Serializable {
     public ServiceJpaEntity() {
     }
 
-    public ServiceJpaEntity(Integer id_service, String name, String description, Double price, String pictureUrl,
+    public ServiceJpaEntity(Integer idService, String name, String description, Double price, String pictureUrl,
             CategoryJpaEntity category) {
-        this.id_service = id_service;
+        this.idService = idService;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -41,12 +42,12 @@ public class ServiceJpaEntity implements Serializable {
         this.category = category;
     }
 
-    public Integer getId_service() {
-        return id_service;
+    public Integer getIdService() {
+        return idService;
     }
 
-    public void setId_service(Integer id_service) {
-        this.id_service = id_service;
+    public void setIdService(Integer idService) {
+        this.idService = idService;
     }
 
     public String getName() {
@@ -94,14 +95,14 @@ public class ServiceJpaEntity implements Serializable {
         if (!(o instanceof ServiceJpaEntity other)) {
             return false;
         }
-        return (this.id_service != null || other.id_service == null)
-                && (this.id_service == null || this.id_service.equals(other.id_service));
+        return (this.idService != null || other.idService == null)
+                && (this.idService == null || this.idService.equals(other.idService));
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id_service != null ? id_service.hashCode() : 0);
+        hash += (idService != null ? idService.hashCode() : 0);
         return hash;
     }
 

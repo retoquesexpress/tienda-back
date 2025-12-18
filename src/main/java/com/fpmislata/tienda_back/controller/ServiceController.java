@@ -30,10 +30,10 @@ public class ServiceController {
         return new ResponseEntity(serviceDetailResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/{id_service}")
-    public ResponseEntity<ServiceDetailResponse> getById(@PathVariable Integer id_service) {
+    @GetMapping("/{idService}")
+    public ResponseEntity<ServiceDetailResponse> getById(@PathVariable Integer idService) {
         ServiceDetailResponse serviceDetailResponse = ServiceMapper.getInstance()
-                .fromServiceDtoToServiceDetailResponse(serviceService.getById(id_service));
+                .fromServiceDtoToServiceDetailResponse(serviceService.getById(idService));
         return new ResponseEntity<>(serviceDetailResponse, HttpStatus.OK);
     }
 
@@ -46,10 +46,10 @@ public class ServiceController {
                 HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id_service}")
-    public ResponseEntity<ServiceDetailResponse> update(@PathVariable Integer id_service,
+    @PutMapping("/{idService}")
+    public ResponseEntity<ServiceDetailResponse> update(@PathVariable Integer idService,
             @RequestBody ServiceUpdateRequest serviceUpdateRequest) {
-        if (!id_service.equals(serviceUpdateRequest.id_service())) {
+        if (!idService.equals(serviceUpdateRequest.idService())) {
             throw new IllegalArgumentException("ID in path and request body must match");
         }
         ServiceEntity serviceDto = ServiceMapper.getInstance()
@@ -59,9 +59,9 @@ public class ServiceController {
                 HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id_service}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id_service) {
-        serviceService.deleteById(id_service);
+    @DeleteMapping("/{idService}")
+    public ResponseEntity<Void> delete(@PathVariable Integer idService) {
+        serviceService.deleteById(idService);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

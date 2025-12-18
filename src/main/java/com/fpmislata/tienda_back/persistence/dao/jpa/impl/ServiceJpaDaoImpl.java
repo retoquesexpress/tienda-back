@@ -20,13 +20,13 @@ public class ServiceJpaDaoImpl implements ServiceJpaDao {
     }
 
     @Override
-    public ServiceJpaEntity getById(Integer id_service) {
-        return entityManager.find(ServiceJpaEntity.class, id_service);
+    public ServiceJpaEntity getById(Integer idService) {
+        return entityManager.find(ServiceJpaEntity.class, idService);
     }
 
     @Override
-    public Optional<ServiceJpaEntity> findById(Integer id_service) {
-        return Optional.ofNullable(entityManager.find(ServiceJpaEntity.class, id_service));
+    public Optional<ServiceJpaEntity> findById(Integer idService) {
+        return Optional.ofNullable(entityManager.find(ServiceJpaEntity.class, idService));
     }
 
     @Override
@@ -40,8 +40,8 @@ public class ServiceJpaDaoImpl implements ServiceJpaDao {
     }
 
     @Override
-    public void deleteById(Integer id_service) {
-        ServiceJpaEntity serviceJpaEntity = entityManager.find(ServiceJpaEntity.class, id_service);
+    public void deleteById(Integer idService) {
+        ServiceJpaEntity serviceJpaEntity = entityManager.find(ServiceJpaEntity.class, idService);
         if (serviceJpaEntity != null) {
             entityManager.remove(serviceJpaEntity);
         }

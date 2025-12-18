@@ -3,7 +3,7 @@ package com.fpmislata.tienda_back.domain.model;
 import java.util.Date;
 
 public class User {
-    private String id_user;
+    private String idUser;
     private String name;
     private String email;
     private String userName;
@@ -13,8 +13,8 @@ public class User {
     private Date birthDate;
     private String role;
 
-    public User(String id_user, String name, String email, String userName, String password, String phoneNumber, String address, Date birthDate, String role) {
-        this.id_user = id_user;
+    public User(String idUser, String name, String email, String userName, String password, String phoneNumber, String address, Date birthDate, String role) {
+        this.idUser = idUser;
         this.name = name;
         this.email = email;
         this.userName = userName;
@@ -26,11 +26,11 @@ public class User {
     }
 
     public String getId() {
-        return id_user;
+        return idUser;
     }
 
-    public void setId(String id_user) {
-        this.id_user = id_user;
+    public void setId(String idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {

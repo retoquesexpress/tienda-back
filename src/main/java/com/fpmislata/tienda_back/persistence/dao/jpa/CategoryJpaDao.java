@@ -8,13 +8,13 @@ import java.util.Optional;
 public interface CategoryJpaDao {
     List<CategoryJpaEntity> findAll();
 
-    Optional<CategoryJpaEntity> findCategoryById(Integer id_category);
+    Optional<CategoryJpaEntity> findCategoryById(Integer idCategory);
 
     CategoryJpaEntity update(CategoryJpaEntity categoryDto);
 
-    void delete(Integer id_category);
+    void delete(Integer idCategory);
 
     CategoryJpaEntity insert(CategoryJpaEntity categoryDto);
 
-    CategoryJpaEntity getById(Integer id_category);
+    CategoryJpaEntity getById(Integer idCategory);
 }

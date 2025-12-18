@@ -43,7 +43,7 @@ class UserServiceImplTest {
 
             // Assert
             assertAll(
-                    () -> assertEquals(expectedUsersDto.get(0).id_user(), actualUsers.get(0).id_user()),
+                    () -> assertEquals(expectedUsersDto.get(0).idUser(), actualUsers.get(0).idUser()),
                     () -> assertEquals(expectedUsersDto.get(0).name(), actualUsers.get(0).name()),
                     () -> assertEquals(expectedUsersDto.get(0).email(), actualUsers.get(0).email()),
                     () -> assertEquals(expectedUsersDto.get(0).userName(), actualUsers.get(0).userName()),
@@ -51,7 +51,7 @@ class UserServiceImplTest {
                     () -> assertEquals(expectedUsersDto.get(0).phoneNumber(), actualUsers.get(0).phoneNumber()),
                     () -> assertEquals(expectedUsersDto.get(0).address(), actualUsers.get(0).address()),
                     () -> assertEquals(expectedUsersDto.get(0).role(), actualUsers.get(0).role()),
-                    () -> assertEquals(expectedUsersDto.get(1).id_user(), actualUsers.get(1).id_user()),
+                    () -> assertEquals(expectedUsersDto.get(1).idUser(), actualUsers.get(1).idUser()),
                     () -> assertEquals(expectedUsersDto.get(1).name(), actualUsers.get(1).name()),
                     () -> assertEquals(expectedUsersDto.get(1).email(), actualUsers.get(1).email()),
                     () -> assertEquals(expectedUsersDto.get(1).userName(), actualUsers.get(1).userName()),
@@ -92,7 +92,7 @@ class UserServiceImplTest {
             Optional<UserDto> actualUser = userService.findUserById(userId);
             // Assert
             assertAll(
-                    () -> assertEquals(expectedUserDto.id_user(), actualUser.get().id_user()),
+                    () -> assertEquals(expectedUserDto.idUser(), actualUser.get().idUser()),
                     () -> assertEquals(expectedUserDto.name(), actualUser.get().name()),
                     () -> assertEquals(expectedUserDto.email(), actualUser.get().email()),
                     () -> assertEquals(expectedUserDto.userName(), actualUser.get().userName()),
@@ -132,7 +132,7 @@ class UserServiceImplTest {
 
             // Assert
             assertAll(
-                    () -> assertEquals(expectedUserDto.id_user(), actualUser.id_user()),
+                    () -> assertEquals(expectedUserDto.idUser(), actualUser.idUser()),
                     () -> assertEquals(expectedUserDto.name(), actualUser.name()),
                     () -> assertEquals(expectedUserDto.email(), actualUser.email()),
                     () -> assertEquals(expectedUserDto.userName(), actualUser.userName()),
@@ -150,10 +150,10 @@ class UserServiceImplTest {
         void testCreate_ShouldThrowIllegalArgumentException_WhenUserAlreadyExists() {
             // Arrange
             UserDto expectedUserDto = new UserDto("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
-            when(userRepository.findUserById(expectedUserDto.id_user())).thenReturn(Optional.of(expectedUserDto));
+            when(userRepository.findUserById(expectedUserDto.idUser())).thenReturn(Optional.of(expectedUserDto));
             // Act & Assert
             assertThrows(IllegalArgumentException.class, () -> userService.create(expectedUserDto));
-            verify(userRepository).findUserById(expectedUserDto.id_user());
+            verify(userRepository).findUserById(expectedUserDto.idUser());
         }
     }
 
@@ -170,7 +170,7 @@ class UserServiceImplTest {
             Optional<UserDto> actualUser = userService.findUserById(userId);
             // Assert
             assertAll(
-                    () -> assertEquals(expectedUserDto.id_user(), actualUser.get().id_user()),
+                    () -> assertEquals(expectedUserDto.idUser(), actualUser.get().idUser()),
                     () -> assertEquals(expectedUserDto.name(), actualUser.get().name()),
                     () -> assertEquals(expectedUserDto.email(), actualUser.get().email()),
                     () -> assertEquals(expectedUserDto.userName(), actualUser.get().userName()),
@@ -235,7 +235,7 @@ class UserServiceImplTest {
             UserDto actualUser = userService.getById(userId);
             // Assert
             assertAll(
-                    () -> assertEquals(expectedUserDto.id_user(), actualUser.id_user()),
+                    () -> assertEquals(expectedUserDto.idUser(), actualUser.idUser()),
                     () -> assertEquals(expectedUserDto.name(), actualUser.name()),
                     () -> assertEquals(expectedUserDto.email(), actualUser.email()),
                     () -> assertEquals(expectedUserDto.userName(), actualUser.userName()),

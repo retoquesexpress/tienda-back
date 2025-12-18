@@ -28,9 +28,9 @@ public class UserController {
         return new ResponseEntity(userDetailResponse, HttpStatus.OK);
     }
     
-    @GetMapping("/{id_user}")
-    public ResponseEntity<UserDetailResponse> getById(@PathVariable String id_user) {
-        UserDto userDto = userService.getById(id_user);
+    @GetMapping("/{idUser}")
+    public ResponseEntity<UserDetailResponse> getById(@PathVariable String idUser) {
+        UserDto userDto = userService.getById(idUser);
         UserDetailResponse userDetailResponse = UserMapper.getInstance().fromUserDtoToUserDetailResponse(userDto);
         return new ResponseEntity<>(userDetailResponse, HttpStatus.OK);
     }
@@ -38,7 +38,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserDetailResponse> create(@RequestBody UserInsertRequest userInsertRequest) {
         UserDto userDto = new UserDto(
-                userInsertRequest.id_user(),
+                userInsertRequest.idUser(),
                 userInsertRequest.name(),
                 userInsertRequest.email(),
                 userInsertRequest.userName(),
@@ -56,12 +56,12 @@ public class UserController {
         return new ResponseEntity<>(createdUserResponse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id_user}")
-    public ResponseEntity<UserDetailResponse> update(@PathVariable String id_user,
+    @PutMapping("/{idUser}")
+    public ResponseEntity<UserDetailResponse> update(@PathVariable String idUser,
                                                         @RequestBody UserInsertRequest userInsertRequest) {
 
         UserDto userDto = new UserDto(
-                id_user,
+                idUser,
                 userInsertRequest.name(),
                 userInsertRequest.email(),
                 userInsertRequest.userName(),
@@ -80,9 +80,9 @@ public class UserController {
         return new ResponseEntity<>(updatedUserResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id_user}")
-    public ResponseEntity<Void> delete(@PathVariable String id_user) {
-        userService.delete(id_user);
+    @DeleteMapping("/{idUser}")
+    public ResponseEntity<Void> delete(@PathVariable String idUser) {
+        userService.delete(idUser);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

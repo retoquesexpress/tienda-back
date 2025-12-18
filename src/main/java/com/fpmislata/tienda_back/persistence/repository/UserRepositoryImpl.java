@@ -12,6 +12,7 @@ import java.util.Optional;
 public class UserRepositoryImpl implements UserRepository {
 
     private UserJpaDao userJpaDao;
+
     public UserRepositoryImpl(UserJpaDao userJpaDao) {
         this.userJpaDao = userJpaDao;
     }
@@ -21,20 +22,17 @@ public class UserRepositoryImpl implements UserRepository {
         return userJpaDao.findAllUsers().stream().map(UserMapper.getInstance()::fromUserJpaEntityToUserDto).toList();
     }
 
-    @Override
-    public Optional<UserDto> findUserById(String id_user) {
-        return userJpaDao.findUserById(id_user).map(UserMapper.getInstance()::fromUserJpaEntityToUserDto);
+    public Optional<UserDto> findUserById(String idUser) {
+        return userJpaDao.findUserById(idUser).map(UserMapper.getInstance()::fromUserJpaEntityToUserDto);
     }
 
-
-    @Override
-    public void delete(String id_user) {
-        userJpaDao.delete(id_user);
+    public void delete(String idUser) {
+        userJpaDao.delete(idUser);
     }
 
     @Override
     public UserDto save(UserDto userDto) {
-        if (userDto.id_user() == null) {
+        if (userDto.idUser() == null) {
             return UserMapper.getInstance().fromUserJpaEntityToUserDto(
                     userJpaDao.insert(UserMapper.getInstance().fromUserDtoToUserJpaEntity(userDto)));
         } else {
@@ -44,9 +42,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
-    @Override
-    public UserDto getById(String id_user) {
-        return userJpaDao.findUserById(id_user)
+    public UserDto getById(String idUser) {
+        return userJpaDao.findUserById(idUser)
                 .map(UserMapper.getInstance()::fromUserJpaEntityToUserDto)
                 .orElse(null);
     }

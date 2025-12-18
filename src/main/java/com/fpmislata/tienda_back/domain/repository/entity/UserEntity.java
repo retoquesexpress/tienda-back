@@ -2,8 +2,8 @@ package com.fpmislata.tienda_back.domain.repository.entity;
 
 import java.util.Date;
 
-public record UserEntity (
-        String id_user,
+public record UserEntity(
+        String idUser,
         String name,
         String email,
         String userName,
@@ -11,10 +11,9 @@ public record UserEntity (
         String phoneNumber,
         String address,
         Date birthDate,
-        String role
-) {
+        String role) {
     public UserEntity(
-            String id_user,
+            String idUser,
             String name,
             String email,
             String userName,
@@ -22,9 +21,8 @@ public record UserEntity (
             String phoneNumber,
             String address,
             Date birthDate,
-            String role
-    ) {
-        this.id_user = id_user;
+            String role) {
+        this.idUser = idUser;
         this.name = name;
         this.email = email;
         this.userName = userName;

@@ -3,7 +3,7 @@ package com.fpmislata.tienda_back.controller.webModel.request;
 import java.util.Date;
 
 public record UserUpdateRequest(
-        String id_user,
+        String idUser,
         String userName,
         String password,
         String email,

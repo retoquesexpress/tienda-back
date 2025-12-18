@@ -3,24 +3,24 @@ package com.fpmislata.tienda_back.domain.model;
 import java.util.List;
 
 public class Cart {
-    private int id_cart;
+    private int idCart;
     private int total_products;
     private double total_price;
     private List<CartItem> items;
 
-    public Cart(int id_cart, int total_products, double total_price, List<CartItem> items) {
-        this.id_cart = id_cart;
+    public Cart(int idCart, int total_products, double total_price, List<CartItem> items) {
+        this.idCart = idCart;
         this.total_products = total_products;
         this.total_price = total_price;
         this.items = items;
     }
 
     public int getId_cart() {
-        return id_cart;
+        return idCart;
     }
 
-    public void setId_cart(int id_cart) {
-        this.id_cart = id_cart;
+    public void setId_cart(int idCart) {
+        this.idCart = idCart;
     }
 
     public int getTotal_products() {

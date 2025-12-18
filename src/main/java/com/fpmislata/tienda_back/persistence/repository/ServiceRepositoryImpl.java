@@ -41,7 +41,7 @@ public class ServiceRepositoryImpl implements ServiceRepository {
 
     @Override
     public ServiceEntity update(ServiceEntity serviceEntity) {
-        Integer serviceId = serviceEntity.id_service();
+        Integer serviceId = serviceEntity.idService();
         ServiceJpaEntity existingEntity = serviceJpaDao.findById(serviceId).orElseThrow(
                 () -> new EntityNotFoundException("Servicio con ID " + serviceId + " no encontrado para actualizar."));
         existingEntity.setName(serviceEntity.name());

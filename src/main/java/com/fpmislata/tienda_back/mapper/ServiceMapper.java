@@ -24,7 +24,7 @@ public class ServiceMapper {
             return null;
         }
         return new ServiceDetailResponse(
-                serviceDto.id_service(),
+                serviceDto.idService(),
                 serviceDto.name(),
                 serviceDto.description(),
                 serviceDto.price(),
@@ -50,7 +50,7 @@ public class ServiceMapper {
             return null;
         }
         return new ServiceEntity(
-                serviceUpdateRequest.id_service(),
+                serviceUpdateRequest.idService(),
                 serviceUpdateRequest.name(),
                 serviceUpdateRequest.description(),
                 serviceUpdateRequest.price(),
@@ -63,7 +63,7 @@ public class ServiceMapper {
             return null;
         }
         return new ServiceEntity(
-                serviceJpaEntity.getId_service(),
+                serviceJpaEntity.getIdService(),
                 serviceJpaEntity.getName(),
                 serviceJpaEntity.getDescription(),
                 serviceJpaEntity.getPrice(),
@@ -77,7 +77,7 @@ public class ServiceMapper {
             return null;
         }
         return new ServiceJpaEntity(
-                serviceEntity.id_service(),
+                serviceEntity.idService(),
                 serviceEntity.name(),
                 serviceEntity.description(),
                 serviceEntity.price(),

@@ -11,7 +11,7 @@ class ServiceDtoTest {
     @Test
     @DisplayName("Test ServiceDto Creation")
     void testServiceDtoCreation() {
-        Integer id_service = 1;
+        Integer idService = 1;
         String name = "Test Service";
         String description = "This is a test service.";
         double price = 99.99;
@@ -19,7 +19,7 @@ class ServiceDtoTest {
         CategoryDto categoryDto = new CategoryDto(1, "Test Category");
         ServiceEntity serviceDto = new ServiceEntity(1, name, description, price, pictureUrl, categoryDto);
         assertNotNull(serviceDto);
-        assertEquals(id_service, serviceDto.id_service());
+        assertEquals(idService, serviceDto.idService());
         assertEquals(name, serviceDto.name());
         assertEquals(description, serviceDto.description());
         assertEquals(price, serviceDto.price());
@@ -30,11 +30,11 @@ class ServiceDtoTest {
     @Test
     @DisplayName("Test ServiceDto NotNulls required fields")
     void testServiceDtoNotNullsRequiredfields() {
-        Integer id_service = 1;
+        Integer idService = 1;
         double price = 99.99;
         CategoryDto categoryDto = new CategoryDto(1, "Test Category");
         ServiceEntity serviceDto = new ServiceEntity(1, null, null, price, null, categoryDto);
-        assertNotNull(serviceDto.id_service());
+        assertNotNull(serviceDto.idService());
         assertNotNull(serviceDto.price());
         assertNotNull(serviceDto.category());
     }
@@ -42,7 +42,7 @@ class ServiceDtoTest {
     @Test
     @DisplayName("Test ServiceDto Null Fields")
     void testServiceDtoNullFields() {
-        Integer id_service = 1;
+        Integer idService = 1;
         double price = 99.99;
         CategoryDto categoryDto = new CategoryDto(1, "Test Category");
         ServiceEntity serviceDto = new ServiceEntity(1, null, null, price, null, categoryDto);

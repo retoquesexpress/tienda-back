@@ -22,13 +22,12 @@ public class CategoryMapper {
         return INSTANCE;
     }
 
-
     public CategoryDto fromCategoryJpaEntityToCategoryDto(CategoryJpaEntity categoryJpaEntity) {
         if (categoryJpaEntity == null) {
             return null;
         }
         return new CategoryDto(
-                categoryJpaEntity.getId_category(),
+                categoryJpaEntity.getIdCategory(),
                 categoryJpaEntity.getName());
     }
 
@@ -37,7 +36,7 @@ public class CategoryMapper {
             return null;
         }
         return new CategoryJpaEntity(
-                categoryDto.id_category(),
+                categoryDto.idCategory(),
                 categoryDto.name());
     }
 
@@ -46,19 +45,18 @@ public class CategoryMapper {
             return null;
         }
         return new CategoryDetailResponse(
-                categoryDto.id_category(),
+                categoryDto.idCategory(),
                 categoryDto.name()
 
         );
     }
-
 
     public CategoryDto fromCategoryInsertRequestToCategoryDto(CategoryInsertRequest categoryInsertRequest) {
         if (categoryInsertRequest == null) {
             return null;
         }
         return new CategoryDto(
-                categoryInsertRequest.id_category(),
+                categoryInsertRequest.idCategory(),
                 categoryInsertRequest.name());
     }
 
@@ -67,7 +65,7 @@ public class CategoryMapper {
             return null;
         }
         return new CategoryDto(
-                categoryUpdateRequest.id_category(),
+                categoryUpdateRequest.idCategory(),
                 categoryUpdateRequest.name());
     }
 }

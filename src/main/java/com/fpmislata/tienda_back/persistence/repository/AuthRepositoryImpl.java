@@ -32,7 +32,7 @@ public class AuthRepositoryImpl implements AuthRepository {
     @Transactional
     public UserEntity register(UserEntity user) {
         UserJpaEntity userJpaEntity = new UserJpaEntity(
-                user.id_user(),
+                user.idUser(),
                 user.name(),
                 user.email(),
                 user.userName(),

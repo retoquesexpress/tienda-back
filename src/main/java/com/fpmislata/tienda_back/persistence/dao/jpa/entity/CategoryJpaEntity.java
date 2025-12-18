@@ -7,23 +7,24 @@ import jakarta.persistence.*;
 public class CategoryJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_category;
+    @Column(name = "id_category")
+    private Integer idCategory;
     private String name;
 
     public CategoryJpaEntity() {
     }
 
-    public CategoryJpaEntity(Integer id_category, String name) {
-        this.id_category = id_category;
+    public CategoryJpaEntity(Integer idCategory, String name) {
+        this.idCategory = idCategory;
         this.name = name;
     }
 
-    public Integer getId_category() {
-        return id_category;
+    public Integer getIdCategory() {
+        return idCategory;
     }
 
-    public void setId_category(Integer id_category) {
-        this.id_category = id_category;
+    public void setIdCategory(Integer idCategory) {
+        this.idCategory = idCategory;
     }
 
     public String getName() {
@@ -39,14 +40,14 @@ public class CategoryJpaEntity {
         if (!(o instanceof CategoryJpaEntity other)) {
             return false;
         }
-        return (this.id_category != null || other.id_category == null)
-                && (this.id_category == null || this.id_category.equals(other.id_category));
+        return (this.idCategory != null || other.idCategory == null)
+                && (this.idCategory == null || this.idCategory.equals(other.idCategory));
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id_category != null ? id_category.hashCode() : 0);
+        hash += (idCategory != null ? idCategory.hashCode() : 0);
         return hash;
     }
 }

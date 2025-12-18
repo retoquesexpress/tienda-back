@@ -38,7 +38,7 @@ class ServiceRepositoryImplTest {
         void testFindAllShouldReturnListOfServicesWhenServicesExist() {
             CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity(1, "Category 1");
             ServiceJpaEntity entity1 = new ServiceJpaEntity();
-            entity1.setId_service(1);
+            entity1.setIdService(1);
             entity1.setName("Service 1");
             entity1.setDescription("Description 1");
             entity1.setPrice(100.0);
@@ -46,7 +46,7 @@ class ServiceRepositoryImplTest {
             entity1.setCategory(categoryJpaEntity);
 
             ServiceJpaEntity entity2 = new ServiceJpaEntity();
-            entity2.setId_service(2);
+            entity2.setIdService(2);
             entity2.setName("Service 2");
             entity2.setDescription("Description 2");
             entity2.setPrice(200.0);
@@ -78,7 +78,7 @@ class ServiceRepositoryImplTest {
             CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity(1, "Category 1");
             Integer serviceId = 1;
             ServiceJpaEntity entity = new ServiceJpaEntity();
-            entity.setId_service((serviceId));
+            entity.setIdService((serviceId));
             entity.setName("Service 1");
             entity.setDescription("Description 1");
             entity.setPrice(100.0);
@@ -108,7 +108,7 @@ class ServiceRepositoryImplTest {
             CategoryJpaEntity categoryJpaEntity = new CategoryJpaEntity(1, "Category 1");
             Integer serviceId = 1;
             ServiceJpaEntity entity = new ServiceJpaEntity();
-            entity.setId_service((serviceId));
+            entity.setIdService((serviceId));
             entity.setName("Service 1");
             entity.setDescription("Description 1");
             entity.setPrice(100.0);
@@ -142,7 +142,7 @@ class ServiceRepositoryImplTest {
                     "updated_img.jpg", categoryDto);
 
             ServiceJpaEntity existingEntity = new ServiceJpaEntity();
-            existingEntity.setId_service((serviceId));
+            existingEntity.setIdService((serviceId));
             existingEntity.setName("Service 1");
             existingEntity.setDescription("Description 1");
             existingEntity.setPrice(100.0);
@@ -150,7 +150,7 @@ class ServiceRepositoryImplTest {
             existingEntity.setCategory(categoryJpaEntity);
 
             ServiceJpaEntity updatedEntity = new ServiceJpaEntity();
-            updatedEntity.setId_service((serviceId));
+            updatedEntity.setIdService((serviceId));
             updatedEntity.setName("Updated Service");
             updatedEntity.setDescription("Updated Description");
             updatedEntity.setPrice(150.0);
@@ -193,7 +193,7 @@ class ServiceRepositoryImplTest {
                     categoryDto);
 
             ServiceJpaEntity entityToCreate = new ServiceJpaEntity();
-            entityToCreate.setId_service(1);
+            entityToCreate.setIdService(1);
             entityToCreate.setName("New Service");
             entityToCreate.setDescription("New Description");
             entityToCreate.setPrice(120.0);
@@ -201,7 +201,7 @@ class ServiceRepositoryImplTest {
             entityToCreate.setCategory(categoryJpaEntity);
 
             ServiceJpaEntity createdEntity = new ServiceJpaEntity();
-            createdEntity.setId_service(1);
+            createdEntity.setIdService(1);
             createdEntity.setName("New Service");
             createdEntity.setDescription("New Description");
             createdEntity.setPrice(120.0);

@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDto> findUserById(String id_user) {
-        Optional<UserDto> user = userRepository.findUserById(id_user);
+    public Optional<UserDto> findUserById(String idUser) {
+        Optional<UserDto> user = userRepository.findUserById(idUser);
         if (user.isPresent()) {
             return user;
         } else {
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto create(UserDto userDto) {
-        Optional<UserDto> user = userRepository.findUserById(userDto.id_user());
+        Optional<UserDto> user = userRepository.findUserById(userDto.idUser());
         if (user.isEmpty()) {
             return userRepository.save(userDto);
         } else {
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto update(UserDto userDto) {
-        Optional<UserDto> user = userRepository.findUserById(userDto.id_user());
+        Optional<UserDto> user = userRepository.findUserById(userDto.idUser());
         if (user.isPresent()) {
             return userRepository.save(userDto);
         } else  {
@@ -61,18 +61,18 @@ public class UserServiceImpl implements UserService {
     }
     @Transactional
     @Override
-    public void delete(String id_user) {
-        Optional<UserDto> user = userRepository.findUserById(id_user);
+    public void delete(String idUser) {
+        Optional<UserDto> user = userRepository.findUserById(idUser);
         if (user.isPresent()) {
-            userRepository.delete(id_user);
+            userRepository.delete(idUser);
         } else  {
             throw new ResourceNotFoundException("User does not exists");
         }
     }
 
     @Override
-    public UserDto getById(String id_user) {
-        Optional<UserDto> user = userRepository.findUserById(id_user);
+    public UserDto getById(String idUser) {
+        Optional<UserDto> user = userRepository.findUserById(idUser);
         if (user.isEmpty()) {
             throw new ResourceNotFoundException("User not found");
         }

@@ -3,16 +3,16 @@ package com.fpmislata.tienda_back.domain.model;
 import java.util.List;
 
 public class Service {
-    private Integer id_service;
+    private Integer idService;
     private String name;
     private String description;
     private double price;
     private String pictureUrl;
     private Category category;
 
-    public Service(Integer id_service, String name, String description, double price, String pictureUrl,
+    public Service(Integer idService, String name, String description, double price, String pictureUrl,
             Category category) {
-        this.id_service = id_service;
+        this.idService = idService;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -21,11 +21,11 @@ public class Service {
     }
 
     public Integer getId() {
-        return id_service;
+        return idService;
     }
 
-    public void setId(Integer id_service) {
-        this.id_service = id_service;
+    public void setId(Integer idService) {
+        this.idService = idService;
     }
 
     public String getName() {

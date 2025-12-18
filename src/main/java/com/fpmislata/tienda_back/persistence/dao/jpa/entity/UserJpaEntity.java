@@ -1,6 +1,5 @@
 package com.fpmislata.tienda_back.persistence.dao.jpa.entity;
 
-
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -11,7 +10,8 @@ import java.util.Date;
 public class UserJpaEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id_user;
+    @Column(name = "id_user")
+    private String idUser;
     private String name;
     private String email;
     @Column(name = "user_name")
@@ -26,8 +26,10 @@ public class UserJpaEntity implements Serializable {
 
     public UserJpaEntity() {
     }
-    public UserJpaEntity(String id_user, String name, String email, String userName, String password, String phoneNumber, String address, Date birthDate, String role) {
-        this.id_user = id_user;
+
+    public UserJpaEntity(String idUser, String name, String email, String userName, String password, String phoneNumber,
+            String address, Date birthDate, String role) {
+        this.idUser = idUser;
         this.name = name;
         this.email = email;
         this.userName = userName;
@@ -38,12 +40,12 @@ public class UserJpaEntity implements Serializable {
         this.role = role;
     }
 
-    public String getId_user() {
-        return id_user;
+    public String getIdUser() {
+        return idUser;
     }
 
-    public void setId_user(String id_user) {
-        this.id_user = id_user;
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {
@@ -115,13 +117,14 @@ public class UserJpaEntity implements Serializable {
         if (!(o instanceof UserJpaEntity other)) {
             return false;
         }
-        return (this.id_user != null || other.id_user == null) && (this.id_user == null || this.id_user.equals(other.id_user));
+        return (this.idUser != null || other.idUser == null)
+                && (this.idUser == null || this.idUser.equals(other.idUser));
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id_user != null ? id_user.hashCode() : 0);
+        hash += (idUser != null ? idUser.hashCode() : 0);
         return hash;
     }
 }
