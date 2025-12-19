@@ -5,6 +5,8 @@ import com.fpmislata.tienda_back.controller.webModel.response.AuthResponse;
 import com.fpmislata.tienda_back.domain.model.User;
 import com.fpmislata.tienda_back.domain.service.AuthService;
 import com.fpmislata.tienda_back.domain.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +24,19 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-
-        AuthResponse authResponse = authService.login(request);
-        return authResponse;
-
+    public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+        try {
+            AuthResponse authResponse = authService.login(request);
+            return ResponseEntity.ok(authResponse);
+        } catch (RuntimeException e){
+            String message = e.getMessage();
+            if (message.contains("User not found")){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+            } else if (message.contains("Invalid credentials")){
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(message);
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al Iniciar Sesión");
+            }
+        }
     }
 }
