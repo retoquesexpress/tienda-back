@@ -55,6 +55,30 @@ class ServiceServiceImplTest {
     }
 
     @Nested
+    class FindByCategory {
+        @Test
+        @DisplayName("Test findByCategory should return list of service when service exist")
+        void testFindByCategoryShouldReturnListOfServiceWhenServiceExist() {
+            CategoryDto categoryDto = new CategoryDto(1, "Category 1");
+            List<ServiceEntity> expectedServices = List.of(
+                    new ServiceEntity(1, "Service 1", "Description 1", 100.0, "img.jpg", categoryDto),
+                    new ServiceEntity(2, "Service 2", "Description 2", 200.0, "img.jpg", categoryDto));
+            when(serviceRepository.findByCategory(1)).thenReturn(expectedServices);
+            List<ServiceEntity> actualServices = serviceService.findByCategory(1);
+
+            assertEquals(expectedServices, actualServices);
+        }
+
+        @Test
+        @DisplayName("Test findByCategory should return empty list when no services exist")
+        void testFindByCategoryShouldReturnEmptyListWhenNoServicesExist() {
+            when(serviceRepository.findByCategory(1)).thenReturn(List.of());
+            List<ServiceEntity> actualServices = serviceService.findByCategory(1);
+            assertEquals(0, actualServices.size());
+        }
+    }
+
+    @Nested
     class getById {
         @Test
         @DisplayName("Test getById should return service when service exists")

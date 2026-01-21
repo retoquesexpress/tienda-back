@@ -14,6 +14,8 @@ public interface ServiceRepository {
 
     ServiceEntity update(ServiceEntity serviceEntity);
 
+    List<ServiceEntity> findByCategory(Integer idCategory);
+
     ServiceEntity create(ServiceEntity serviceEntity);
 
     void deleteById(Integer idService);

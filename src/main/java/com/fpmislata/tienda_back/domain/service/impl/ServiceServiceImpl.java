@@ -42,6 +42,11 @@ public class ServiceServiceImpl implements ServiceService {
         return service;
     }
 
+    @Override
+    public List<ServiceEntity> findByCategory(Integer idCategory) {
+        return serviceRepository.findByCategory(idCategory);
+    }
+
     @Transactional
     @Override
     public ServiceEntity update(ServiceEntity serviceDto) {

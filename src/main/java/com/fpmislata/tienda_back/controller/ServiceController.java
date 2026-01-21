@@ -30,6 +30,15 @@ public class ServiceController {
         return new ResponseEntity(serviceDetailResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/category/{idCategory}")
+    public ResponseEntity<List<ServiceDetailResponse>> findByCategory(@PathVariable Integer idCategory) {
+        List<ServiceDetailResponse> serviceDetailResponse = serviceService.findByCategory(idCategory)
+                .stream()
+                .map(ServiceMapper.getInstance()::fromServiceDtoToServiceDetailResponse)
+                .toList();
+        return new ResponseEntity<>(serviceDetailResponse, HttpStatus.OK);
+    }
+
     @GetMapping("/{idService}")
     public ResponseEntity<ServiceDetailResponse> getById(@PathVariable Integer idService) {
         ServiceDetailResponse serviceDetailResponse = ServiceMapper.getInstance()

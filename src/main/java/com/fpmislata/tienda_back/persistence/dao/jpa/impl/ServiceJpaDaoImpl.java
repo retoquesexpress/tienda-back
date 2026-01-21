@@ -40,6 +40,14 @@ public class ServiceJpaDaoImpl implements ServiceJpaDao {
     }
 
     @Override
+    public List<ServiceJpaEntity> findByCategoryId(Integer idCategory) {
+        return entityManager.createQuery("SELECT s FROM ServiceJpaEntity s WHERE s.category.idCategory = :idCategory",
+                ServiceJpaEntity.class)
+                .setParameter("idCategory", idCategory)
+                .getResultList();
+    }
+
+    @Override
     public void deleteById(Integer idService) {
         ServiceJpaEntity serviceJpaEntity = entityManager.find(ServiceJpaEntity.class, idService);
         if (serviceJpaEntity != null) {

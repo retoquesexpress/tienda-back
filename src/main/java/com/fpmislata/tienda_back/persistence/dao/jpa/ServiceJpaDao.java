@@ -16,5 +16,7 @@ public interface ServiceJpaDao {
 
     ServiceJpaEntity create(ServiceJpaEntity serviceJpaEntity);
 
+    List<ServiceJpaEntity> findByCategoryId(Integer idCategory);
+
     void deleteById(Integer idService);
 }

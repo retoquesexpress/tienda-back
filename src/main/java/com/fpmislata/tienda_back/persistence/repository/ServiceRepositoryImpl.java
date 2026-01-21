@@ -53,6 +53,14 @@ public class ServiceRepositoryImpl implements ServiceRepository {
     }
 
     @Override
+    public List<ServiceEntity> findByCategory(Integer idCategory) {
+        return serviceJpaDao.findByCategoryId(idCategory)
+                .stream()
+                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceEntity)
+                .toList();
+    }
+
+    @Override
     public ServiceEntity create(ServiceEntity serviceEntity) {
         ServiceJpaEntity entity = ServiceMapper.getInstance().fromServiceEntityToServiceJpaEntity(serviceEntity);
         ServiceJpaEntity createdEntity = serviceJpaDao.create(entity);

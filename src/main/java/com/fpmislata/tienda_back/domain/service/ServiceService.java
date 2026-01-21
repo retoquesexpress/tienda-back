@@ -11,6 +11,8 @@ public interface ServiceService {
     ServiceEntity getById(Integer idService);
 
     Optional<ServiceEntity> findById(Integer idService);
+    
+    List<ServiceEntity> findByCategory(Integer idCategory);
 
     ServiceEntity update(ServiceEntity serviceEntity);
 
