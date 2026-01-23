@@ -9,15 +9,17 @@ import java.util.Optional;
 public interface UserJpaDao {
     List<UserJpaEntity> findAllUsers();
 
-    Optional<UserJpaEntity> findUserById(String idUser);
+    Optional<UserJpaEntity> findUserById(Integer idUser);
 
     UserJpaEntity update(UserJpaEntity userDto);
 
-    void delete(String idUser);
+    void delete(Integer idUser);
 
     UserJpaEntity insert(UserJpaEntity userDto);
 
-    UserJpaEntity getById(String idUser);
+    UserJpaEntity getById(Integer idUser);
 
     Optional<UserJpaEntity> findUserByUserName(String userName);
+
+    Optional<UserJpaEntity> findUserByEmail(String email);
 }

@@ -23,7 +23,7 @@ public class AuthRepositoryImpl implements AuthRepository {
     }
 
     @Override
-    public Optional<UserEntity> findById(String id) {
+    public Optional<UserEntity> findById(Integer id) {
         Optional<UserJpaEntity> userJpaEntity = userJpaDao.findUserById(id);
         return userJpaEntity.map(entity -> UserMapper.getInstance().fromUserJpaEntityToUserEntity(entity));
     }
@@ -49,5 +49,11 @@ public class AuthRepositoryImpl implements AuthRepository {
     @Override
     public boolean existsByUsername(String username) {
         return userJpaDao.findUserByUserName(username).isPresent();
+    }
+
+    @Override
+    public Optional<UserEntity> findByEmail(String email) {
+        Optional<UserJpaEntity> userJpaEntity = userJpaDao.findUserByEmail(email);
+        return userJpaEntity.map(entity -> UserMapper.getInstance().fromUserJpaEntityToUserEntity(entity));
     }
 }

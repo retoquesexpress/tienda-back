@@ -7,10 +7,10 @@ import java.util.Optional;
 
 public interface UserService {
     List<UserDto> findAllUsers();
-    Optional<UserDto> findUserById(String idUser);
+    Optional<UserDto> findUserById(Integer idUser);
     Optional<UserDto> findUserByUserName(String userName);
     UserDto create(UserDto userDto);
     UserDto update(UserDto userDto);
-    void delete(String idUser);
-    UserDto getById(String idUser);
+    void delete(Integer idUser);
+    UserDto getById(Integer idUser);
 }

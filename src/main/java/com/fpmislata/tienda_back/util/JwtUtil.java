@@ -50,8 +50,8 @@ public class JwtUtil {
         return extractAllClaims(token).get("role", String.class);
     }
 
-    public static String extractUserId(String token) {
-        return extractAllClaims(token).get("userId", String.class);
+    public static Integer extractUserId(String token) {
+        return extractAllClaims(token).get("userId", Integer.class);
     }
 
     public static LocalDateTime extractExpirationDate(String token) {

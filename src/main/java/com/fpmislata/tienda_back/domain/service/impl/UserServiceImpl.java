@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDto> findUserById(String idUser) {
+    public Optional<UserDto> findUserById(Integer idUser) {
         Optional<UserDto> user = userRepository.findUserById(idUser);
         if (user.isPresent()) {
             return user;
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
     @Transactional
     @Override
-    public void delete(String idUser) {
+    public void delete(Integer idUser) {
         Optional<UserDto> user = userRepository.findUserById(idUser);
         if (user.isPresent()) {
             userRepository.delete(idUser);
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getById(String idUser) {
+    public UserDto getById(Integer idUser) {
         Optional<UserDto> user = userRepository.findUserById(idUser);
         if (user.isEmpty()) {
             throw new ResourceNotFoundException("User not found");

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 public record UserDto(
-                @NotNull String idUser,
+                @NotNull Integer idUser,
                 @NotNull String name,
                 @NotNull String email,
                 @NotNull String userName,

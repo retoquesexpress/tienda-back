@@ -22,11 +22,11 @@ public class UserRepositoryImpl implements UserRepository {
         return userJpaDao.findAllUsers().stream().map(UserMapper.getInstance()::fromUserJpaEntityToUserDto).toList();
     }
 
-    public Optional<UserDto> findUserById(String idUser) {
+    public Optional<UserDto> findUserById(Integer idUser) {
         return userJpaDao.findUserById(idUser).map(UserMapper.getInstance()::fromUserJpaEntityToUserDto);
     }
 
-    public void delete(String idUser) {
+    public void delete(Integer idUser) {
         userJpaDao.delete(idUser);
     }
 
@@ -42,7 +42,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
-    public UserDto getById(String idUser) {
+    public UserDto getById(Integer idUser) {
         return userJpaDao.findUserById(idUser)
                 .map(UserMapper.getInstance()::fromUserJpaEntityToUserDto)
                 .orElse(null);

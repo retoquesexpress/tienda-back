@@ -21,7 +21,7 @@ public class UserJpaDaoImpl implements UserJpaDao {
     }
 
     @Override
-    public Optional<UserJpaEntity> findUserById(String idUser) {
+    public Optional<UserJpaEntity> findUserById(Integer idUser) {
         UserJpaEntity userJpaEntity = entityManager.find(UserJpaEntity.class, idUser);
         return Optional.ofNullable(userJpaEntity);
     }
@@ -34,7 +34,7 @@ public class UserJpaDaoImpl implements UserJpaDao {
     }
 
     @Override
-    public void delete(String idUser) {
+    public void delete(Integer idUser) {
         UserJpaEntity userJpaEntity = entityManager.find(UserJpaEntity.class, idUser);
         entityManager.createQuery("DELETE FROM UserJpaEntity u WHERE user.idUser = :idUser")
                 .setParameter("idUser", idUser)
@@ -49,7 +49,7 @@ public class UserJpaDaoImpl implements UserJpaDao {
     }
 
     @Override
-    public UserJpaEntity getById(String idUser) {
+    public UserJpaEntity getById(Integer idUser) {
         return entityManager.find(UserJpaEntity.class, idUser);
     }
 
@@ -58,6 +58,19 @@ public class UserJpaDaoImpl implements UserJpaDao {
         List<UserJpaEntity> result = entityManager
                 .createQuery("SELECT u FROM UserJpaEntity u WHERE u.userName = :userName", UserJpaEntity.class)
                 .setParameter("userName", userName)
+                .getResultList();
+        if (result.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(result.get(0));
+        }
+    }
+
+    @Override
+    public Optional<UserJpaEntity> findUserByEmail(String email) {
+        List<UserJpaEntity> result = entityManager
+                .createQuery("SELECT u FROM UserJpaEntity u WHERE u.email = :email", UserJpaEntity.class)
+                .setParameter("email", email)
                 .getResultList();
         if (result.isEmpty()) {
             return Optional.empty();

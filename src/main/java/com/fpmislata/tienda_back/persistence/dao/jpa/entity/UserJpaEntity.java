@@ -11,7 +11,7 @@ public class UserJpaEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
-    private String idUser;
+    private Integer idUser;
     private String name;
     private String email;
     @Column(name = "user_name")
@@ -27,7 +27,7 @@ public class UserJpaEntity implements Serializable {
     public UserJpaEntity() {
     }
 
-    public UserJpaEntity(String idUser, String name, String email, String userName, String password, String phoneNumber,
+    public UserJpaEntity(Integer idUser, String name, String email, String userName, String password, String phoneNumber,
             String address, Date birthDate, String role) {
         this.idUser = idUser;
         this.name = name;
@@ -40,11 +40,11 @@ public class UserJpaEntity implements Serializable {
         this.role = role;
     }
 
-    public String getIdUser() {
+    public Integer getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
 

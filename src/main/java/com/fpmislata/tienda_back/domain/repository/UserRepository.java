@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface UserRepository {
     List<UserDto> findAllUsers();
-    Optional<UserDto> findUserById(String idUser);
-    void delete(String idUser);
+    Optional<UserDto> findUserById(Integer idUser);
+    void delete(Integer idUser);
     UserDto save(UserDto userDto);
-    UserDto getById(String idUser);
+    UserDto getById(Integer idUser);
     Optional<UserDto> findUserByUserName(String userName);
 }

@@ -3,7 +3,7 @@ package com.fpmislata.tienda_back.domain.repository.entity;
 import java.util.Date;
 
 public record UserEntity(
-        String idUser,
+        Integer idUser,
         String name,
         String email,
         String userName,
@@ -13,7 +13,7 @@ public record UserEntity(
         Date birthDate,
         String role) {
     public UserEntity(
-            String idUser,
+            Integer idUser,
             String name,
             String email,
             String userName,

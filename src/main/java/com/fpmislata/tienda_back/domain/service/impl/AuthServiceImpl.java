@@ -36,7 +36,7 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Invalid or expired token");
         }
 
-        String userId = JwtUtil.extractUserId(token.getToken());
+        Integer userId = JwtUtil.extractUserId(token.getToken());
 
         UserEntity userEntity = authRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -74,19 +74,22 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse register(RegisterRequest request) {
         if (authRepository.findByUsername(request.userName()).isPresent()) {
-            throw new RuntimeException("Username already exists");
+            throw new RuntimeException("El nombre de usuario ya existe");
+        }
+        if (authRepository.findByEmail(request.email()).isPresent()) {
+            throw new RuntimeException("El correo ya existe");
         }
 
         UserEntity newUser = new UserEntity(
                 null,
-                request.userName(),
-                request.password(),
+                request.name(),
                 request.email(),
+                request.userName(),
                 request.password(),
                 request.phoneNumber(),
                 request.address(),
                 request.birthDate(),
-                request.role());
+                "user");
         UserEntity savedUser = authRepository.register(newUser);
         UserDto userDto = UserMapper.getInstance().fromUserEntityToUserDto(savedUser);
         User user = UserMapper.getInstance().fromUserDtoToUser(userDto);

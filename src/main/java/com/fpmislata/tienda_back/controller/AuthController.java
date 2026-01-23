@@ -1,6 +1,7 @@
 package com.fpmislata.tienda_back.controller;
 
 import com.fpmislata.tienda_back.controller.webModel.request.AuthRequest;
+import com.fpmislata.tienda_back.controller.webModel.request.RegisterRequest;
 import com.fpmislata.tienda_back.controller.webModel.response.AuthResponse;
 import com.fpmislata.tienda_back.domain.model.User;
 import com.fpmislata.tienda_back.domain.service.AuthService;
@@ -37,6 +38,16 @@ public class AuthController {
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al Iniciar Sesión");
             }
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        try {
+            AuthResponse authResponse = authService.register(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body(authResponse);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 }

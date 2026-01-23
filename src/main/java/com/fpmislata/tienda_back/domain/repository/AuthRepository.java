@@ -7,7 +7,8 @@ import java.util.Optional;
 public interface AuthRepository
 {
     Optional<UserEntity> findByUsername(String username);
-    Optional<UserEntity> findById(String id);
+    Optional<UserEntity> findById(Integer id);
     UserEntity register(UserEntity user);
     boolean existsByUsername(String username);
+    Optional<UserEntity> findByEmail(String email);
 }
