@@ -33,8 +33,8 @@ class UserServiceImplTest {
         void testFindAll_ShouldReturnListOfUsers_WhenUsersExist() {
             // Arrange
             List<UserDto> expectedUsersDto = List.of(
-                    new UserDto("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER"),
-                    new UserDto("u2", "USER2", "user2@gamil.com", "user2", "pass2", "123456459", "Address 2", null, "USER"));
+                    new UserDto(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER"),
+                    new UserDto(2, "USER2", "user2@gamil.com", "user2", "pass2", "123456459", "Address 2", null, "USER"));
 
             when(userRepository.findAllUsers()).thenReturn(expectedUsersDto);
 
@@ -85,8 +85,8 @@ class UserServiceImplTest {
         @DisplayName("Test findUserById should return user when user exists")
         void testFindUserById_ShouldReturnUser_WhenUserExists() {
             // Arrange
-            String userId = "u1";
-            UserDto expectedUserDto = new UserDto("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            Integer userId = 1;
+            UserDto expectedUserDto = new UserDto(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userRepository.findUserById(userId)).thenReturn(Optional.of(expectedUserDto));
             // Act
             Optional<UserDto> actualUser = userService.findUserById(userId);
@@ -108,7 +108,7 @@ class UserServiceImplTest {
         @DisplayName("Test findUserById should throw ResourceNotFoundException when user does not exist")
         void testFindUserById_ShouldThrowResourceNotFoundException_WhenUserDoesNotExist() {
             // Arrange
-            String userId = "u1";
+            Integer userId = 1;
             when(userRepository.findUserById(userId)).thenReturn(Optional.empty());
             // Act & Assert
             assertThrows(ResourceNotFoundException.class, () -> userService.findUserById(userId));
@@ -123,7 +123,7 @@ class UserServiceImplTest {
         @DisplayName("Test create should save and return user when user does not exist")
         void testCreate_ShouldSaveAndReturnUser_WhenUserDoesNotExist() {
             // Arrange
-            UserDto expectedUserDto = new UserDto("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            UserDto expectedUserDto = new UserDto(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
 
             when(userRepository.save(expectedUserDto)).thenReturn(expectedUserDto);
 
@@ -149,7 +149,7 @@ class UserServiceImplTest {
         @DisplayName("Test create should throw IllegalArgumentException when user already exists")
         void testCreate_ShouldThrowIllegalArgumentException_WhenUserAlreadyExists() {
             // Arrange
-            UserDto expectedUserDto = new UserDto("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            UserDto expectedUserDto = new UserDto(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userRepository.findUserById(expectedUserDto.idUser())).thenReturn(Optional.of(expectedUserDto));
             // Act & Assert
             assertThrows(IllegalArgumentException.class, () -> userService.create(expectedUserDto));
@@ -163,8 +163,8 @@ class UserServiceImplTest {
         @DisplayName("Test update should modify and return user when user exists")
         void testUpdate_ShouldModifyAndReturnUser_WhenUserExists() {
             // Arrange
-            String userId = "u1";
-            UserDto expectedUserDto = new UserDto("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            Integer userId = 1;
+            UserDto expectedUserDto = new UserDto(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userRepository.findUserById(userId)).thenReturn(Optional.of(expectedUserDto));
             //Act
             Optional<UserDto> actualUser = userService.findUserById(userId);
@@ -186,7 +186,7 @@ class UserServiceImplTest {
         @DisplayName("Test update should throw ResourceNotFoundException when user does not exist")
         void testUpdate_ShouldThrowResourceNotFoundException_WhenUserDoesNotExist() {
             // Arrange
-            String userId = "u1";
+            Integer userId = 1;
             when(userRepository.findUserById(userId)).thenReturn(Optional.empty());
             // Act & Assert
             assertThrows(ResourceNotFoundException.class, () -> userService.findUserById(userId));
@@ -201,8 +201,8 @@ class UserServiceImplTest {
         @DisplayName("Test delete should remove user when user exists")
         void testDelete_ShouldRemoveUser_WhenUserExists() {
             // Arrange
-            String userId = "u1";
-            UserDto expectedUserDto = new UserDto("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            Integer userId = 1;
+            UserDto expectedUserDto = new UserDto(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userRepository.findUserById(userId)).thenReturn(Optional.of(expectedUserDto));
             // Act
             userService.delete(userId);
@@ -214,7 +214,7 @@ class UserServiceImplTest {
         @DisplayName("Test delete should throw ResourceNotFoundException when user does not exist")
         void testDelete_ShouldThrowResourceNotFoundException_WhenUserDoesNotExist() {
             // Arrange
-            String userId = "u1";
+            Integer userId = 1;
             when(userRepository.findUserById(userId)).thenReturn(Optional.empty());
             // Act & Assert
             assertThrows(ResourceNotFoundException.class, () -> userService.delete(userId));
@@ -228,8 +228,8 @@ class UserServiceImplTest {
         @DisplayName("Test getById should return user when user exists")
         void testGetById_ShouldReturnUser_WhenUserExists() {
             // Arrange
-            String userId = "u1";
-            UserDto expectedUserDto = new UserDto("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            Integer userId = 1;
+            UserDto expectedUserDto = new UserDto(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userRepository.findUserById(userId)).thenReturn(Optional.of(expectedUserDto));
             // Act
             UserDto actualUser = userService.getById(userId);
@@ -251,7 +251,7 @@ class UserServiceImplTest {
         @DisplayName("Test getById should throw ResourceNotFoundException when user does not exist")
         void testGetById_ShouldThrowResourceNotFoundException_WhenUserDoesNotExist() {
             // Arrange
-            String userId = "u1";
+            Integer userId = 1;
             when(userRepository.findUserById(userId)).thenReturn(Optional.empty());
             // Act & Assert
             assertThrows(ResourceNotFoundException.class, () -> userService.getById(userId));
@@ -266,7 +266,7 @@ class UserServiceImplTest {
         void testFindUserByUserName_ShouldReturnUser_WhenUserExists() {
             // Arrange
             String userName = "user1";
-            UserDto expectedUserDto = new UserDto("u1", "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            UserDto expectedUserDto = new UserDto(1, "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userRepository.findUserByUserName(userName)).thenReturn(Optional.of(expectedUserDto));
             // Act
             Optional<UserDto> actualUser = userService.findUserByUserName(userName);

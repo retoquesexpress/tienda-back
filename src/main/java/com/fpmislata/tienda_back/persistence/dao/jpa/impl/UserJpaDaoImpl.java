@@ -36,10 +36,9 @@ public class UserJpaDaoImpl implements UserJpaDao {
     @Override
     public void delete(Integer idUser) {
         UserJpaEntity userJpaEntity = entityManager.find(UserJpaEntity.class, idUser);
-        entityManager.createQuery("DELETE FROM UserJpaEntity u WHERE user.idUser = :idUser")
-                .setParameter("idUser", idUser)
-                .executeUpdate();
-        entityManager.remove(userJpaEntity);
+        if (userJpaEntity != null) {
+            entityManager.remove(userJpaEntity);
+        }
     }
 
     @Override

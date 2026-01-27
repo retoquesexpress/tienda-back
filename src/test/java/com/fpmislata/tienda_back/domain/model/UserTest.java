@@ -9,8 +9,8 @@ class UserTest {
     @Test
     @DisplayName("Test User Constructor and Getters")
     void testUserConstructorAndGetters() {
-        User user = new User("u1", "User", "User@gmail.com", "user", "user1234", "123456789", "123 Street", null, "USER");
-        assertEquals("u1", user.getId());
+        User user = new User(1, "User", "User@gmail.com", "user", "user1234", "123456789", "123 Street", null, "USER");
+        assertEquals(1, user.getId());
         assertEquals("User", user.getName());
         assertEquals("User@gmail.com", user.getEmail());
         assertEquals("user", user.getUserName());
@@ -25,8 +25,8 @@ class UserTest {
     @Test
     @DisplayName("Test User Setters")
     void testUserSetters() {
-        User user = new User("u1", "User", "User@gmail.com", "user", "user1234", "123456789", "123 Street", null, "USER");
-        user.setId("u2");
+        User user = new User(1, "User", "User@gmail.com", "user", "user1234", "123456789", "123 Street", null, "USER");
+        user.setId(2);
         user.setName("Updated User");
         user.setEmail("updatedEmail@gmail.com");
         user.setUserName("updatedUser");
@@ -36,7 +36,7 @@ class UserTest {
         user.setBirthDate(null);
         user.setRole("ADMIN");
 
-        assertEquals("u2", user.getId());
+        assertEquals(2, user.getId());
         assertEquals("Updated User", user.getName());
         assertEquals("updatedEmail@gmail.com", user.getEmail());
         assertEquals("updatedUser", user.getUserName());

@@ -36,7 +36,8 @@ public class ServiceJpaDaoImpl implements ServiceJpaDao {
 
     @Override
     public ServiceJpaEntity create(ServiceJpaEntity serviceJpaEntity) {
-        return entityManager.merge(serviceJpaEntity);
+        entityManager.persist(serviceJpaEntity);
+        return serviceJpaEntity;
     }
 
     @Override

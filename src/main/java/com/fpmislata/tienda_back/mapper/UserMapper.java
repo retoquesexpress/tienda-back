@@ -58,14 +58,14 @@ public class UserMapper {
         }
         return new UserDetailResponse(
                 userDto.idUser(),
-                userDto.name(),
-                userDto.email(),
                 userDto.userName(),
+                userDto.password(),
+                userDto.email(),
+                userDto.name(),
                 userDto.phoneNumber(),
                 userDto.address(),
-                userDto.role(),
                 userDto.birthDate(),
-                userDto.password()
+                userDto.role()
 
         );
     }

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class UserMapperTest {
-    private final String idPruebas= "u1";
+    private final Integer idPruebas= 1;
     private final String namePruebas= "User Pruebas";
     private final String emailPruebas= "Description Pruebas";
     private final String usernamePruebas= "userPruebas";

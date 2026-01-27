@@ -13,7 +13,7 @@ class UserDtoTest {
     @Test
     @DisplayName("Test UserDto Creation")
     void testUserDtoCreation() {
-        String id_user = "user123";
+        Integer id_user = 1;
         String name = "Test User";
         String email = "user@gmail.com";
         String userName = "testuser";
@@ -40,7 +40,7 @@ class UserDtoTest {
     @Test
     @DisplayName("Test UserDto NotNulls required fields")
     void testUserDtoNotNullsRequiredfields() {
-        String id_user = "u1";
+        Integer id_user = 1;
         String userName = "user";
         String password = "password123";
         String email = "user@gmail.com";
@@ -54,7 +54,7 @@ class UserDtoTest {
     @Test
     @DisplayName("Test UserDto Null Fields")
     void testUserDtoNullFields() {
-        String id_user = "u1";
+        Integer id_user = 1;
         String userName = "user";
         String password = "password123";
         String email = "user@gmail.com";

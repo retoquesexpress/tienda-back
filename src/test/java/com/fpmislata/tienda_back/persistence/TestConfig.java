@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.fpmislata.tienda_back.persistence.dao.jpa")
-@EntityScan(basePackages = "com.fpmislata.tienda_back.persistence.entity")
+@EntityScan(basePackages = "com.fpmislata.tienda_back.persistence.dao.jpa.entity")
 public class TestConfig {
     @Bean
     public UserJpaDao userJpaDao(EntityManager entityManager) {

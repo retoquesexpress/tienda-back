@@ -35,8 +35,8 @@ class UserRepositoryImplTest {
         void testFindAllUsers_ReturnsListOfUsers_WhenUsersExist() {
             //Arrange
             List<UserJpaEntity> expectedUsers = List.of(
-                    new UserJpaEntity("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER"),
-                    new UserJpaEntity("u2", "USER2", "user2@gamil.com", "user2", "pass2", "123456459", "Address 2", null, "USER")
+                    new UserJpaEntity(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER"),
+                    new UserJpaEntity(2, "USER2", "user2@gamil.com", "user2", "pass2", "123456459", "Address 2", null, "USER")
             );
             when(userJpaDao.findAllUsers()).thenReturn(expectedUsers);
             //Act
@@ -83,7 +83,7 @@ class UserRepositoryImplTest {
         @DisplayName("Test findUserById should return user when user exists")
         void testFindUserById_ReturnsUser_WhenUserExists() {
             //Arrange
-            UserJpaEntity expectedUser = new UserJpaEntity("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            UserJpaEntity expectedUser = new UserJpaEntity(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userJpaDao.findUserById(expectedUser.getIdUser())).thenReturn(Optional.of(expectedUser));
             //Act
             Optional<UserDto> actualUser = userRepositoryImpl.findUserById(expectedUser.getIdUser());
@@ -105,7 +105,7 @@ class UserRepositoryImplTest {
         @DisplayName("Test findUserById should return empty when user does not exist")
         void testFindUserById_ReturnsEmpty_WhenUserDoesNotExist() {
             //Arrange
-            String userId = "nonexistent";
+            Integer userId = 0;
             when(userJpaDao.findUserById(userId)).thenReturn(Optional.empty());
             //Act
             Optional<UserDto> actualUser = userRepositoryImpl.findUserById(userId);
@@ -121,7 +121,7 @@ class UserRepositoryImplTest {
         @DisplayName("Test delete should delete user")
         void testDelete_CallsUserJpaDaoDeleteMethod_WithCorrectId() {
             //Arrange
-            String userId = "u1";
+            Integer userId = 1;
             //Act
             userRepositoryImpl.delete(userId);
             //Assert
@@ -135,7 +135,7 @@ class UserRepositoryImplTest {
         @DisplayName("Test getById should return user when user exists")
         void testGetById_ReturnsUser_WhenUserExists() {
             //Arrange
-            UserJpaEntity expectedUser = new UserJpaEntity("u1", "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            UserJpaEntity expectedUser = new UserJpaEntity(1, "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userJpaDao.findUserById(expectedUser.getIdUser())).thenReturn(Optional.of(expectedUser));
             //Act
             UserDto actualUser = userRepositoryImpl.getById(expectedUser.getIdUser());
@@ -157,7 +157,7 @@ class UserRepositoryImplTest {
         @DisplayName("Test getById should return null when user does not exist")
         void testGetById_ReturnsNull_WhenUserDoesNotExist() {
             //Arrange
-            String userId = "nonexistent";
+            Integer userId = 0;
             when(userJpaDao.findUserById(userId)).thenReturn(Optional.empty());
             //Act
             UserDto actualUser = userRepositoryImpl.getById(userId);
@@ -174,7 +174,7 @@ class UserRepositoryImplTest {
         @DisplayName("Test findUserByUserName should return user when user exists")
         void testFindUserByUserName_ReturnsUser_WhenUserExists() {
             //Arrange
-            UserJpaEntity expectedUser = new UserJpaEntity("u1", "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            UserJpaEntity expectedUser = new UserJpaEntity(1, "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userJpaDao.findUserByUserName(expectedUser.getUserName())).thenReturn(Optional.of(expectedUser));
             //Act
             Optional<UserDto> actualUser = userRepositoryImpl.findUserByUserName(expectedUser.getUserName());

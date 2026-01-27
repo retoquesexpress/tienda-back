@@ -49,7 +49,7 @@ class AuthServiceImplTest {
         @Test
         void testGenerateTokenForUser_shouldReturnToken() {
             //Arrange
-            User user = new User("u1", "User1", "user@gmail.com", "user1", "USER1234", "111111111","c667 n77", null, "USER");
+            User user = new User(1, "User1", "user@gmail.com", "user1", "USER1234", "111111111","c667 n77", null, "USER");
 
             //Act
             Token token = authServiceImpl.generateTokenForUser(user);
@@ -72,7 +72,7 @@ class AuthServiceImplTest {
             AuthRequest request = new AuthRequest(username, password);
 
             UserEntity userEntity = new UserEntity(
-                    "u1",
+                    1,
                     "User Real Name",
                     "user@gmail.com",
                     username,
@@ -116,7 +116,7 @@ class AuthServiceImplTest {
         void login_ShouldThrowException_WhenPasswordInvalid() {
             // Arrange
             AuthRequest request = new AuthRequest("testUser", "wrongPassword");
-            UserEntity userEntity = new UserEntity("1", "Name", "testUser", "correctPassword", "email@test.com", "123", "Addr", null, "USER");
+            UserEntity userEntity = new UserEntity(1, "Name", "testUser", "correctPassword", "email@test.com", "123", "Addr", null, "USER");
 
             when(authRepository.findByUsername("testUser")).thenReturn(Optional.of(userEntity));
 
@@ -145,13 +145,13 @@ class AuthServiceImplTest {
                     null,
                     "USER"
             );
-            UserJpaEntity expectedUser = new UserJpaEntity("u1", "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
+            UserJpaEntity expectedUser = new UserJpaEntity(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
 
 
             when(authRepository.findByUsername(request.userName())).thenReturn(Optional.empty());
 
             UserEntity savedEntity = new UserEntity(
-                    "u100",
+                    100,
                     request.name(),
                     request.email(),
                     request.userName(),
@@ -172,7 +172,7 @@ class AuthServiceImplTest {
                     () -> assertNotNull(actualResponse, "Response should not be null"),
                     () -> assertNotNull(actualResponse.token(), "Token should be generated"),
                     () -> assertEquals(request.userName(), actualResponse.userDto().userName(), "Username should match"),
-                    () -> assertEquals("u100", actualResponse.userDto().idUser(), "ID should be the one from saved entity")
+                    () -> assertEquals(100, actualResponse.userDto().idUser(), "ID should be the one from saved entity")
             );
 
             verify(authRepository, times(1)).findByUsername(request.userName());
@@ -184,13 +184,13 @@ class AuthServiceImplTest {
         void testRegister_ShouldThrowRuntimeException_WhenUsernameExists() {
             // Arrange
             RegisterRequest request = new RegisterRequest("existing_user", "pass", "e@e.com", "user", "3333455", "c223", null, "USER");
-            UserEntity existingUser = new UserEntity("1", "Name", "testUser", "correctPassword", "email@test.com", "12456783", "Addr", null, "USER");
+            UserEntity existingUser = new UserEntity(1, "Name", "testUser", "correctPassword", "email@test.com", "12456783", "Addr", null, "USER");
 
             when(authRepository.findByUsername(request.userName())).thenReturn(Optional.of(existingUser));
 
             // Act & Assert
             RuntimeException exception = assertThrows(RuntimeException.class, () -> authServiceImpl.register(request));
-            assertEquals("Username already exists", exception.getMessage());
+            assertEquals("El nombre de usuario ya existe", exception.getMessage());
 
             verify(authRepository, never()).register(any(UserEntity.class));
         }
