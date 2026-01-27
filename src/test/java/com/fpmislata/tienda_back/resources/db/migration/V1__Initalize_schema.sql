@@ -17,7 +17,7 @@ CREATE TABLE services (
     FOREIGN KEY (id_category) REFERENCES categories(id_category)
 );
 CREATE TABLE users (
-    id_user VARCHAR(50) PRIMARY KEY,
+    id_user INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     user_name VARCHAR(50) UNIQUE NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE users (
 
 CREATE TABLE cart (
     id_cart INT AUTO_INCREMENT PRIMARY KEY,
-    id_user VARCHAR(50) UNIQUE NOT NULL,
+    id_user INT UNIQUE NOT NULL,
     total_products INT DEFAULT 0,
     total_price DECIMAL(10,2) DEFAULT 0,
     FOREIGN KEY (id_user) REFERENCES users(id_user)
