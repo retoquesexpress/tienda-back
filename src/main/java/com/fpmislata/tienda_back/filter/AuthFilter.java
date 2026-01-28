@@ -1,6 +1,4 @@
-
 package com.fpmislata.tienda_back.filter;
-
 
 import com.fpmislata.tienda_back.domain.model.Token;
 import com.fpmislata.tienda_back.domain.model.User;
@@ -18,6 +16,7 @@ public class AuthFilter implements Filter {
         this.authService = authService;
     }
 
+    @Override
     public void doFilter(ServletRequest request,
                          ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
@@ -25,19 +24,45 @@ public class AuthFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        String authHeader = httpRequest.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String tokenString = authHeader.substring(7);
-            Token token = new Token(tokenString, null);
-            try {
-                User user = authService.getUserFromToken(token);
-                httpRequest.setAttribute("authenticatedUser", user);
-                chain.doFilter(request, response);
-            } catch (RuntimeException e) {
-                httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
+        // Permitir peticiones OPTIONS (CORS preflight)
+        if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
+            chain.doFilter(request, response);
+            return;
+        }
 
-            }
-            }
+        String path = httpRequest.getRequestURI();
+        String method = httpRequest.getMethod();
+
+        // NO filtrar login ni register
+        if (path.startsWith("/api/auth")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        // Permitir GET públicos para servicios y categorías
+        if ("GET".equalsIgnoreCase(method) && (path.startsWith("/api/services") || path.startsWith("/api/categories"))) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        String authHeader = httpRequest.getHeader("Authorization");
+
+        // Si no hay token → error
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token required");
+            return;
+        }
+
+        String tokenString = authHeader.substring(7);
+        Token token = new Token(tokenString, null);
+
+        try {
+            User user = authService.getUserFromToken(token);
+            httpRequest.setAttribute("authenticatedUser", user);
+            chain.doFilter(request, response);
+
+        } catch (RuntimeException e) {
+            httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
         }
     }
-
+}

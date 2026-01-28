@@ -25,6 +25,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import com.fpmislata.tienda_back.filter.AuthFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+
 
 @Configuration
 @Import(PersistenceConfig.class)
@@ -82,6 +85,18 @@ public class SpringConfig {
                         .allowCredentials(true);
             }
         };
+    }
+
+    @Bean
+    public FilterRegistrationBean<AuthFilter> authFilter(AuthService authService) {
+        FilterRegistrationBean<AuthFilter> registration = new FilterRegistrationBean<>();
+        registration.setFilter(new AuthFilter(authService));
+
+        // RUTAS PROTEGIDAS
+        registration.addUrlPatterns("/api/*");
+
+        registration.setOrder(1);
+        return registration;
     }
 
 }
