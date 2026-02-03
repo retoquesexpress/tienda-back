@@ -2,7 +2,7 @@ package com.fpmislata.tienda_back.domain.service.impl;
 
 import com.fpmislata.tienda_back.domain.repository.ServiceRepository;
 import com.fpmislata.tienda_back.domain.service.ServiceService;
-import com.fpmislata.tienda_back.domain.service.dto.ServiceEntity;
+import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +17,7 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<ServiceEntity> findAll() {
+    public List<ServiceDto> findAll() {
         if (serviceRepository.findAll().isEmpty()) {
             throw new ResourceNotFoundException("No services found");
         }
@@ -25,8 +25,8 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public ServiceEntity getById(Integer idService) {
-        Optional<ServiceEntity> service = serviceRepository.findById(idService);
+    public ServiceDto getById(Integer idService) {
+        Optional<ServiceDto> service = serviceRepository.findById(idService);
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");
         }
@@ -34,8 +34,8 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Optional<ServiceEntity> findById(Integer idService) {
-        Optional<ServiceEntity> service = serviceRepository.findById(idService);
+    public Optional<ServiceDto> findById(Integer idService) {
+        Optional<ServiceDto> service = serviceRepository.findById(idService);
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");
         }
@@ -43,14 +43,14 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<ServiceEntity> findByCategory(Integer idCategory) {
+    public List<ServiceDto> findByCategory(Integer idCategory) {
         return serviceRepository.findByCategory(idCategory);
     }
 
     @Transactional
     @Override
-    public ServiceEntity update(ServiceEntity serviceDto) {
-        Optional<ServiceEntity> service = serviceRepository.findById(serviceDto.idService());
+    public ServiceDto update(ServiceDto serviceDto) {
+        Optional<ServiceDto> service = serviceRepository.findById(serviceDto.idService());
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");
         }
@@ -59,14 +59,14 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Transactional
     @Override
-    public ServiceEntity create(ServiceEntity serviceDto) {
+    public ServiceDto create(ServiceDto serviceDto) {
         return serviceRepository.create(serviceDto);
     }
 
     @Transactional
     @Override
     public void deleteById(Integer idService) {
-        Optional<ServiceEntity> service = serviceRepository.findById(idService);
+        Optional<ServiceDto> service = serviceRepository.findById(idService);
         if (service.isEmpty()) {
             throw new ResourceNotFoundException("Service not found");
         }

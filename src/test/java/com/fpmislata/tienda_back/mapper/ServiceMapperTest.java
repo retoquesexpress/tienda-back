@@ -1,7 +1,7 @@
 package com.fpmislata.tienda_back.mapper;
 
 import com.fpmislata.tienda_back.domain.service.dto.CategoryDto;
-import com.fpmislata.tienda_back.domain.service.dto.ServiceEntity;
+import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.CategoryJpaEntity;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
 import org.junit.jupiter.api.DisplayName;
@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class ServiceMapperTest {
-    private final Integer id_pruebas= 1;
-    private final String name_pruebas= "Service Pruebas";
-    private final String description_pruebas= "Description Pruebas";
-    private final Double price_pruebas= 99.99;
-    private final String pictureUrl_pruebas= "http://example.com/picture.jpg";
+    private final Integer id_pruebas = 1;
+    private final String name_pruebas = "Service Pruebas";
+    private final String description_pruebas = "Description Pruebas";
+    private final Double price_pruebas = 99.99;
+    private final String pictureUrl_pruebas = "http://example.com/picture.jpg";
     private final CategoryJpaEntity categoryJpaEntity_pruebas = new CategoryJpaEntity(1, "Category Pruebas");
     private final CategoryDto categoryDto_pruebas = new CategoryDto(1, "Category Pruebas");
 
@@ -31,8 +31,8 @@ class ServiceMapperTest {
         );
     }
 
-    private ServiceEntity createServiceDtoTest() {
-        return new ServiceEntity(
+    private ServiceDto createServiceDtoTest() {
+        return new ServiceDto(
                 id_pruebas,
                 name_pruebas,
                 description_pruebas,
@@ -43,15 +43,15 @@ class ServiceMapperTest {
         );
     }
 
-    @Nested class FromJpaEntityToDto {
+    @Nested
+    class FromJpaEntityToDto {
         @Test
         @DisplayName("Mapeo Entity->Dto")
         void testFromJpaEntityToDtoShouldMapAllFields() {
 
             ServiceJpaEntity jpaEntity = createServiceJpaEntityTest();
 
-
-            ServiceEntity resultDto = ServiceMapper.getInstance().fromServiceJpaEntityToServiceEntity(jpaEntity);
+            ServiceDto resultDto = ServiceMapper.getInstance().fromServiceJpaEntityToServiceDto(jpaEntity);
 
             assertThat(resultDto).isNotNull();
             assertThat(resultDto.idService()).isEqualTo(jpaEntity.getIdService());
@@ -63,22 +63,22 @@ class ServiceMapperTest {
             assertThat(resultDto.category().name()).isEqualTo(jpaEntity.getCategory().getName());
         }
 
-
         @Test
         @DisplayName("Mapeo Entity nulo->Dto nulo")
         void testFromJpaEntityToDtoShouldReturnNullWhenInputIsNull() {
-            ServiceEntity resultDto = ServiceMapper.getInstance().fromServiceJpaEntityToServiceEntity(null);
+            ServiceDto resultDto = ServiceMapper.getInstance().fromServiceJpaEntityToServiceDto(null);
             assertThat(resultDto).isNull();
         }
     }
 
-    @Nested class FromDtoToJpaEntity {
+    @Nested
+    class FromDtoToJpaEntity {
         @Test
         @DisplayName("Mapeo Dto->Entity")
         void testFromDtoToJpaEntityShouldMapAllFields() {
-            ServiceEntity serviceDto = createServiceDtoTest();
+            ServiceDto serviceDto = createServiceDtoTest();
 
-            ServiceJpaEntity resultEntity = ServiceMapper.getInstance().fromServiceEntityToServiceJpaEntity(serviceDto);
+            ServiceJpaEntity resultEntity = ServiceMapper.getInstance().fromServiceDtoToServiceJpaEntity(serviceDto);
 
             assertThat(resultEntity).isNotNull();
             assertThat(resultEntity.getIdService()).isEqualTo(serviceDto.idService());
@@ -93,16 +93,17 @@ class ServiceMapperTest {
         @Test
         @DisplayName("Mapeo Dto nulo->Entity nulo")
         void testFromDtoToJpaEntityShouldReturnNullWhenInputIsNull() {
-            ServiceJpaEntity resultEntity = ServiceMapper.getInstance().fromServiceEntityToServiceJpaEntity(null);
+            ServiceJpaEntity resultEntity = ServiceMapper.getInstance().fromServiceDtoToServiceJpaEntity(null);
             assertThat(resultEntity).isNull();
         }
     }
 
-    @Nested class FromDtoToResponse {
+    @Nested
+    class FromDtoToResponse {
         @Test
         @DisplayName("Mapeo Dto->Response")
         void testFromDtoToResponseShouldMapAllFields() {
-            ServiceEntity serviceDto = createServiceDtoTest();
+            ServiceDto serviceDto = createServiceDtoTest();
 
             var resultResponse = ServiceMapper.getInstance().fromServiceDtoToServiceDetailResponse(serviceDto);
 
@@ -115,6 +116,7 @@ class ServiceMapperTest {
             assertThat(resultResponse.category().idCategory()).isEqualTo(serviceDto.category().idCategory());
             assertThat(resultResponse.category().name()).isEqualTo(serviceDto.category().name());
         }
+
         @Test
         @DisplayName("Mapeo Dto nulo->Response nulo")
         void testFromDtoToResponseShouldReturnNullWhenInputIsNull() {

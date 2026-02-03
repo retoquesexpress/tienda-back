@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +19,9 @@ public class BookingTest {
     @BeforeEach
     void setUp() {
         items = new ArrayList<>();
-        items.add(new BookingItem("item1", 2));
-        items.add(new BookingItem("item2", 3));
-        
+        items.add(new BookingItem(1, 2, LocalDate.now(), null));
+        items.add(new BookingItem(2, 3, LocalDate.now(), null));
+
         booking = new Booking(1, 5, 250.0, items);
     }
 
@@ -78,12 +79,12 @@ public class BookingTest {
         @DisplayName("Debería actualizar items correctamente")
         void shouldUpdateItems() {
             List<BookingItem> newItems = new ArrayList<>();
-            newItems.add(new BookingItem("item3", 1));
-            
+            newItems.add(new BookingItem(3, 1, LocalDate.now(), null));
+
             booking.setItems(newItems);
-            
+
             assertEquals(1, booking.getItems().size());
-            assertEquals("item3", booking.getItems().get(0).getId_booking());
+            assertEquals(3, booking.getItems().get(0).getIdBookingItem());
         }
     }
 
@@ -93,8 +94,8 @@ public class BookingTest {
         @Test
         @DisplayName("Debería permitir agregar items a la lista")
         void shouldAllowAddingItems() {
-            booking.getItems().add(new BookingItem("item3", 1));
-            
+            booking.getItems().add(new BookingItem(3, 1, LocalDate.now(), null));
+
             assertEquals(3, booking.getItems().size());
         }
 
@@ -102,7 +103,7 @@ public class BookingTest {
         @DisplayName("Debería permitir remover items de la lista")
         void shouldAllowRemovingItems() {
             booking.getItems().remove(0);
-            
+
             assertEquals(1, booking.getItems().size());
         }
 
@@ -110,7 +111,7 @@ public class BookingTest {
         @DisplayName("Debería manejar lista null de items")
         void shouldHandleNullItems() {
             booking.setItems(null);
-            
+
             assertNull(booking.getItems());
         }
     }

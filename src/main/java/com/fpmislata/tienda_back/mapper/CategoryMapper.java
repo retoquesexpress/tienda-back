@@ -68,4 +68,84 @@ public class CategoryMapper {
                 categoryUpdateRequest.idCategory(),
                 categoryUpdateRequest.name());
     }
+
+    public Category fromCategoryDtoToCategory(CategoryDto categoryDto) {
+        if (categoryDto == null) {
+            return null;
+        }
+        Category category = new Category(categoryDto.idCategory(), categoryDto.name());
+        return category;
+    }
+
+    public CategoryDto fromCategoryToCategoryDto(Category category) {
+        if (category == null) {
+            return null;
+        }
+        return new CategoryDto(
+                category.getId(),
+                category.getName());
+    }
+
+    public CategoryEntity fromCategoryJpaEntityToCategoryEntity(CategoryJpaEntity categoryJpaEntity) {
+        if (categoryJpaEntity == null) {
+            return null;
+        }
+        return new CategoryEntity(
+                categoryJpaEntity.getIdCategory(),
+                categoryJpaEntity.getName());
+    }
+
+    public CategoryJpaEntity fromCategoryEntityToCategoryJpaEntity(CategoryEntity categoryEntity) {
+        if (categoryEntity == null) {
+            return null;
+        }
+        return new CategoryJpaEntity(
+                categoryEntity.idCategory(),
+                categoryEntity.name());
+    }
+
+    public CategoryDto fromCategoryEntityToCategoryDto(CategoryEntity categoryEntity) {
+        if (categoryEntity == null) {
+            return null;
+        }
+        return new CategoryDto(
+                categoryEntity.idCategory(),
+                categoryEntity.name());
+    }
+
+    public Category fromCategoryEntityToCategory(CategoryEntity categoryEntity) {
+        if (categoryEntity == null) {
+            return null;
+        }
+        return new Category(
+                categoryEntity.idCategory(),
+                categoryEntity.name());
+    }
+
+    public CategoryEntity fromCategoryToCategoryEntity(Category category) {
+        if (category == null) {
+            return null;
+        }
+        return new CategoryEntity(
+                category.getId(),
+                category.getName());
+    }
+
+    public CategoryJpaEntity fromCategoryToCategoryJpaEntity(Category category) {
+        if (category == null) {
+            return null;
+        }
+        return new CategoryJpaEntity(
+                category.getId(),
+                category.getName());
+    }
+
+    public Category fromCategoryJpaEntityToCategory(CategoryJpaEntity categoryJpaEntity) {
+        if (categoryJpaEntity == null) {
+            return null;
+        }
+        return new Category(
+                categoryJpaEntity.getIdCategory(),
+                categoryJpaEntity.getName());
+    }
 }

@@ -1,20 +1,29 @@
 package com.fpmislata.tienda_back.domain.model;
 
+import java.time.LocalDate;
+
 public class BookingItem {
-    private String idItemBooking;
+    private Integer idBookingItem;
     private int quantity;
+    private LocalDate bookingDate;
+    private Service service;
 
-    public BookingItem(String id_booking, int quantity) {
-        this.idItemBooking = id_booking;
+    public BookingItem() {
+    }
+
+    public BookingItem(Integer idBookingItem, int quantity, LocalDate bookingDate, Service service) {
+        this.idBookingItem = idBookingItem;
         this.quantity = quantity;
+        this.bookingDate = bookingDate;
+        this.service = service;
     }
 
-    public String getId_booking() {
-        return idItemBooking;
+    public Integer getIdBookingItem() {
+        return idBookingItem;
     }
 
-    public void setId_booking(String id_booking) {
-        this.idItemBooking = id_booking;
+    public void setIdBookingItem(Integer idBookingItem) {
+        this.idBookingItem = idBookingItem;
     }
 
     public int getQuantity() {
@@ -23,5 +32,21 @@ public class BookingItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public LocalDate getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(LocalDate bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 }

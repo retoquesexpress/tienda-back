@@ -4,7 +4,7 @@ import com.fpmislata.tienda_back.controller.webModel.request.ServiceInsertReques
 import com.fpmislata.tienda_back.controller.webModel.request.ServiceUpdateRequest;
 import com.fpmislata.tienda_back.controller.webModel.response.ServiceDetailResponse;
 import com.fpmislata.tienda_back.domain.service.ServiceService;
-import com.fpmislata.tienda_back.domain.service.dto.ServiceEntity;
+import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 import com.fpmislata.tienda_back.mapper.ServiceMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,9 +48,9 @@ public class ServiceController {
 
     @PostMapping
     public ResponseEntity<ServiceDetailResponse> create(@RequestBody ServiceInsertRequest serviceInsertRequest) {
-        ServiceEntity serviceDto = ServiceMapper.getInstance()
+        ServiceDto serviceDto = ServiceMapper.getInstance()
                 .fromServiceInsertRequestToServiceDto(serviceInsertRequest);
-        ServiceEntity createdService = serviceService.create(serviceDto);
+        ServiceDto createdService = serviceService.create(serviceDto);
         return new ResponseEntity<>(ServiceMapper.getInstance().fromServiceDtoToServiceDetailResponse(createdService),
                 HttpStatus.CREATED);
     }
@@ -61,9 +61,9 @@ public class ServiceController {
         if (!idService.equals(serviceUpdateRequest.idService())) {
             throw new IllegalArgumentException("ID in path and request body must match");
         }
-        ServiceEntity serviceDto = ServiceMapper.getInstance()
+        ServiceDto serviceDto = ServiceMapper.getInstance()
                 .fromServiceUpdateRequestToServiceDto(serviceUpdateRequest);
-        ServiceEntity updatedService = serviceService.update(serviceDto);
+        ServiceDto updatedService = serviceService.update(serviceDto);
         return new ResponseEntity<>(ServiceMapper.getInstance().fromServiceDtoToServiceDetailResponse(updatedService),
                 HttpStatus.OK);
     }

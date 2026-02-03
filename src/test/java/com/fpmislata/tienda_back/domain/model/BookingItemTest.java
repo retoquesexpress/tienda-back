@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BookingItemTest {
@@ -13,7 +15,7 @@ public class BookingItemTest {
 
     @BeforeEach
     void setUp() {
-        bookingItem = new BookingItem("item123", 5);
+        bookingItem = new BookingItem(1, 5, LocalDate.of(2026, 2, 3), null);
     }
 
     @Nested
@@ -23,27 +25,28 @@ public class BookingItemTest {
         @DisplayName("Debería crear BookingItem correctamente con datos válidos")
         void shouldCreateBookingItemWithValidData() {
             assertNotNull(bookingItem);
-            assertEquals("item123", bookingItem.getId_booking());
+            assertEquals(1, bookingItem.getIdBookingItem());
             assertEquals(5, bookingItem.getQuantity());
+            assertEquals(LocalDate.of(2026, 2, 3), bookingItem.getBookingDate());
         }
 
         @Test
         @DisplayName("Debería crear BookingItem con quantity cero")
         void shouldCreateBookingItemWithZeroQuantity() {
-            BookingItem item = new BookingItem("item456", 0);
+            BookingItem item = new BookingItem(2, 0, LocalDate.now(), null);
 
             assertNotNull(item);
-            assertEquals("item456", item.getId_booking());
+            assertEquals(2, item.getIdBookingItem());
             assertEquals(0, item.getQuantity());
         }
 
         @Test
         @DisplayName("Debería crear BookingItem con id null")
         void shouldCreateBookingItemWithNullId() {
-            BookingItem item = new BookingItem(null, 3);
+            BookingItem item = new BookingItem(null, 3, LocalDate.now(), null);
 
             assertNotNull(item);
-            assertNull(item.getId_booking());
+            assertNull(item.getIdBookingItem());
             assertEquals(3, item.getQuantity());
         }
     }
@@ -52,10 +55,10 @@ public class BookingItemTest {
     @DisplayName("Tests para getters y setters")
     class GettersAndSettersTests {
         @Test
-        @DisplayName("Debería actualizar id_booking correctamente")
-        void shouldUpdateIdBooking() {
-            bookingItem.setId_booking("newItem789");
-            assertEquals("newItem789", bookingItem.getId_booking());
+        @DisplayName("Debería actualizar idBookingItem correctamente")
+        void shouldUpdateIdBookingItem() {
+            bookingItem.setIdBookingItem(789);
+            assertEquals(789, bookingItem.getIdBookingItem());
         }
 
         @Test
@@ -66,10 +69,10 @@ public class BookingItemTest {
         }
 
         @Test
-        @DisplayName("Debería permitir setear id_booking a null")
-        void shouldAllowSettingIdBookingToNull() {
-            bookingItem.setId_booking(null);
-            assertNull(bookingItem.getId_booking());
+        @DisplayName("Debería permitir setear idBookingItem a null")
+        void shouldAllowSettingIdBookingItemToNull() {
+            bookingItem.setIdBookingItem(null);
+            assertNull(bookingItem.getIdBookingItem());
         }
 
         @Test
@@ -77,6 +80,14 @@ public class BookingItemTest {
         void shouldAllowNegativeQuantity() {
             bookingItem.setQuantity(-5);
             assertEquals(-5, bookingItem.getQuantity());
+        }
+
+        @Test
+        @DisplayName("Debería actualizar bookingDate correctamente")
+        void shouldUpdateBookingDate() {
+            LocalDate newDate = LocalDate.of(2026, 12, 25);
+            bookingItem.setBookingDate(newDate);
+            assertEquals(newDate, bookingItem.getBookingDate());
         }
     }
 
@@ -88,7 +99,7 @@ public class BookingItemTest {
         void shouldIncrementQuantity() {
             int originalQuantity = bookingItem.getQuantity();
             bookingItem.setQuantity(originalQuantity + 1);
-            
+
             assertEquals(6, bookingItem.getQuantity());
         }
 
@@ -97,7 +108,7 @@ public class BookingItemTest {
         void shouldDecrementQuantity() {
             int originalQuantity = bookingItem.getQuantity();
             bookingItem.setQuantity(originalQuantity - 1);
-            
+
             assertEquals(4, bookingItem.getQuantity());
         }
 
@@ -112,20 +123,6 @@ public class BookingItemTest {
     @Nested
     @DisplayName("Tests para validación de datos")
     class DataValidationTests {
-        @Test
-        @DisplayName("Debería manejar id_booking vacío")
-        void shouldHandleEmptyIdBooking() {
-            bookingItem.setId_booking("");
-            assertEquals("", bookingItem.getId_booking());
-        }
-
-        @Test
-        @DisplayName("Debería manejar id_booking con espacios")
-        void shouldHandleIdBookingWithSpaces() {
-            bookingItem.setId_booking("  item with spaces  ");
-            assertEquals("  item with spaces  ", bookingItem.getId_booking());
-        }
-
         @Test
         @DisplayName("Debería manejar quantity muy grande")
         void shouldHandleVeryLargeQuantity() {

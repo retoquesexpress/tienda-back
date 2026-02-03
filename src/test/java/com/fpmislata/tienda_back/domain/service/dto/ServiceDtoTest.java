@@ -1,53 +1,117 @@
 package com.fpmislata.tienda_back.domain.service.dto;
 
-import com.fpmislata.tienda_back.domain.model.Category;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ServiceDtoTest {
+public class ServiceDtoTest {
 
-    @Test
-    @DisplayName("Test ServiceDto Creation")
-    void testServiceDtoCreation() {
-        Integer idService = 1;
-        String name = "Test Service";
-        String description = "This is a test service.";
-        double price = 99.99;
-        String pictureUrl = "http://example.com/image.jpg";
-        CategoryDto categoryDto = new CategoryDto(1, "Test Category");
-        ServiceEntity serviceDto = new ServiceEntity(1, name, description, price, pictureUrl, categoryDto);
-        assertNotNull(serviceDto);
-        assertEquals(idService, serviceDto.idService());
-        assertEquals(name, serviceDto.name());
-        assertEquals(description, serviceDto.description());
-        assertEquals(price, serviceDto.price());
-        assertEquals(pictureUrl, serviceDto.pictureUrl());
-        assertEquals(categoryDto, serviceDto.category());
+    @Nested
+    @DisplayName("Tests para la creación de ServiceDto")
+    class ServiceDtoCreationTests {
+        @Test
+        @DisplayName("Debería crear ServiceDto correctamente con datos válidos")
+        void shouldCreateServiceDtoWithValidData() {
+            CategoryDto category = new CategoryDto(1, "Reparaciones");
+
+            ServiceDto service = new ServiceDto(1, "Reparación de móviles",
+                    "Servicio de reparación completo", 50.0, "http://example.com/pic.jpg", category);
+
+            assertNotNull(service);
+            assertEquals(1, service.idService());
+            assertEquals("Reparación de móviles", service.name());
+            assertEquals("Servicio de reparación completo", service.description());
+            assertEquals(50.0, service.price());
+            assertEquals("http://example.com/pic.jpg", service.pictureUrl());
+            assertEquals(category, service.category());
+        }
+
+        @Test
+        @DisplayName("Debería lanzar NullPointerException cuando price es NaN")
+        void shouldThrowExceptionWhenPriceIsNaN() {
+            CategoryDto category = new CategoryDto(1, "Reparaciones");
+
+            assertThrows(NullPointerException.class, () -> {
+                new ServiceDto(1, "Servicio", "Descripción", Double.NaN,
+                        "http://example.com/pic.jpg", category);
+            });
+        }
+
+        @Test
+        @DisplayName("Debería lanzar NullPointerException cuando category id es null")
+        void shouldThrowExceptionWhenCategoryIdIsNull() {
+            CategoryDto category = new CategoryDto(null, "Reparaciones");
+
+            assertThrows(NullPointerException.class, () -> {
+                new ServiceDto(1, "Servicio", "Descripción", 50.0,
+                        "http://example.com/pic.jpg", category);
+            });
+        }
+
+        @Test
+        @DisplayName("Debería permitir null en idService")
+        void shouldAllowNullIdService() {
+            CategoryDto category = new CategoryDto(1, "Reparaciones");
+
+            ServiceDto service = new ServiceDto(null, "Nuevo Servicio",
+                    "Descripción", 100.0, "http://example.com/pic.jpg", category);
+
+            assertNotNull(service);
+            assertNull(service.idService());
+        }
+
+        @Test
+        @DisplayName("Debería permitir null en description y pictureUrl")
+        void shouldAllowNullInOptionalFields() {
+            CategoryDto category = new CategoryDto(1, "Reparaciones");
+
+            ServiceDto service = new ServiceDto(1, "Servicio", null, 50.0, null, category);
+
+            assertNotNull(service);
+            assertNull(service.description());
+            assertNull(service.pictureUrl());
+        }
     }
 
-    @Test
-    @DisplayName("Test ServiceDto NotNulls required fields")
-    void testServiceDtoNotNullsRequiredfields() {
-        Integer idService = 1;
-        double price = 99.99;
-        CategoryDto categoryDto = new CategoryDto(1, "Test Category");
-        ServiceEntity serviceDto = new ServiceEntity(1, null, null, price, null, categoryDto);
-        assertNotNull(serviceDto.idService());
-        assertNotNull(serviceDto.price());
-        assertNotNull(serviceDto.category());
-    }
+    @Nested
+    @DisplayName("Tests para validación de precios")
+    class PriceValidationTests {
+        @Test
+        @DisplayName("Debería aceptar precio cero")
+        void shouldAcceptZeroPrice() {
+            CategoryDto category = new CategoryDto(1, "Reparaciones");
 
-    @Test
-    @DisplayName("Test ServiceDto Null Fields")
-    void testServiceDtoNullFields() {
-        Integer idService = 1;
-        double price = 99.99;
-        CategoryDto categoryDto = new CategoryDto(1, "Test Category");
-        ServiceEntity serviceDto = new ServiceEntity(1, null, null, price, null, categoryDto);
-        assertNull(serviceDto.name());
-        assertNull(serviceDto.description());
-        assertNull(serviceDto.pictureUrl());
+            ServiceDto service = new ServiceDto(1, "Servicio Gratis",
+                    "Descripción", 0.0, "http://example.com/pic.jpg", category);
+
+            assertNotNull(service);
+            assertEquals(0.0, service.price());
+        }
+
+        @Test
+        @DisplayName("Debería aceptar precio negativo")
+        void shouldAcceptNegativePrice() {
+            CategoryDto category = new CategoryDto(1, "Reparaciones");
+
+            ServiceDto service = new ServiceDto(1, "Servicio",
+                    "Descripción", -10.0, "http://example.com/pic.jpg", category);
+
+            assertNotNull(service);
+            assertEquals(-10.0, service.price());
+        }
+
+        @Test
+        @DisplayName("Debería aceptar precio decimal")
+        void shouldAcceptDecimalPrice() {
+            CategoryDto category = new CategoryDto(1, "Reparaciones");
+
+            ServiceDto service = new ServiceDto(1, "Servicio",
+                    "Descripción", 49.99, "http://example.com/pic.jpg", category);
+
+            assertNotNull(service);
+            assertEquals(49.99, service.price());
+        }
     }
 }

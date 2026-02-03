@@ -1,7 +1,5 @@
 package com.fpmislata.tienda_back.domain.repository.entity;
 
-import com.fpmislata.tienda_back.domain.model.Category;
-
 public record ServiceEntity(
         String idService,
         String name,
