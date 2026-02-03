@@ -19,15 +19,15 @@ skinparam classArrowFontSize 11
 skinparam nodesep 20
 skinparam ranksep 5
 
-class Cart{
-    +id_cart:string
+class Booking{
+    +id_booking:int
     +total_products:int
     +total_price:double
-    +CartItem:CartItem[]
+    +BookingItem:BookingItem[]
 }
 
-class CartItem{
-    +id_item_cart:string
+class BookingItem{
+    +id_item_booking:int
     +quantity:int
 }
 
@@ -60,12 +60,12 @@ class CategoryService{
 
 
 
-Cart "1" -- "N" CartItem : has >
-CartItem "N" -- "1" Service : contains >
+Booking "1" -- "N" BookingItem : has >
+BookingItem "N" -- "1" Service : contains >
 
 Service -- "1..*" CategoryService
 
-CartItem -- User
+BookingItem -- User
 
 
 @enduml

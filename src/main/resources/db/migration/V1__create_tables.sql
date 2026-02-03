@@ -28,19 +28,19 @@ CREATE TABLE users (
     role VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE cart (
-    id_cart INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE booking (
+    id_booking INT PRIMARY KEY AUTO_INCREMENT,
     id_user INT UNIQUE NOT NULL,
-    total_products INT DEFAULT 0,
     total_price DECIMAL(10,2) DEFAULT 0,
     FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
 
-CREATE TABLE cart_items (
-    id_item_cart VARCHAR(50) PRIMARY KEY,
-    id_cart INT NOT NULL,
+CREATE TABLE booking_items (
+    id_booking_item INT PRIMARY KEY AUTO_INCREMENT,
+    id_booking INT NOT NULL,
     id_service INT NOT NULL,
     quantity INT NOT NULL DEFAULT 1,
-    FOREIGN KEY (id_cart) REFERENCES cart(id_cart) ON DELETE CASCADE,
+    booking_date DATE NOT NULL,
+    FOREIGN KEY (id_booking) REFERENCES booking(id_booking) ON DELETE CASCADE,
     FOREIGN KEY (id_service) REFERENCES services(id_service)
 );

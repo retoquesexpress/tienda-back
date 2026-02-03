@@ -2,25 +2,25 @@ package com.fpmislata.tienda_back.domain.model;
 
 import java.util.List;
 
-public class Cart {
-    private int idCart;
+public class Booking {
+    private int idBooking;
     private int total_products;
     private double total_price;
-    private List<CartItem> items;
+    private List<BookingItem> items;
 
-    public Cart(int idCart, int total_products, double total_price, List<CartItem> items) {
-        this.idCart = idCart;
+    public Booking(int idBooking, int total_products, double total_price, List<BookingItem> items) {
+        this.idBooking = idBooking;
         this.total_products = total_products;
         this.total_price = total_price;
         this.items = items;
     }
 
-    public int getId_cart() {
-        return idCart;
+    public int getId_booking() {
+        return idBooking;
     }
 
-    public void setId_cart(int idCart) {
-        this.idCart = idCart;
+    public void setId_booking(int idBooking) {
+        this.idBooking = idBooking;
     }
 
     public int getTotal_products() {
@@ -39,11 +39,11 @@ public class Cart {
         this.total_price = total_price;
     }
 
-    public List<CartItem> getItems() {
+    public List<BookingItem> getItems() {
         return items;
     }
 
-    public void setItems(List<CartItem> items) {
+    public void setItems(List<BookingItem> items) {
         this.items = items;
     }
 }
