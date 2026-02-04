@@ -4,10 +4,14 @@ import com.fpmislata.tienda_back.domain.model.BookingItem;
 import com.fpmislata.tienda_back.domain.repository.BookingItemRepository;
 import com.fpmislata.tienda_back.domain.service.BookingItemService;
 import com.fpmislata.tienda_back.domain.service.dto.BookingItemDto;
+import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
 import com.fpmislata.tienda_back.mapper.BookingItemMapper;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional
 public class BookingItemServiceImpl implements BookingItemService {
 
     private final BookingItemRepository bookingItemRepository;
@@ -25,7 +29,8 @@ public class BookingItemServiceImpl implements BookingItemService {
 
     @Override
     public BookingItemDto findById(Integer id) {
-        BookingItem bookingItem = bookingItemRepository.findById(id);
+        BookingItem bookingItem = bookingItemRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("BookingItem not found"));
         return BookingItemMapper.getInstance().fromBookingItemToBookingItemDto(bookingItem);
     }
 

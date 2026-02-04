@@ -28,3 +28,13 @@ INSERT INTO users (id_user, name, email, user_name, password, phone_number, addr
 (1, 'Alice Smith', 'alice@corp.com', 'asmith', 'pass1', '555-1234', '45 Oak Ave', '1985-03-20', 'admin'),
 (2, 'Bob Johnson', 'bob@corp.com', 'bjohnson', 'pass2', '555-5678', '99 Pine Ln', '1992-11-05', 'user'),
 (3, 'Charlie Brown', 'charlie@corp.com', 'cbrown', 'pass3', '555-9012', '33 Elm Ct', '1976-08-14', 'user');
+
+INSERT INTO booking (id_booking, id_user, total_price) VALUES
+(1, 2, 67.00),
+(2, 3, 85.00);
+
+INSERT INTO booking_items (id_booking_item, id_booking, id_service, quantity, booking_date) VALUES
+(1, 1, 2, 1, '2024-07-01'),
+(2, 1, 11, 1, '2024-07-01'),
+(3, 2, 4, 1, '2024-07-02'),
+(4, 2, 22, 1, '2024-07-02');

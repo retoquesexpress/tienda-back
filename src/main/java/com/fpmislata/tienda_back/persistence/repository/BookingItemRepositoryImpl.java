@@ -24,16 +24,23 @@ public class BookingItemRepositoryImpl implements BookingItemRepository {
     }
 
     @Override
-    public BookingItem findById(Integer id) {
+    public java.util.Optional<BookingItem> findById(Integer id) {
         return bookingItemJpaDao.findById(id)
-                .map(BookingItemMapper.getInstance()::fromBookingItemJpaEntityToBookingItem)
-                .orElse(null);
+                .map(BookingItemMapper.getInstance()::fromBookingItemJpaEntityToBookingItem);
     }
 
     @Override
     public BookingItem save(BookingItem bookingItem) {
         BookingItemJpaEntity entity = BookingItemMapper.getInstance()
                 .fromBookingItemToBookingItemJpaEntity(bookingItem);
+
+        // Preserve booking relation if exists in DB
+        if (entity.getIdBookingItem() != null) {
+            bookingItemJpaDao.findById(entity.getIdBookingItem()).ifPresent(existing -> {
+                entity.setBooking(existing.getBooking());
+            });
+        }
+
         BookingItemJpaEntity savedEntity = bookingItemJpaDao.save(entity);
         return BookingItemMapper.getInstance().fromBookingItemJpaEntityToBookingItem(savedEntity);
     }
@@ -45,7 +52,7 @@ public class BookingItemRepositoryImpl implements BookingItemRepository {
 
     @Override
     public void increaseQuantityById(Integer id) {
-        BookingItem bookingItem = findById(id);
+        BookingItem bookingItem = findById(id).orElse(null);
         if (bookingItem != null) {
             bookingItem.setQuantity(bookingItem.getQuantity() + 1);
             save(bookingItem);
@@ -54,7 +61,7 @@ public class BookingItemRepositoryImpl implements BookingItemRepository {
 
     @Override
     public void decreaseQuantityById(Integer id) {
-        BookingItem bookingItem = findById(id);
+        BookingItem bookingItem = findById(id).orElse(null);
         if (bookingItem != null && bookingItem.getQuantity() > 1) {
             bookingItem.setQuantity(bookingItem.getQuantity() - 1);
             save(bookingItem);

@@ -3,10 +3,12 @@ package com.fpmislata.tienda_back.domain.repository;
 import com.fpmislata.tienda_back.domain.model.BookingItem;
 import java.util.List;
 
+import java.util.Optional;
+
 public interface BookingItemRepository {
     List<BookingItem> findAll();
 
-    BookingItem findById(Integer id);
+    Optional<BookingItem> findById(Integer id);
 
     BookingItem save(BookingItem bookingItem);
 
