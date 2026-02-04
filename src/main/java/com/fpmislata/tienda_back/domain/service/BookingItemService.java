@@ -13,4 +13,8 @@ public interface BookingItemService {
 
     void delete(Integer id);
 
+    void increaseQuantityById(Integer id);
+
+    void decreaseQuantityById(Integer id);
+
 }

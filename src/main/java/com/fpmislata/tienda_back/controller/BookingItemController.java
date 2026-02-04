@@ -53,4 +53,16 @@ public class BookingItemController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PatchMapping("/{id}/increase")
+    public ResponseEntity<Void> increaseQuantity(@PathVariable Integer id) {
+        bookingItemService.increaseQuantityById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/{id}/decrease")
+    public ResponseEntity<Void> decreaseQuantity(@PathVariable Integer id) {
+        bookingItemService.decreaseQuantityById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

@@ -6,7 +6,6 @@ import com.fpmislata.tienda_back.domain.service.BookingItemService;
 import com.fpmislata.tienda_back.domain.service.dto.BookingItemDto;
 import com.fpmislata.tienda_back.mapper.BookingItemMapper;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class BookingItemServiceImpl implements BookingItemService {
@@ -40,5 +39,15 @@ public class BookingItemServiceImpl implements BookingItemService {
     @Override
     public void delete(Integer id) {
         bookingItemRepository.delete(id);
+    }
+
+    @Override
+    public void increaseQuantityById(Integer id) {
+        bookingItemRepository.increaseQuantityById(id);
+    }
+
+    @Override
+    public void decreaseQuantityById(Integer id) {
+        bookingItemRepository.decreaseQuantityById(id);
     }
 }

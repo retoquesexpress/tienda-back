@@ -11,4 +11,8 @@ public interface BookingItemRepository {
     BookingItem save(BookingItem bookingItem);
 
     void delete(Integer id);
+
+    void increaseQuantityById(Integer id);
+
+    void decreaseQuantityById(Integer id);
 }

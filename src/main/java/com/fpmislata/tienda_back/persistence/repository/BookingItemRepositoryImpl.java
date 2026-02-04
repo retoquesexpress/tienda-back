@@ -42,4 +42,22 @@ public class BookingItemRepositoryImpl implements BookingItemRepository {
     public void delete(Integer id) {
         bookingItemJpaDao.delete(id);
     }
+
+    @Override
+    public void increaseQuantityById(Integer id) {
+        BookingItem bookingItem = findById(id);
+        if (bookingItem != null) {
+            bookingItem.setQuantity(bookingItem.getQuantity() + 1);
+            save(bookingItem);
+        }
+    }
+
+    @Override
+    public void decreaseQuantityById(Integer id) {
+        BookingItem bookingItem = findById(id);
+        if (bookingItem != null && bookingItem.getQuantity() > 1) {
+            bookingItem.setQuantity(bookingItem.getQuantity() - 1);
+            save(bookingItem);
+        }
+    }
 }
