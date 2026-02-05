@@ -3,7 +3,6 @@ package com.fpmislata.tienda_back.domain.service.impl;
 import com.fpmislata.tienda_back.domain.repository.CategoryRepository;
 import com.fpmislata.tienda_back.domain.repository.entity.CategoryEntity;
 import com.fpmislata.tienda_back.domain.service.dto.CategoryDto;
-import com.fpmislata.tienda_back.domain.service.dto.ServiceEntity;
 import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -82,8 +81,7 @@ class CategoryServiceImplTest {
             // Assert
             assertAll(
                     () -> assertEquals(categoryDto.idCategory(), actualCategory.get().idCategory()),
-                    () -> assertEquals(categoryDto.name(), actualCategory.get().name())
-            );
+                    () -> assertEquals(categoryDto.name(), actualCategory.get().name()));
             verify(categoryRepository, times(1)).findCategoryById(categoryId);
         }
 
@@ -117,8 +115,7 @@ class CategoryServiceImplTest {
             // Assert
             assertAll(
                     () -> assertEquals(createdCategoryDto.idCategory(), actualCreatedCategory.idCategory()),
-                    () -> assertEquals(createdCategoryDto.name(), actualCreatedCategory.name())
-            );
+                    () -> assertEquals(createdCategoryDto.name(), actualCreatedCategory.name()));
             verify(categoryRepository, times(1)).create(categoryDtoToCreate);
         }
 
@@ -127,11 +124,11 @@ class CategoryServiceImplTest {
         void testCreate_ShouldThrowIllegalArgumentException_WhenCategoryAlreadyExists() {
             CategoryDto categoryToCreate = new CategoryDto(1, "Existing Category");
 
-                try {
-                    categoryService.create(categoryToCreate);
-                } catch (Exception e) {
-                    assertEquals("Category already exists", e.getMessage());
-                }
+            try {
+                categoryService.create(categoryToCreate);
+            } catch (Exception e) {
+                assertEquals("Category already exists", e.getMessage());
+            }
         }
     }
 
@@ -164,6 +161,7 @@ class CategoryServiceImplTest {
             verify(categoryRepository, times(0)).delete(categoryId);
         }
     }
+
     @Nested
     class TestsUpdateCategory {
         @Test
@@ -172,15 +170,15 @@ class CategoryServiceImplTest {
             // Arrange
             CategoryDto categoryDtoToUpdate = new CategoryDto(1, "Updated Category");
             CategoryDto updatedCategoryDto = new CategoryDto(1, "Updated Category");
-            when(categoryRepository.findCategoryById(categoryDtoToUpdate.idCategory())).thenReturn(Optional.of(categoryDtoToUpdate));
+            when(categoryRepository.findCategoryById(categoryDtoToUpdate.idCategory()))
+                    .thenReturn(Optional.of(categoryDtoToUpdate));
             when(categoryRepository.update(categoryDtoToUpdate)).thenReturn(updatedCategoryDto);
             // Act
             CategoryDto actualUpdatedCategory = categoryService.update(categoryDtoToUpdate);
             // Assert
             assertAll(
                     () -> assertEquals(updatedCategoryDto.idCategory(), actualUpdatedCategory.idCategory()),
-                    () -> assertEquals(updatedCategoryDto.name(), actualUpdatedCategory.name())
-            );
+                    () -> assertEquals(updatedCategoryDto.name(), actualUpdatedCategory.name()));
             verify(categoryRepository, times(1)).findCategoryById(categoryDtoToUpdate.idCategory());
             verify(categoryRepository, times(1)).update(categoryDtoToUpdate);
         }
@@ -212,8 +210,7 @@ class CategoryServiceImplTest {
             // Assert
             assertAll(
                     () -> assertEquals(categoryDto.idCategory(), actualCategory.idCategory()),
-                    () -> assertEquals(categoryDto.name(), actualCategory.name())
-            );
+                    () -> assertEquals(categoryDto.name(), actualCategory.name()));
             verify(categoryRepository, times(1)).findCategoryById(categoryId);
         }
 
@@ -228,8 +225,5 @@ class CategoryServiceImplTest {
             verify(categoryRepository, times(1)).findCategoryById(categoryId);
         }
     }
-
-    
-
 
 }

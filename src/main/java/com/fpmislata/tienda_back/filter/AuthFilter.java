@@ -18,8 +18,8 @@ public class AuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request,
-                         ServletResponse response,
-                         FilterChain chain) throws IOException, ServletException {
+            ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -40,7 +40,8 @@ public class AuthFilter implements Filter {
         }
 
         // Permitir GET públicos para servicios y categorías
-        if ("GET".equalsIgnoreCase(method) && (path.startsWith("/api/services") || path.startsWith("/api/categories"))) {
+        if ("GET".equalsIgnoreCase(method)
+                && (path.startsWith("/api/services") || path.startsWith("/api/categories"))) {
             chain.doFilter(request, response);
             return;
         }

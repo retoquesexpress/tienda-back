@@ -1,7 +1,7 @@
 package com.fpmislata.tienda_back.persistence.repository;
 
 import com.fpmislata.tienda_back.domain.repository.ServiceRepository;
-import com.fpmislata.tienda_back.domain.service.dto.ServiceEntity;
+import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 import com.fpmislata.tienda_back.mapper.ServiceMapper;
 import com.fpmislata.tienda_back.persistence.dao.jpa.ServiceJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
@@ -19,28 +19,28 @@ public class ServiceRepositoryImpl implements ServiceRepository {
     }
 
     @Override
-    public List<ServiceEntity> findAll() {
+    public List<ServiceDto> findAll() {
         return serviceJpaDao.findAll()
                 .stream()
-                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceEntity)
+                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceDto)
                 .toList();
     }
 
     @Override
-    public ServiceEntity getById(Integer id_service) {
+    public ServiceDto getById(Integer id_service) {
         return serviceJpaDao.findById(id_service)
-                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceEntity)
+                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceDto)
                 .orElse(null);
     }
 
     @Override
-    public Optional<ServiceEntity> findById(Integer id_service) {
+    public Optional<ServiceDto> findById(Integer id_service) {
         return serviceJpaDao.findById(id_service)
-                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceEntity);
+                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceDto);
     }
 
     @Override
-    public ServiceEntity update(ServiceEntity serviceEntity) {
+    public ServiceDto update(ServiceDto serviceEntity) {
         Integer serviceId = serviceEntity.idService();
         ServiceJpaEntity existingEntity = serviceJpaDao.findById(serviceId).orElseThrow(
                 () -> new EntityNotFoundException("Servicio con ID " + serviceId + " no encontrado para actualizar."));
@@ -49,22 +49,22 @@ public class ServiceRepositoryImpl implements ServiceRepository {
         existingEntity.setPrice(serviceEntity.price());
         existingEntity.setPictureUrl(serviceEntity.pictureUrl());
         ServiceJpaEntity updatedEntity = serviceJpaDao.update(existingEntity);
-        return ServiceMapper.getInstance().fromServiceJpaEntityToServiceEntity(updatedEntity);
+        return ServiceMapper.getInstance().fromServiceJpaEntityToServiceDto(updatedEntity);
     }
 
     @Override
-    public List<ServiceEntity> findByCategory(Integer idCategory) {
+    public List<ServiceDto> findByCategory(Integer idCategory) {
         return serviceJpaDao.findByCategoryId(idCategory)
                 .stream()
-                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceEntity)
+                .map(ServiceMapper.getInstance()::fromServiceJpaEntityToServiceDto)
                 .toList();
     }
 
     @Override
-    public ServiceEntity create(ServiceEntity serviceEntity) {
-        ServiceJpaEntity entity = ServiceMapper.getInstance().fromServiceEntityToServiceJpaEntity(serviceEntity);
+    public ServiceDto create(ServiceDto serviceEntity) {
+        ServiceJpaEntity entity = ServiceMapper.getInstance().fromServiceDtoToServiceJpaEntity(serviceEntity);
         ServiceJpaEntity createdEntity = serviceJpaDao.create(entity);
-        return ServiceMapper.getInstance().fromServiceJpaEntityToServiceEntity(createdEntity);
+        return ServiceMapper.getInstance().fromServiceJpaEntityToServiceDto(createdEntity);
     }
 
     @Override

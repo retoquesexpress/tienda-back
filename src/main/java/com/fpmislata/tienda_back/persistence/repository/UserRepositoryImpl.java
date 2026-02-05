@@ -1,7 +1,6 @@
 package com.fpmislata.tienda_back.persistence.repository;
 
 import com.fpmislata.tienda_back.domain.repository.UserRepository;
-import com.fpmislata.tienda_back.domain.repository.entity.UserEntity;
 import com.fpmislata.tienda_back.domain.service.dto.UserDto;
 import com.fpmislata.tienda_back.mapper.UserMapper;
 import com.fpmislata.tienda_back.persistence.dao.jpa.UserJpaDao;

@@ -8,7 +8,7 @@ import com.fpmislata.tienda_back.controller.webModel.request.ServiceUpdateReques
 import com.fpmislata.tienda_back.controller.webModel.response.ServiceDetailResponse;
 import com.fpmislata.tienda_back.domain.service.ServiceService;
 import com.fpmislata.tienda_back.domain.service.dto.CategoryDto;
-import com.fpmislata.tienda_back.domain.service.dto.ServiceEntity;
+import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -42,7 +42,7 @@ public class ServiceControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private ServiceEntity serviceEntity;
+    private ServiceDto serviceDto;
     private ServiceInsertRequest serviceInsertRequest;
     private ServiceUpdateRequest serviceUpdateRequest;
     private CategoryDto categoryDto;
@@ -50,16 +50,16 @@ public class ServiceControllerTest {
     @BeforeEach
     void setUp() {
         categoryDto = new CategoryDto(1, "Reparaciones");
-        serviceEntity = new ServiceEntity(1, "Reparación de móviles", "Servicio de reparación", 
-            50.0, "http://example.com/pic.jpg", categoryDto);
-        
+        serviceDto = new ServiceDto(1, "Reparación de móviles", "Servicio de reparación",
+                50.0, "http://example.com/pic.jpg", categoryDto);
+
         CategoryInsertRequest categoryInsertRequest = new CategoryInsertRequest(1, "Reparaciones");
-        serviceInsertRequest = new ServiceInsertRequest("Nuevo Servicio", "Descripción", 
-            100.0, "http://example.com/new.jpg", categoryInsertRequest);
-        
+        serviceInsertRequest = new ServiceInsertRequest("Nuevo Servicio", "Descripción",
+                100.0, "http://example.com/new.jpg", categoryInsertRequest);
+
         CategoryUpdateRequest categoryUpdateRequest = new CategoryUpdateRequest(1, "Reparaciones");
-        serviceUpdateRequest = new ServiceUpdateRequest(1, "Servicio Actualizado", "Descripción actualizada", 
-            150.0, "http://example.com/updated.jpg", categoryUpdateRequest);
+        serviceUpdateRequest = new ServiceUpdateRequest(1, "Servicio Actualizado", "Descripción actualizada",
+                150.0, "http://example.com/updated.jpg", categoryUpdateRequest);
     }
 
     @Nested
@@ -68,7 +68,7 @@ public class ServiceControllerTest {
         @Test
         @DisplayName("Debería devolver 200 y una lista de servicios")
         void shouldReturnOkAndListOfServices() throws Exception {
-            when(serviceService.findAll()).thenReturn(List.of(serviceEntity));
+            when(serviceService.findAll()).thenReturn(List.of(serviceDto));
 
             mockMvc.perform(get("/api/services"))
                     .andExpect(status().isOk())
@@ -83,7 +83,7 @@ public class ServiceControllerTest {
         @Test
         @DisplayName("Debería devolver 200 y una lista de servicios por categoría")
         void shouldReturnOkAndListOfServicesByCategory() throws Exception {
-            when(serviceService.findByCategory(1)).thenReturn(List.of(serviceEntity));
+            when(serviceService.findByCategory(1)).thenReturn(List.of(serviceDto));
 
             mockMvc.perform(get("/api/services/category/1"))
                     .andExpect(status().isOk())
@@ -98,7 +98,7 @@ public class ServiceControllerTest {
         @Test
         @DisplayName("Debería devolver 200 cuando el servicio existe")
         void shouldReturnOkWhenServiceExists() throws Exception {
-            when(serviceService.getById(1)).thenReturn(serviceEntity);
+            when(serviceService.getById(1)).thenReturn(serviceDto);
 
             mockMvc.perform(get("/api/services/1"))
                     .andExpect(status().isOk())
@@ -114,9 +114,9 @@ public class ServiceControllerTest {
         @DisplayName("Debería devolver 201 cuando la petición es válida")
         void shouldReturnCreatedWhenValid() throws Exception {
             CategoryDto newCategory = new CategoryDto(1, "Reparaciones");
-            ServiceEntity createdService = new ServiceEntity(2, "Nuevo Servicio", "Descripción", 
-                100.0, "http://example.com/new.jpg", newCategory);
-            when(serviceService.create(any(ServiceEntity.class))).thenReturn(createdService);
+            ServiceDto createdService = new ServiceDto(2, "Nuevo Servicio", "Descripción",
+                    100.0, "http://example.com/new.jpg", newCategory);
+            when(serviceService.create(any(ServiceDto.class))).thenReturn(createdService);
 
             mockMvc.perform(post("/api/services")
                     .contentType(MediaType.APPLICATION_JSON)
@@ -134,9 +134,9 @@ public class ServiceControllerTest {
         @DisplayName("Debería devolver 200 cuando la petición es válida")
         void shouldReturnOkWhenValid() throws Exception {
             CategoryDto updatedCategory = new CategoryDto(1, "Reparaciones");
-            ServiceEntity updatedService = new ServiceEntity(1, "Servicio Actualizado", 
-                "Descripción actualizada", 150.0, "http://example.com/updated.jpg", updatedCategory);
-            when(serviceService.update(any(ServiceEntity.class))).thenReturn(updatedService);
+            ServiceDto updatedService = new ServiceDto(1, "Servicio Actualizado",
+                    "Descripción actualizada", 150.0, "http://example.com/updated.jpg", updatedCategory);
+            when(serviceService.update(any(ServiceDto.class))).thenReturn(updatedService);
 
             mockMvc.perform(put("/api/services/1")
                     .contentType(MediaType.APPLICATION_JSON)
@@ -144,7 +144,7 @@ public class ServiceControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.idService").value(1))
                     .andExpect(jsonPath("$.name").value("Servicio Actualizado"));
-    }
+        }
     }
 
     @Nested
