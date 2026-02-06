@@ -1,14 +1,14 @@
 package com.fpmislata.tienda_back.domain.repository.entity;
 
 public record ServiceEntity(
-        String idService,
+        Integer idService,
         String name,
         String description,
         double price,
         String pictureUrl,
         CategoryEntity category) {
     public ServiceEntity(
-            String idService,
+            Integer idService,
             String name,
             String description,
             double price,

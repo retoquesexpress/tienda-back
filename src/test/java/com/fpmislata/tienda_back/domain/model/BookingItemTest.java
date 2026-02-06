@@ -124,6 +124,20 @@ public class BookingItemTest {
     @DisplayName("Tests para validación de datos")
     class DataValidationTests {
         @Test
+        @DisplayName("Debería manejar id_booking vacío")
+        void shouldHandleEmptyIdBooking() {
+            bookingItem.setIdBookingItem(null);
+            assertEquals(null, bookingItem.getIdBookingItem());
+        }
+
+//        @Test
+//        @DisplayName("Debería manejar id_booking con espacios")
+//        void shouldHandleIdBookingWithSpaces() {
+//            bookingItem.setId_booking("  item with spaces  ");
+//            assertEquals("  item with spaces  ", bookingItem.getId_booking());
+//        }
+
+        @Test
         @DisplayName("Debería manejar quantity muy grande")
         void shouldHandleVeryLargeQuantity() {
             bookingItem.setQuantity(Integer.MAX_VALUE);

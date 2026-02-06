@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public record BookingItemDetailResponse(
         Integer idBookingItem,
-        Integer idBooking,
         Integer idService,
         Integer quantity,
         LocalDate bookingDate,

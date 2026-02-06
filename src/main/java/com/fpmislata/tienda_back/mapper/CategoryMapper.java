@@ -113,6 +113,17 @@ public class CategoryMapper {
                 categoryEntity.name());
     }
 
+    public CategoryEntity fromCategoryDtoToCategoryEntity(CategoryDto categoryDto) {
+        if (categoryDto == null) {
+            return null;
+        }
+        return new CategoryEntity(
+                categoryDto.idCategory(),
+                categoryDto.name());
+    }
+
+
+
     public Category fromCategoryEntityToCategory(CategoryEntity categoryEntity) {
         if (categoryEntity == null) {
             return null;

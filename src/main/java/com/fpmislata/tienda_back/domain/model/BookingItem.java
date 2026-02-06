@@ -3,6 +3,7 @@ package com.fpmislata.tienda_back.domain.model;
 import java.time.LocalDate;
 
 public class BookingItem {
+
     private Integer idBookingItem;
     private int quantity;
     private LocalDate bookingDate;
@@ -17,6 +18,7 @@ public class BookingItem {
         this.bookingDate = bookingDate;
         this.service = service;
     }
+
 
     public Integer getIdBookingItem() {
         return idBookingItem;

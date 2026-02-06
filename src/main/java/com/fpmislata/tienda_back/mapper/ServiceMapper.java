@@ -3,6 +3,9 @@ package com.fpmislata.tienda_back.mapper;
 import com.fpmislata.tienda_back.controller.webModel.request.ServiceInsertRequest;
 import com.fpmislata.tienda_back.controller.webModel.request.ServiceUpdateRequest;
 import com.fpmislata.tienda_back.controller.webModel.response.ServiceDetailResponse;
+import com.fpmislata.tienda_back.domain.model.Service;
+import com.fpmislata.tienda_back.domain.repository.entity.ServiceEntity;
+
 import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
 
@@ -84,11 +87,11 @@ public class ServiceMapper {
                 CategoryMapper.getInstance().fromCategoryDtoToCategoryJpaEntity(serviceDto.category()));
     }
 
-    public com.fpmislata.tienda_back.domain.model.Service fromServiceDtoToService(ServiceDto serviceDto) {
+    public Service fromServiceDtoToService(ServiceDto serviceDto) {
         if (serviceDto == null) {
             return null;
         }
-        return new com.fpmislata.tienda_back.domain.model.Service(
+        return new Service(
                 serviceDto.idService(),
                 serviceDto.name(),
                 serviceDto.description(),
@@ -97,7 +100,8 @@ public class ServiceMapper {
                 CategoryMapper.getInstance().fromCategoryDtoToCategory(serviceDto.category()));
     }
 
-    public ServiceDto fromServiceToServiceDto(com.fpmislata.tienda_back.domain.model.Service service) {
+
+    public ServiceDto fromServiceToServiceDto(Service service) {
         if (service == null) {
             return null;
         }
@@ -110,13 +114,14 @@ public class ServiceMapper {
                 CategoryMapper.getInstance().fromCategoryToCategoryDto(service.getCategory()));
     }
 
-    public com.fpmislata.tienda_back.domain.repository.entity.ServiceEntity fromServiceJpaEntityToServiceEntity(
+
+    public ServiceEntity fromServiceJpaEntityToServiceEntity(
             ServiceJpaEntity serviceJpaEntity) {
         if (serviceJpaEntity == null) {
             return null;
         }
         return new com.fpmislata.tienda_back.domain.repository.entity.ServiceEntity(
-                String.valueOf(serviceJpaEntity.getIdService()),
+                serviceJpaEntity.getIdService(),
                 serviceJpaEntity.getName(),
                 serviceJpaEntity.getDescription(),
                 serviceJpaEntity.getPrice(),
@@ -125,7 +130,7 @@ public class ServiceMapper {
     }
 
     public ServiceJpaEntity fromServiceEntityToServiceJpaEntity(
-            com.fpmislata.tienda_back.domain.repository.entity.ServiceEntity serviceEntity) {
+            ServiceEntity serviceEntity) {
         if (serviceEntity == null) {
             return null;
         }
@@ -138,12 +143,14 @@ public class ServiceMapper {
                 CategoryMapper.getInstance().fromCategoryEntityToCategoryJpaEntity(serviceEntity.category()));
     }
 
-    public com.fpmislata.tienda_back.domain.model.Service fromServiceJpaEntityToService(
+    public Service fromServiceJpaEntityToService(
+
             ServiceJpaEntity serviceJpaEntity) {
         if (serviceJpaEntity == null) {
             return null;
         }
-        return new com.fpmislata.tienda_back.domain.model.Service(
+        return new Service(
+
                 serviceJpaEntity.getIdService(),
                 serviceJpaEntity.getName(),
                 serviceJpaEntity.getDescription(),
@@ -152,7 +159,8 @@ public class ServiceMapper {
                 CategoryMapper.getInstance().fromCategoryJpaEntityToCategory(serviceJpaEntity.getCategory()));
     }
 
-    public ServiceJpaEntity fromServiceToServiceJpaEntity(com.fpmislata.tienda_back.domain.model.Service service) {
+    public ServiceJpaEntity fromServiceToServiceJpaEntity(Service service) {
+
         if (service == null) {
             return null;
         }
@@ -166,7 +174,8 @@ public class ServiceMapper {
     }
 
     public ServiceDto fromServiceEntityToServiceDto(
-            com.fpmislata.tienda_back.domain.repository.entity.ServiceEntity serviceEntity) {
+            ServiceEntity serviceEntity) {
+
         if (serviceEntity == null) {
             return null;
         }
@@ -177,5 +186,20 @@ public class ServiceMapper {
                 serviceEntity.price(),
                 serviceEntity.pictureUrl(),
                 CategoryMapper.getInstance().fromCategoryEntityToCategoryDto(serviceEntity.category()));
+    }
+
+    public ServiceEntity fromServiceDtoToServiceEntity(
+            ServiceDto serviceDto) {
+        if (serviceDto == null) {
+            return null;
+        }
+        return new ServiceEntity(
+                Integer.valueOf(serviceDto.idService()),
+                serviceDto.name(),
+                serviceDto.description(),
+                serviceDto.price(),
+                serviceDto.pictureUrl(),
+                CategoryMapper.getInstance().fromCategoryDtoToCategoryEntity(serviceDto.category()));
+
     }
 }

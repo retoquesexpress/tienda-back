@@ -3,6 +3,11 @@ package com.fpmislata.tienda_back.mapper;
 import com.fpmislata.tienda_back.controller.webModel.request.BookingItemInsertRequest;
 import com.fpmislata.tienda_back.controller.webModel.response.BookingItemDetailResponse;
 import com.fpmislata.tienda_back.domain.model.BookingItem;
+import com.fpmislata.tienda_back.domain.repository.entity.BookingItemEntity;
+import com.fpmislata.tienda_back.domain.service.dto.BookingItemDto;
+import com.fpmislata.tienda_back.persistence.dao.jpa.entity.BookingItemJpaEntity;
+import com.fpmislata.tienda_back.persistence.dao.jpa.entity.BookingJpaEntity;
+import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
 import com.fpmislata.tienda_back.domain.service.dto.BookingItemDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.BookingItemJpaEntity;
 
@@ -25,7 +30,6 @@ public class BookingItemMapper {
         }
         return new BookingItemDto(
                 bookingItemJpaEntity.getIdBookingItem(),
-                bookingItemJpaEntity.getBooking().getIdBooking(),
                 bookingItemJpaEntity.getService().getIdService(),
                 bookingItemJpaEntity.getQuantity(),
                 bookingItemJpaEntity.getBookingDate(),
@@ -51,7 +55,6 @@ public class BookingItemMapper {
         }
         return new BookingItemDetailResponse(
                 bookingItemDto.idBookingItem(),
-                bookingItemDto.idBooking(),
                 bookingItemDto.idService(),
                 bookingItemDto.quantity(),
                 bookingItemDto.bookingDate(),
@@ -62,18 +65,32 @@ public class BookingItemMapper {
     }
 
     public BookingItemDto fromBookingItemEntityToBookingItemDto(
-            com.fpmislata.tienda_back.domain.repository.entity.BookingItemEntity bookingItemEntity) {
+            BookingItemEntity bookingItemEntity) {
+
         if (bookingItemEntity == null) {
             return null;
         }
         return new BookingItemDto(
                 bookingItemEntity.idBookingItem(),
-                bookingItemEntity.idBooking(),
                 bookingItemEntity.idService(),
                 bookingItemEntity.quantity(),
                 bookingItemEntity.bookingDate(),
                 ServiceMapper.getInstance().fromServiceEntityToServiceDto(bookingItemEntity.service()));
     }
+
+    public BookingItemEntity fromBookingItemDtoToBookingItemEntity(
+            BookingItemDto bookingItemDto) {
+        if (bookingItemDto == null) {
+            return null;
+        }
+        return new BookingItemEntity(
+                bookingItemDto.idBookingItem(),
+                bookingItemDto.idService(),
+                bookingItemDto.quantity(),
+                bookingItemDto.bookingDate(),
+                ServiceMapper.getInstance().fromServiceDtoToServiceEntity(bookingItemDto.service()));
+    }
+
 
     public BookingItem fromBookingItemDtoToBookingItem(BookingItemDto bookingItemDto) {
         if (bookingItemDto == null) {
@@ -97,14 +114,15 @@ public class BookingItemMapper {
                 ServiceMapper.getInstance().fromServiceJpaEntityToService(entity.getService()));
     }
 
-    public com.fpmislata.tienda_back.domain.repository.entity.BookingItemEntity fromBookingItemJpaEntityToBookingItemEntity(
+    public BookingItemEntity fromBookingItemJpaEntityToBookingItemEntity(
+
             BookingItemJpaEntity entity) {
         if (entity == null) {
             return null;
         }
-        return new com.fpmislata.tienda_back.domain.repository.entity.BookingItemEntity(
+        return new BookingItemEntity(
+
                 entity.getIdBookingItem(),
-                entity.getBooking().getIdBooking(),
                 entity.getService().getIdService(),
                 entity.getQuantity(),
                 entity.getBookingDate(),
@@ -112,7 +130,8 @@ public class BookingItemMapper {
     }
 
     public BookingItemJpaEntity fromBookingItemEntityToBookingItemJpaEntity(
-            com.fpmislata.tienda_back.domain.repository.entity.BookingItemEntity bookingItemEntity) {
+            BookingItemEntity bookingItemEntity) {
+
         if (bookingItemEntity == null) {
             return null;
         }
@@ -121,14 +140,16 @@ public class BookingItemMapper {
         jpaEntity.setQuantity(bookingItemEntity.quantity());
         jpaEntity.setBookingDate(bookingItemEntity.bookingDate());
 
-        if (bookingItemEntity.idBooking() != null) {
-            com.fpmislata.tienda_back.persistence.dao.jpa.entity.BookingJpaEntity booking = new com.fpmislata.tienda_back.persistence.dao.jpa.entity.BookingJpaEntity();
-            booking.setIdBooking(bookingItemEntity.idBooking());
-            jpaEntity.setBooking(booking);
-        }
+//        if (bookingItemEntity.idBooking() != null) {
+//            BookingJpaEntity booking = new BookingJpaEntity();
+//
+//            booking.setIdBooking(bookingItemEntity.idBooking());
+//            jpaEntity.setBooking(booking);
+//        }
 
         if (bookingItemEntity.idService() != null) {
-            com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity service = new com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity();
+            ServiceJpaEntity service = new ServiceJpaEntity();
+
             service.setIdService(bookingItemEntity.idService());
             jpaEntity.setService(service);
         }
@@ -143,7 +164,6 @@ public class BookingItemMapper {
         return new BookingItemDto(
                 bookingItem.getIdBookingItem(),
                 null, // No idBooking in domain model
-                bookingItem.getService() != null ? bookingItem.getService().getId() : null,
                 bookingItem.getQuantity(),
                 bookingItem.getBookingDate(),
                 ServiceMapper.getInstance().fromServiceToServiceDto(bookingItem.getService()));
@@ -155,7 +175,6 @@ public class BookingItemMapper {
         }
         return new BookingItemDto(
                 null,
-                request.idBooking(),
                 request.idService(),
                 request.quantity(),
                 request.bookingDate(),
@@ -173,7 +192,8 @@ public class BookingItemMapper {
 
         // Note: booking ID is not available in domain model to avoid loops
         if (bookingItem.getService() != null && bookingItem.getService().getId() != null) {
-            com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity service = new com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity();
+            ServiceJpaEntity service = new ServiceJpaEntity();
+
             service.setIdService(bookingItem.getService().getId());
             entity.setService(service);
         }

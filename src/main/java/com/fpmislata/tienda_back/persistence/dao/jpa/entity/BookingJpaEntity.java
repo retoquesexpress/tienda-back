@@ -2,6 +2,8 @@ package com.fpmislata.tienda_back.persistence.dao.jpa.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "booking")
@@ -11,18 +13,22 @@ public class BookingJpaEntity implements Serializable {
     @Column(name = "id_booking")
     private Integer idBooking;
 
-    @Column(name = "id_user")
-    private Integer idUser;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user", nullable = false)
+    private UserJpaEntity user;
 
     @Column(name = "total_price")
     private Double totalPrice;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookingItemJpaEntity> bookingItems = new ArrayList<>();
 
     public BookingJpaEntity() {
     }
 
     public BookingJpaEntity(Integer idBooking, Integer idUser, Double totalPrice) {
         this.idBooking = idBooking;
-        this.idUser = idUser;
+        this.user = user;
         this.totalPrice = totalPrice;
     }
 
@@ -34,12 +40,13 @@ public class BookingJpaEntity implements Serializable {
         this.idBooking = idBooking;
     }
 
-    public Integer getIdUser() {
-        return idUser;
+
+    public UserJpaEntity getUser() {
+        return user;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setUser(UserJpaEntity idUser) {
+        this.user = idUser;
     }
 
     public Double getTotalPrice() {
@@ -49,4 +56,14 @@ public class BookingJpaEntity implements Serializable {
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public List<BookingItemJpaEntity> getBookingItems() {
+        return bookingItems;
+    }
+
+    public void setBookingItems(List<BookingItemJpaEntity> bookingItems) {
+        this.bookingItems = bookingItems;
+    }
 }
+
+

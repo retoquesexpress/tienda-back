@@ -4,20 +4,17 @@ import java.time.LocalDate;
 
 public record BookingItemEntity(
         Integer idBookingItem,
-        Integer idBooking,
         Integer idService,
         Integer quantity,
         LocalDate bookingDate,
         ServiceEntity service) {
     public BookingItemEntity(
             Integer idBookingItem,
-            Integer idBooking,
             Integer idService,
             Integer quantity,
             LocalDate bookingDate,
             ServiceEntity service) {
         this.idBookingItem = idBookingItem;
-        this.idBooking = idBooking;
         this.idService = idService;
         this.quantity = quantity;
         this.bookingDate = bookingDate;

@@ -1,9 +1,13 @@
 package com.fpmislata.tienda_back.persistence;
 
+import com.fpmislata.tienda_back.persistence.dao.jpa.BookingJpaDao;
+
 import com.fpmislata.tienda_back.persistence.dao.jpa.BookingItemJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.CategoryJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.ServiceJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.UserJpaDao;
+import com.fpmislata.tienda_back.persistence.dao.jpa.impl.BookingJpaDaoImpl;
+
 import com.fpmislata.tienda_back.persistence.dao.jpa.impl.BookingItemJpaDaoImpl;
 import com.fpmislata.tienda_back.persistence.dao.jpa.impl.CategoryJpaDaoImpl;
 import com.fpmislata.tienda_back.persistence.dao.jpa.impl.ServiceJpaDaoImpl;
@@ -36,4 +40,11 @@ public class PersistenceConfig {
     public BookingItemJpaDao bookingItemJpaDao() {
         return new BookingItemJpaDaoImpl();
     }
+
+    @Bean
+    public BookingJpaDao bookingJpaDao() {
+        return new BookingJpaDaoImpl();
+    }
+
 }
+

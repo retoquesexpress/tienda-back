@@ -150,4 +150,21 @@ public class UserMapper {
                 user.getRole());
     }
 
+    public UserEntity fromUserDtoToUserEntity(UserDto userDto) {
+        if (userDto == null) {
+            return null;
+        }
+        return new UserEntity(
+                userDto.idUser(),
+                userDto.name(),
+                userDto.email(),
+                userDto.userName(),
+                userDto.password(),
+                userDto.phoneNumber(),
+                userDto.address(),
+                userDto.birthDate(),
+                userDto.role());
+    }
+
+
 }
