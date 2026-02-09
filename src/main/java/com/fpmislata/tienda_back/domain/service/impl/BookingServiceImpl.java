@@ -6,11 +6,13 @@ import com.fpmislata.tienda_back.domain.service.dto.BookingDto;
 import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
 import com.fpmislata.tienda_back.mapper.BookingMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
@@ -57,4 +59,3 @@ public class BookingServiceImpl implements BookingService {
         bookingRepository.delete(id);
     }
 }
-

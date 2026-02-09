@@ -40,7 +40,8 @@ public class BookingJpaDaoImpl implements BookingJpaDao {
     public List<BookingJpaEntity> findAllBookingsByUserWhenBookingDateIsFuture(Integer idUser) {
         return entityManager.createQuery(
                 "SELECT DISTINCT b FROM BookingJpaEntity b JOIN b.bookingItems bi " +
-                "WHERE b.user.idUser = :idUser AND bi.bookingDate > CURRENT_DATE", BookingJpaEntity.class)
+                        "WHERE b.user.idUser = :idUser AND bi.bookingDate >= CURRENT_TIMESTAMP",
+                BookingJpaEntity.class)
                 .setParameter("idUser", idUser)
                 .getResultList();
     }

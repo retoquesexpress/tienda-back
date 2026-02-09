@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +15,7 @@ public class BookingItemTest {
 
     @BeforeEach
     void setUp() {
-        bookingItem = new BookingItem(1, 5, LocalDate.of(2026, 2, 3), null);
+        bookingItem = new BookingItem(1, 5, LocalDateTime.of(2026, 2, 3, 0, 0), null);
     }
 
     @Nested
@@ -27,13 +27,13 @@ public class BookingItemTest {
             assertNotNull(bookingItem);
             assertEquals(1, bookingItem.getIdBookingItem());
             assertEquals(5, bookingItem.getQuantity());
-            assertEquals(LocalDate.of(2026, 2, 3), bookingItem.getBookingDate());
+            assertEquals(LocalDateTime.of(2026, 2, 3, 0, 0), bookingItem.getBookingDate());
         }
 
         @Test
         @DisplayName("Debería crear BookingItem con quantity cero")
         void shouldCreateBookingItemWithZeroQuantity() {
-            BookingItem item = new BookingItem(2, 0, LocalDate.now(), null);
+            BookingItem item = new BookingItem(2, 0, LocalDateTime.now(), null);
 
             assertNotNull(item);
             assertEquals(2, item.getIdBookingItem());
@@ -43,7 +43,7 @@ public class BookingItemTest {
         @Test
         @DisplayName("Debería crear BookingItem con id null")
         void shouldCreateBookingItemWithNullId() {
-            BookingItem item = new BookingItem(null, 3, LocalDate.now(), null);
+            BookingItem item = new BookingItem(null, 3, LocalDateTime.now(), null);
 
             assertNotNull(item);
             assertNull(item.getIdBookingItem());
@@ -85,7 +85,7 @@ public class BookingItemTest {
         @Test
         @DisplayName("Debería actualizar bookingDate correctamente")
         void shouldUpdateBookingDate() {
-            LocalDate newDate = LocalDate.of(2026, 12, 25);
+            LocalDateTime newDate = LocalDateTime.of(2026, 12, 25, 0, 0);
             bookingItem.setBookingDate(newDate);
             assertEquals(newDate, bookingItem.getBookingDate());
         }
@@ -130,12 +130,12 @@ public class BookingItemTest {
             assertEquals(null, bookingItem.getIdBookingItem());
         }
 
-//        @Test
-//        @DisplayName("Debería manejar id_booking con espacios")
-//        void shouldHandleIdBookingWithSpaces() {
-//            bookingItem.setId_booking("  item with spaces  ");
-//            assertEquals("  item with spaces  ", bookingItem.getId_booking());
-//        }
+        // @Test
+        // @DisplayName("Debería manejar id_booking con espacios")
+        // void shouldHandleIdBookingWithSpaces() {
+        // bookingItem.setId_booking(" item with spaces ");
+        // assertEquals(" item with spaces ", bookingItem.getId_booking());
+        // }
 
         @Test
         @DisplayName("Debería manejar quantity muy grande")

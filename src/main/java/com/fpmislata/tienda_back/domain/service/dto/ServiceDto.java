@@ -13,7 +13,7 @@ public record ServiceDto(
                 if (Double.isNaN(price)) {
                         throw new NullPointerException("price must not be null");
                 }
-                if (category.idCategory() == null) {
+                if (category != null && category.idCategory() == null) {
                         throw new NullPointerException("category id must not be null");
                 }
         }

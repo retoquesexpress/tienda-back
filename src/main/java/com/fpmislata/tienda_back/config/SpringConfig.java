@@ -98,8 +98,8 @@ public class SpringConfig {
     }
 
     @Bean
-    public BookingRepository bookingRepository(BookingJpaDao bookingJpaDao) {
-        return new BookingRepositoryImpl(bookingJpaDao);
+    public BookingRepository bookingRepository(BookingJpaDao bookingJpaDao, ServiceJpaDao serviceJpaDao) {
+        return new BookingRepositoryImpl(bookingJpaDao, serviceJpaDao);
     }
 
     @Bean

@@ -30,7 +30,7 @@ CREATE TABLE users (
 
 CREATE TABLE booking (
     id_booking INT PRIMARY KEY AUTO_INCREMENT,
-    id_user INT UNIQUE NOT NULL,
+    id_user INT NOT NULL,
     total_price DECIMAL(10,2) DEFAULT 0,
     FOREIGN KEY (id_user) REFERENCES users(id_user)
 );

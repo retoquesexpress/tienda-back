@@ -6,10 +6,7 @@ import com.fpmislata.tienda_back.domain.model.BookingItem;
 import com.fpmislata.tienda_back.domain.repository.entity.BookingItemEntity;
 import com.fpmislata.tienda_back.domain.service.dto.BookingItemDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.BookingItemJpaEntity;
-import com.fpmislata.tienda_back.persistence.dao.jpa.entity.BookingJpaEntity;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
-import com.fpmislata.tienda_back.domain.service.dto.BookingItemDto;
-import com.fpmislata.tienda_back.persistence.dao.jpa.entity.BookingItemJpaEntity;
 
 public class BookingItemMapper {
     private static BookingItemMapper INSTANCE;
@@ -61,6 +58,10 @@ public class BookingItemMapper {
                 bookingItemDto.service() != null ? bookingItemDto.service().name() : null,
                 (bookingItemDto.service() != null && bookingItemDto.service().category() != null)
                         ? bookingItemDto.service().category().name()
+                        : null,
+                bookingItemDto.service() != null ? bookingItemDto.service().pictureUrl() : null,
+                (bookingItemDto.service() != null && bookingItemDto.service().category() != null)
+                        ? bookingItemDto.service().category().idCategory()
                         : null);
     }
 
@@ -91,7 +92,6 @@ public class BookingItemMapper {
                 ServiceMapper.getInstance().fromServiceDtoToServiceEntity(bookingItemDto.service()));
     }
 
-
     public BookingItem fromBookingItemDtoToBookingItem(BookingItemDto bookingItemDto) {
         if (bookingItemDto == null) {
             return null;
@@ -115,13 +115,11 @@ public class BookingItemMapper {
     }
 
     public BookingItemEntity fromBookingItemJpaEntityToBookingItemEntity(
-
             BookingItemJpaEntity entity) {
         if (entity == null) {
             return null;
         }
         return new BookingItemEntity(
-
                 entity.getIdBookingItem(),
                 entity.getService().getIdService(),
                 entity.getQuantity(),
@@ -140,16 +138,11 @@ public class BookingItemMapper {
         jpaEntity.setQuantity(bookingItemEntity.quantity());
         jpaEntity.setBookingDate(bookingItemEntity.bookingDate());
 
-//        if (bookingItemEntity.idBooking() != null) {
-//            BookingJpaEntity booking = new BookingJpaEntity();
-//
-//            booking.setIdBooking(bookingItemEntity.idBooking());
-//            jpaEntity.setBooking(booking);
-//        }
-
-        if (bookingItemEntity.idService() != null) {
+        if (bookingItemEntity.service() != null) {
+            jpaEntity.setService(
+                    ServiceMapper.getInstance().fromServiceEntityToServiceJpaEntity(bookingItemEntity.service()));
+        } else if (bookingItemEntity.idService() != null) {
             ServiceJpaEntity service = new ServiceJpaEntity();
-
             service.setIdService(bookingItemEntity.idService());
             jpaEntity.setService(service);
         }
@@ -163,7 +156,7 @@ public class BookingItemMapper {
         }
         return new BookingItemDto(
                 bookingItem.getIdBookingItem(),
-                null, // No idBooking in domain model
+                null,
                 bookingItem.getQuantity(),
                 bookingItem.getBookingDate(),
                 ServiceMapper.getInstance().fromServiceToServiceDto(bookingItem.getService()));
@@ -190,10 +183,8 @@ public class BookingItemMapper {
         entity.setQuantity(bookingItem.getQuantity());
         entity.setBookingDate(bookingItem.getBookingDate());
 
-        // Note: booking ID is not available in domain model to avoid loops
         if (bookingItem.getService() != null && bookingItem.getService().getId() != null) {
             ServiceJpaEntity service = new ServiceJpaEntity();
-
             service.setIdService(bookingItem.getService().getId());
             entity.setService(service);
         }

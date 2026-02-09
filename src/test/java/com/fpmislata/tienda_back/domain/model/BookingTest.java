@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,17 +17,16 @@ public class BookingTest {
     private List<BookingItem> items;
     private User user;
 
-
     @BeforeEach
     void setUp() {
+        Service service = new Service(1, "Test Service", "Description", 50.0, "url", null);
         items = new ArrayList<>();
-        items.add(new BookingItem(1, 2, LocalDate.now(), null));
-        items.add(new BookingItem(2, 3, LocalDate.now(), null));
+        items.add(new BookingItem(1, 2, LocalDateTime.now(), service));
+        items.add(new BookingItem(2, 3, LocalDateTime.now(), service));
 
         user = new User(1, "User", "User@gmail.com", "user", "user1234", "123456789", "123 Street", null, "USER");
 
-        booking = new Booking(1, 250.0, items,user);
-
+        booking = new Booking(1, 250.0, items, user);
     }
 
     @Nested
@@ -69,13 +68,12 @@ public class BookingTest {
             assertEquals(10, booking.getId_booking());
         }
 
-//        @Test
-//        @DisplayName("Debería actualizar total_products correctamente")
-//        void shouldUpdateTotalProducts() {
-//            booking.setTotal_products(10);
-//            assertEquals(10, booking.getTotal_products());
-//        }
-
+        // @Test
+        // @DisplayName("Debería actualizar total_products correctamente")
+        // void shouldUpdateTotalProducts() {
+        // booking.setTotal_products(10);
+        // assertEquals(10, booking.getTotal_products());
+        // }
 
         @Test
         @DisplayName("Debería actualizar total_price correctamente")
@@ -87,8 +85,9 @@ public class BookingTest {
         @Test
         @DisplayName("Debería actualizar items correctamente")
         void shouldUpdateItems() {
+            Service service = new Service(1, "Test Service", "Description", 50.0, "url", null);
             List<BookingItem> newItems = new ArrayList<>();
-            newItems.add(new BookingItem(3, 1, LocalDate.now(), null));
+            newItems.add(new BookingItem(3, 1, LocalDateTime.now(), service));
 
             booking.setItems(newItems);
 
@@ -104,8 +103,8 @@ public class BookingTest {
         @Test
         @DisplayName("Debería permitir agregar items a la lista")
         void shouldAllowAddingItems() {
-
-            booking.getItems().add(new BookingItem(3, 1, LocalDate.now(), null));
+            Service service = new Service(1, "Test Service", "Description", 50.0, "url", null);
+            booking.getItems().add(new BookingItem(3, 1, LocalDateTime.now(), service));
 
             assertEquals(3, booking.getItems().size());
         }
@@ -127,22 +126,22 @@ public class BookingTest {
         }
     }
 
-//    @Nested
-//    @DisplayName("Tests para validación de datos")
-//    class DataValidationTests {
-//        @Test
-//        @DisplayName("Debería aceptar total_price negativo")
-//        void shouldAcceptNegativeTotalPrice() {
-//            booking.setTotal_price(-100.0);
-//            assertEquals(-100.0, booking.getTotal_price());
-//        }
+    // @Nested
+    // @DisplayName("Tests para validación de datos")
+    // class DataValidationTests {
+    // @Test
+    // @DisplayName("Debería aceptar total_price negativo")
+    // void shouldAcceptNegativeTotalPrice() {
+    // booking.setTotal_price(-100.0);
+    // assertEquals(-100.0, booking.getTotal_price());
+    // }
 
-//        @Test
-//        @DisplayName("Debería aceptar total_products negativo")
-//        void shouldAcceptNegativeTotalProducts() {
-//            booking.setTotal_products(-5);
-//            assertEquals(-5, booking.getTotal_products());
-//        }
+    // @Test
+    // @DisplayName("Debería aceptar total_products negativo")
+    // void shouldAcceptNegativeTotalProducts() {
+    // booking.setTotal_products(-5);
+    // assertEquals(-5, booking.getTotal_products());
+    // }
     @Nested
     @DisplayName("Tests para validación de datos")
     class DataValidationTests {
@@ -153,12 +152,12 @@ public class BookingTest {
             assertEquals(-100.0, booking.getTotal_price());
         }
 
-//        @Test
-//        @DisplayName("Debería aceptar total_products negativo")
-//        void shouldAcceptNegativeTotalProducts() {
-//            booking.setTotal_products(-5);
-//            assertEquals(-5, booking.getTotal_products());
-//        }
+        // @Test
+        // @DisplayName("Debería aceptar total_products negativo")
+        // void shouldAcceptNegativeTotalProducts() {
+        // booking.setTotal_products(-5);
+        // assertEquals(-5, booking.getTotal_products());
+        // }
 
         @Test
         @DisplayName("Debería aceptar id_booking cero")

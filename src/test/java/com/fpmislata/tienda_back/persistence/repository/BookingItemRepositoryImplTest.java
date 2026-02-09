@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -38,7 +38,7 @@ class BookingItemRepositoryImplTest {
         bookingItemJpaEntity = new BookingItemJpaEntity();
         bookingItemJpaEntity.setIdBookingItem(1);
         bookingItemJpaEntity.setQuantity(2);
-        bookingItemJpaEntity.setBookingDate(LocalDate.now());
+        bookingItemJpaEntity.setBookingDate(LocalDateTime.now());
         bookingItemJpaEntity.setService(service);
     }
 
@@ -56,7 +56,7 @@ class BookingItemRepositoryImplTest {
 
         bookingItemRepository.increaseQuantityById(id);
 
-        verify(bookingItemJpaDao, times(1)).findById(id);
+        verify(bookingItemJpaDao, times(2)).findById(id);
         verify(bookingItemJpaDao, times(1)).save(argThat(entity -> entity.getQuantity() == 3));
     }
 
@@ -75,7 +75,7 @@ class BookingItemRepositoryImplTest {
 
         bookingItemRepository.decreaseQuantityById(id);
 
-        verify(bookingItemJpaDao, times(1)).findById(id);
+        verify(bookingItemJpaDao, times(2)).findById(id);
         verify(bookingItemJpaDao, times(1)).save(argThat(entity -> entity.getQuantity() == 1));
     }
 

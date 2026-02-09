@@ -69,7 +69,7 @@ public class ServiceMapper {
                 serviceJpaEntity.getIdService(),
                 serviceJpaEntity.getName(),
                 serviceJpaEntity.getDescription(),
-                serviceJpaEntity.getPrice(),
+                serviceJpaEntity.getPrice() != null ? serviceJpaEntity.getPrice() : 0.0,
                 serviceJpaEntity.getPictureUrl(),
                 CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryDto(serviceJpaEntity.getCategory()));
     }
@@ -100,7 +100,6 @@ public class ServiceMapper {
                 CategoryMapper.getInstance().fromCategoryDtoToCategory(serviceDto.category()));
     }
 
-
     public ServiceDto fromServiceToServiceDto(Service service) {
         if (service == null) {
             return null;
@@ -114,17 +113,16 @@ public class ServiceMapper {
                 CategoryMapper.getInstance().fromCategoryToCategoryDto(service.getCategory()));
     }
 
-
     public ServiceEntity fromServiceJpaEntityToServiceEntity(
             ServiceJpaEntity serviceJpaEntity) {
         if (serviceJpaEntity == null) {
             return null;
         }
-        return new com.fpmislata.tienda_back.domain.repository.entity.ServiceEntity(
+        return new ServiceEntity(
                 serviceJpaEntity.getIdService(),
                 serviceJpaEntity.getName(),
                 serviceJpaEntity.getDescription(),
-                serviceJpaEntity.getPrice(),
+                serviceJpaEntity.getPrice() != null ? serviceJpaEntity.getPrice() : 0.0,
                 serviceJpaEntity.getPictureUrl(),
                 CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryEntity(serviceJpaEntity.getCategory()));
     }
@@ -154,7 +152,7 @@ public class ServiceMapper {
                 serviceJpaEntity.getIdService(),
                 serviceJpaEntity.getName(),
                 serviceJpaEntity.getDescription(),
-                serviceJpaEntity.getPrice(),
+                serviceJpaEntity.getPrice() != null ? serviceJpaEntity.getPrice() : 0.0,
                 serviceJpaEntity.getPictureUrl(),
                 CategoryMapper.getInstance().fromCategoryJpaEntityToCategory(serviceJpaEntity.getCategory()));
     }

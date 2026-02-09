@@ -2,7 +2,7 @@ package com.fpmislata.tienda_back.persistence.dao.jpa.entity;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "booking_items")
@@ -24,13 +24,13 @@ public class BookingItemJpaEntity implements Serializable {
     private Integer quantity;
 
     @Column(name = "booking_date", nullable = false)
-    private LocalDate bookingDate;
+    private LocalDateTime bookingDate;
 
     public BookingItemJpaEntity() {
     }
 
     public BookingItemJpaEntity(Integer idBookingItem, BookingJpaEntity booking, ServiceJpaEntity service,
-            Integer quantity, LocalDate bookingDate) {
+            Integer quantity, LocalDateTime bookingDate) {
         this.idBookingItem = idBookingItem;
         this.booking = booking;
         this.service = service;
@@ -70,11 +70,11 @@ public class BookingItemJpaEntity implements Serializable {
         this.quantity = quantity;
     }
 
-    public LocalDate getBookingDate() {
+    public LocalDateTime getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(LocalDate bookingDate) {
+    public void setBookingDate(LocalDateTime bookingDate) {
         this.bookingDate = bookingDate;
     }
 }

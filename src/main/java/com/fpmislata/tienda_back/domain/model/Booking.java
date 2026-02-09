@@ -17,7 +17,7 @@ public class Booking {
 
     public List<BookingItem> findAllBookingsByUserWhenBookingDateIsFuture() {
         return this.items.stream()
-                .filter(item -> item.getBookingDate().isAfter(java.time.LocalDate.now()))
+                .filter(item -> item.getBookingDate().isAfter(java.time.LocalDateTime.now()))
                 .collect(java.util.stream.Collectors.toList());
     }
 
@@ -28,7 +28,6 @@ public class Booking {
     public void setId_booking(Integer idBooking) {
         this.idBooking = idBooking;
     }
-
 
     public double getTotal_price() {
         return total_price;
