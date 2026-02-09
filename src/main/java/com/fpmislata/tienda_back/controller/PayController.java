@@ -2,8 +2,6 @@ package com.fpmislata.tienda_back.controller;
 
 import com.fpmislata.tienda_back.controller.webModel.request.PayRequest;
 import com.fpmislata.tienda_back.domain.service.PaymentService;
-import com.fpmislata.tienda_back.pay.PayMicroservice;
-import com.fpmislata.tienda_back.pay.PaymentRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

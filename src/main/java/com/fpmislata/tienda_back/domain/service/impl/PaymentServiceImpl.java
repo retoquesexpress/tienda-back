@@ -4,8 +4,7 @@ import com.fpmislata.tienda_back.controller.webModel.request.PayRequest;
 import com.fpmislata.tienda_back.domain.service.PaymentService;
 import com.fpmislata.tienda_back.pay.Dto.AutorizacionDto;
 import com.fpmislata.tienda_back.pay.Dto.DestinoDto;
-import com.fpmislata.tienda_back.pay.Pay;
-import com.fpmislata.tienda_back.pay.PayMicroservice;
+import com.fpmislata.tienda_back.pay.service.PayMicroservice;
 import com.fpmislata.tienda_back.pay.PaymentRequest;
 
 public class PaymentServiceImpl implements PaymentService {

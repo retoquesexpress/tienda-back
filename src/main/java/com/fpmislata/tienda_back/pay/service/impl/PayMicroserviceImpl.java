@@ -1,4 +1,6 @@
-package com.fpmislata.tienda_back.pay;
+package com.fpmislata.tienda_back.pay.service.impl;
+import com.fpmislata.tienda_back.pay.service.PayMicroservice;
+import com.fpmislata.tienda_back.pay.PaymentRequest;
 import org.springframework.web.client.RestTemplate;
 
 public class PayMicroserviceImpl implements PayMicroservice {

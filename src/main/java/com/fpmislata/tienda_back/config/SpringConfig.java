@@ -11,8 +11,8 @@ import com.fpmislata.tienda_back.domain.service.*;
 
 import com.fpmislata.tienda_back.domain.service.impl.*;
 
-import com.fpmislata.tienda_back.pay.PayMicroservice;
-import com.fpmislata.tienda_back.pay.PayMicroserviceImpl;
+import com.fpmislata.tienda_back.pay.service.PayMicroservice;
+import com.fpmislata.tienda_back.pay.service.impl.PayMicroserviceImpl;
 import com.fpmislata.tienda_back.persistence.PersistenceConfig;
 import com.fpmislata.tienda_back.persistence.dao.jpa.BookingJpaDao;
 
@@ -27,7 +27,6 @@ import com.fpmislata.tienda_back.persistence.repository.BookingRepositoryImpl;
 import com.fpmislata.tienda_back.persistence.repository.CategoryRepositoryImpl;
 import com.fpmislata.tienda_back.persistence.repository.ServiceRepositoryImpl;
 import com.fpmislata.tienda_back.persistence.repository.UserRepositoryImpl;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
