@@ -7,20 +7,12 @@ import com.fpmislata.tienda_back.domain.repository.BookingRepository;
 import com.fpmislata.tienda_back.domain.repository.CategoryRepository;
 import com.fpmislata.tienda_back.domain.repository.ServiceRepository;
 import com.fpmislata.tienda_back.domain.repository.UserRepository;
-import com.fpmislata.tienda_back.domain.service.AuthService;
-import com.fpmislata.tienda_back.domain.service.BookingItemService;
-import com.fpmislata.tienda_back.domain.service.BookingService;
+import com.fpmislata.tienda_back.domain.service.*;
 
-import com.fpmislata.tienda_back.domain.service.CategoryService;
-import com.fpmislata.tienda_back.domain.service.ServiceService;
-import com.fpmislata.tienda_back.domain.service.UserService;
-import com.fpmislata.tienda_back.domain.service.impl.AuthServiceImpl;
-import com.fpmislata.tienda_back.domain.service.impl.BookingItemServiceImpl;
-import com.fpmislata.tienda_back.domain.service.impl.BookingServiceImpl;
+import com.fpmislata.tienda_back.domain.service.impl.*;
 
-import com.fpmislata.tienda_back.domain.service.impl.CategoryServiceImpl;
-import com.fpmislata.tienda_back.domain.service.impl.ServiceServiceImpl;
-import com.fpmislata.tienda_back.domain.service.impl.UserServiceImpl;
+import com.fpmislata.tienda_back.pay.PayMicroservice;
+import com.fpmislata.tienda_back.pay.PayMicroserviceImpl;
 import com.fpmislata.tienda_back.persistence.PersistenceConfig;
 import com.fpmislata.tienda_back.persistence.dao.jpa.BookingJpaDao;
 
@@ -35,9 +27,11 @@ import com.fpmislata.tienda_back.persistence.repository.BookingRepositoryImpl;
 import com.fpmislata.tienda_back.persistence.repository.CategoryRepositoryImpl;
 import com.fpmislata.tienda_back.persistence.repository.ServiceRepositoryImpl;
 import com.fpmislata.tienda_back.persistence.repository.UserRepositoryImpl;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.fpmislata.tienda_back.filter.AuthFilter;
@@ -131,6 +125,22 @@ public class SpringConfig {
 
         registration.setOrder(1);
         return registration;
+    }
+
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    @Bean
+    public PayMicroservice payMicroservice(RestTemplate restTemplate) {
+        return new PayMicroserviceImpl(restTemplate);
+    }
+
+    @Bean
+    public PaymentService paymentService(PayMicroservice payMicroservice) {
+        return new PaymentServiceImpl(payMicroservice);
     }
 
 }

@@ -40,8 +40,10 @@ public class AuthFilter implements Filter {
         }
 
         // Permitir GET públicos para servicios y categorías
-        if ("GET".equalsIgnoreCase(method)
-                && (path.startsWith("/api/services") || path.startsWith("/api/categories"))) {
+        boolean isPublicGet = "GET".equalsIgnoreCase(method)
+                && (path.startsWith("/api/services") || path.startsWith("/api/categories"));
+
+        if (isPublicGet) {
             chain.doFilter(request, response);
             return;
         }
@@ -59,6 +61,16 @@ public class AuthFilter implements Filter {
 
         try {
             User user = authService.getUserFromToken(token);
+
+            // RESTRICCIÓN ADMIN: Solo admin puede POST/PUT/DELETE en services y categories
+            boolean isModifyingRestricted = !"GET".equalsIgnoreCase(method)
+                    && (path.startsWith("/api/services") || path.startsWith("/api/categories"));
+
+            if (isModifyingRestricted && !"admin".equalsIgnoreCase(user.getRole())) {
+                httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Admin role required for this action");
+                return;
+            }
+
             httpRequest.setAttribute("authenticatedUser", user);
             chain.doFilter(request, response);
 

@@ -25,6 +25,7 @@ INSERT INTO services (id_service, name, description, price, picture_url, id_cate
 (26, 'Tinte', 'Servicio de moldeado mediante técnicas de calor para aportar cuerpo, brillo y movimiento al cabello, adaptando el peinado a tus preferencias de volumen y forma.', 45, 'tinte.jpg', 3);
 
 INSERT INTO users (id_user, name, email, user_name, password, phone_number, address, birth_date, role) VALUES
-(1, 'Alice Smith', 'alice@corp.com', 'asmith', 'pass1', '555-1234', '45 Oak Ave', '1985-03-20', 'admin'),
-(2, 'Bob Johnson', 'bob@corp.com', 'bjohnson', 'pass2', '555-5678', '99 Pine Ln', '1992-11-05', 'user'),
-(3, 'Charlie Brown', 'charlie@corp.com', 'cbrown', 'pass3', '555-9012', '33 Elm Ct', '1976-08-14', 'user');
+(1, 'Alice Smith', 'alice@corp.com', 'asmith', '123', '555-1234', '45 Oak Ave', '1985-03-20', 'admin'),
+(2, 'Bob Johnson', 'bob@corp.com', 'bjohnson', '123', '555-5678', '99 Pine Ln', '1992-11-05', 'user'),
+(3, 'Charlie Brown', 'charlie@corp.com', 'cbrown', '123', '555-9012', '33 Elm Ct', '1976-08-14', 'user');
+
