@@ -2,6 +2,7 @@ package com.fpmislata.tienda_back.persistence.repository;
 
 import com.fpmislata.tienda_back.domain.repository.ServiceRepository;
 import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
+import com.fpmislata.tienda_back.mapper.CategoryMapper;
 import com.fpmislata.tienda_back.mapper.ServiceMapper;
 import com.fpmislata.tienda_back.persistence.dao.jpa.ServiceJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.ServiceJpaEntity;
@@ -48,6 +49,7 @@ public class ServiceRepositoryImpl implements ServiceRepository {
         existingEntity.setDescription(serviceEntity.description());
         existingEntity.setPrice(serviceEntity.price());
         existingEntity.setPictureUrl(serviceEntity.pictureUrl());
+        existingEntity.setCategory(CategoryMapper.getInstance().fromCategoryDtoToCategoryJpaEntity(serviceEntity.category()));
         ServiceJpaEntity updatedEntity = serviceJpaDao.update(existingEntity);
         return ServiceMapper.getInstance().fromServiceJpaEntityToServiceDto(updatedEntity);
     }
