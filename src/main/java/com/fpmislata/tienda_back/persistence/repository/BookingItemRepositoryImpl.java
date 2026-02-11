@@ -34,7 +34,6 @@ public class BookingItemRepositoryImpl implements BookingItemRepository {
         BookingItemJpaEntity entity = BookingItemMapper.getInstance()
                 .fromBookingItemToBookingItemJpaEntity(bookingItem);
 
-        // Preserve booking relation if exists in DB
         if (entity.getIdBookingItem() != null) {
             bookingItemJpaDao.findById(entity.getIdBookingItem()).ifPresent(existing -> {
                 entity.setBooking(existing.getBooking());

@@ -24,7 +24,6 @@ public class AuthFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        // Permitir peticiones OPTIONS (CORS preflight)
         if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
             chain.doFilter(request, response);
             return;
@@ -33,13 +32,11 @@ public class AuthFilter implements Filter {
         String path = httpRequest.getRequestURI();
         String method = httpRequest.getMethod();
 
-        // NO filtrar login ni register
         if (path.startsWith("/api/auth")) {
             chain.doFilter(request, response);
             return;
         }
 
-        // Permitir GET públicos para servicios y categorías
         boolean isPublicGet = "GET".equalsIgnoreCase(method)
                 && (path.startsWith("/api/services") || path.startsWith("/api/categories"));
 
@@ -50,7 +47,6 @@ public class AuthFilter implements Filter {
 
         String authHeader = httpRequest.getHeader("Authorization");
 
-        // Si no hay token → error
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token required");
             return;
@@ -62,7 +58,6 @@ public class AuthFilter implements Filter {
         try {
             User user = authService.getUserFromToken(token);
 
-            // RESTRICCIÓN ADMIN: Solo admin puede POST/PUT/DELETE en services y categories
             boolean isModifyingRestricted = !"GET".equalsIgnoreCase(method)
                     && (path.startsWith("/api/services") || path.startsWith("/api/categories"));
 

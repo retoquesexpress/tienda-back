@@ -39,7 +39,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     @Override
     public CategoryDto create(CategoryDto categoryDto) {
         CategoryJpaEntity entity = CategoryMapper.getInstance().fromCategoryDtoToCategoryJpaEntity(categoryDto);
-        entity.setIdCategory(null); // Ensure ID is null for new entity creation
+        entity.setIdCategory(null);
         CategoryJpaEntity createdEntity = categoryJpaDao.insert(entity);
         return CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryDto(createdEntity);
     }

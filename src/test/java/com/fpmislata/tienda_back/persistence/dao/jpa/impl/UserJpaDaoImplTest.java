@@ -32,14 +32,12 @@ class UserJpaDaoImplTest {
     @Test
     @DisplayName("Test FindUserByID")
     void testFindUserById() {
-        //Arrange
         UserJpaEntity user1 = new UserJpaEntity(null, "User", "user@gmail.com", "user123", "password", "1234567890", "Address", null, "USER");
         UserJpaEntity inserted = userJpaDao.insert(user1);
         Integer generatedId = inserted.getIdUser();
 
         Optional<UserJpaEntity> actual = userJpaDao.findUserById(generatedId);
 
-        //Assert
         assertAll(
                 () -> assertTrue(actual.isPresent()),
                 () -> assertEquals(generatedId, actual.get().getIdUser()),
@@ -57,14 +55,12 @@ class UserJpaDaoImplTest {
     @Test
     @DisplayName("Test FindUserByUserName")
     void testFindUserByUserName() {
-        //Arrange
         UserJpaEntity user1 = new UserJpaEntity(null, "User", "user@gmail.com", "user123", "password", "1234567890", "Address", null, "USER");
         UserJpaEntity inserted = userJpaDao.insert(user1);
         Integer generatedId = inserted.getIdUser();
 
         Optional<UserJpaEntity> actual = userJpaDao.findUserByUserName("user123");
 
-        //Assert
         assertAll(
                 () -> assertTrue(actual.isPresent()),
                 () -> assertEquals(generatedId, actual.get().getIdUser()),

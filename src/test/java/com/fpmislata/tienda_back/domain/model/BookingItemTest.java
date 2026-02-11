@@ -130,12 +130,7 @@ public class BookingItemTest {
             assertEquals(null, bookingItem.getIdBookingItem());
         }
 
-        // @Test
-        // @DisplayName("Debería manejar id_booking con espacios")
-        // void shouldHandleIdBookingWithSpaces() {
-        // bookingItem.setId_booking(" item with spaces ");
-        // assertEquals(" item with spaces ", bookingItem.getId_booking());
-        // }
+
 
         @Test
         @DisplayName("Debería manejar quantity muy grande")

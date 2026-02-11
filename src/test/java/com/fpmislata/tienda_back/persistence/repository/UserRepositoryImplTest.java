@@ -33,15 +33,12 @@ class UserRepositoryImplTest {
         @Test
         @DisplayName("Test findAllUsers should return list of users when users exist")
         void testFindAllUsers_ReturnsListOfUsers_WhenUsersExist() {
-            //Arrange
             List<UserJpaEntity> expectedUsers = List.of(
                     new UserJpaEntity(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER"),
                     new UserJpaEntity(2, "USER2", "user2@gamil.com", "user2", "pass2", "123456459", "Address 2", null, "USER")
             );
             when(userJpaDao.findAllUsers()).thenReturn(expectedUsers);
-            //Act
             List<UserDto> actualUsers = userRepositoryImpl.findAllUsers();
-            //Assert
             assertAll(
                     () -> assertEquals(expectedUsers.get(0).getIdUser(), actualUsers.get(0).idUser()),
                     () -> assertEquals(expectedUsers.get(0).getName(), actualUsers.get(0).name()),
@@ -67,11 +64,8 @@ class UserRepositoryImplTest {
         @Test
         @DisplayName("Test findAllUsers should return empty list when no users exist")
         void testFindAllUsers_ReturnsEmptyList_WhenNoUsersExist() {
-            //Arrange
             when(userJpaDao.findAllUsers()).thenReturn(List.of());
-            //Act
             List<UserDto> actualUsers = userRepositoryImpl.findAllUsers();
-            //Assert
             assertTrue(actualUsers.isEmpty());
             verify(userJpaDao).findAllUsers();
         }
@@ -82,12 +76,9 @@ class UserRepositoryImplTest {
         @Test
         @DisplayName("Test findUserById should return user when user exists")
         void testFindUserById_ReturnsUser_WhenUserExists() {
-            //Arrange
             UserJpaEntity expectedUser = new UserJpaEntity(1, "USER1", "user1@gamil.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userJpaDao.findUserById(expectedUser.getIdUser())).thenReturn(Optional.of(expectedUser));
-            //Act
             Optional<UserDto> actualUser = userRepositoryImpl.findUserById(expectedUser.getIdUser());
-            //Assert
             assertAll(
                     () -> assertEquals(expectedUser.getIdUser(), actualUser.get().idUser()),
                     () -> assertEquals(expectedUser.getName(), actualUser.get().name()),
@@ -104,12 +95,9 @@ class UserRepositoryImplTest {
         @Test
         @DisplayName("Test findUserById should return empty when user does not exist")
         void testFindUserById_ReturnsEmpty_WhenUserDoesNotExist() {
-            //Arrange
             Integer userId = 0;
             when(userJpaDao.findUserById(userId)).thenReturn(Optional.empty());
-            //Act
             Optional<UserDto> actualUser = userRepositoryImpl.findUserById(userId);
-            //Assert
             assertTrue(actualUser.isEmpty());
             verify(userJpaDao).findUserById(userId);
         }
@@ -120,11 +108,8 @@ class UserRepositoryImplTest {
         @Test
         @DisplayName("Test delete should delete user")
         void testDelete_CallsUserJpaDaoDeleteMethod_WithCorrectId() {
-            //Arrange
             Integer userId = 1;
-            //Act
             userRepositoryImpl.delete(userId);
-            //Assert
             verify(userJpaDao).delete(userId);
         }
     }
@@ -134,12 +119,9 @@ class UserRepositoryImplTest {
         @Test
         @DisplayName("Test getById should return user when user exists")
         void testGetById_ReturnsUser_WhenUserExists() {
-            //Arrange
             UserJpaEntity expectedUser = new UserJpaEntity(1, "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userJpaDao.findUserById(expectedUser.getIdUser())).thenReturn(Optional.of(expectedUser));
-            //Act
             UserDto actualUser = userRepositoryImpl.getById(expectedUser.getIdUser());
-            //Assert
             assertAll(
                     () -> assertEquals(expectedUser.getIdUser(), actualUser.idUser()),
                     () -> assertEquals(expectedUser.getName(), actualUser.name()),
@@ -156,12 +138,9 @@ class UserRepositoryImplTest {
         @Test
         @DisplayName("Test getById should return null when user does not exist")
         void testGetById_ReturnsNull_WhenUserDoesNotExist() {
-            //Arrange
             Integer userId = 0;
             when(userJpaDao.findUserById(userId)).thenReturn(Optional.empty());
-            //Act
             UserDto actualUser = userRepositoryImpl.getById(userId);
-            //Assert
             assertNull(actualUser);
             verify(userJpaDao).findUserById(userId);
         }
@@ -173,12 +152,9 @@ class UserRepositoryImplTest {
         @Test
         @DisplayName("Test findUserByUserName should return user when user exists")
         void testFindUserByUserName_ReturnsUser_WhenUserExists() {
-            //Arrange
             UserJpaEntity expectedUser = new UserJpaEntity(1, "USER1", "user@gmail.com", "user1", "pass1", "123456789", "Address 1", null, "USER");
             when(userJpaDao.findUserByUserName(expectedUser.getUserName())).thenReturn(Optional.of(expectedUser));
-            //Act
             Optional<UserDto> actualUser = userRepositoryImpl.findUserByUserName(expectedUser.getUserName());
-            //Assert
             assertAll(
                     () -> assertEquals(expectedUser.getIdUser(), actualUser.get().idUser()),
                     () -> assertEquals(expectedUser.getName(), actualUser.get().name()),
@@ -195,12 +171,9 @@ class UserRepositoryImplTest {
         @Test
         @DisplayName("Test findUserByUserName should return empty when user does not exist")
         void testFindUserByUserName_ReturnsEmpty_WhenUserDoesNotExist() {
-            //Arrange
             String userName = "nonexistent";
             when(userJpaDao.findUserByUserName(userName)).thenReturn(Optional.empty());
-            //Act
             Optional<UserDto> actualUser = userRepositoryImpl.findUserByUserName(userName);
-            //Assert
             assertTrue(actualUser.isEmpty());
             verify(userJpaDao).findUserByUserName(userName);
         }

@@ -44,7 +44,6 @@ class ServiceJpaDaoImplTest {
     @Test
     @DisplayName("Test findById")
     void testGetById() {
-        // Create a category first
         CategoryJpaEntity category = entityManager.find(CategoryJpaEntity.class, 1);
         
         ServiceJpaEntity service1 = new ServiceJpaEntity(null, "Service 1", "Description 1", 100.0, "http://example.com/pic1.jpg", category);
@@ -80,7 +79,6 @@ class ServiceJpaDaoImplTest {
     @Test
     @DisplayName("Test getById")
     void testGetByIdExisting() {
-        // Create a category first
         CategoryJpaEntity category = entityManager.find(CategoryJpaEntity.class, 1);
         
         ServiceJpaEntity service1 = new ServiceJpaEntity(null, "Service 1", "Description 1", 100.0, "http://example.com/pic1.jpg", category);
@@ -100,7 +98,6 @@ class ServiceJpaDaoImplTest {
     @Test
     @DisplayName("Test update service")
     void testUpdate() {
-        // Create a category first
         CategoryJpaEntity category = entityManager.find(CategoryJpaEntity.class, 1);
         
         ServiceJpaEntity service = new ServiceJpaEntity(null, "Service 1", "Description 1", 100.0, "http://example.com/pic1.jpg", category);
@@ -127,7 +124,6 @@ class ServiceJpaDaoImplTest {
     @Test
     @DisplayName("Test delete service by id")
     void testDeleteById() {
-        // Create a category first
         CategoryJpaEntity category = entityManager.find(CategoryJpaEntity.class, 1);
         
         ServiceJpaEntity service = new ServiceJpaEntity();
@@ -152,7 +148,6 @@ class ServiceJpaDaoImplTest {
     @Test
     @DisplayName("Test create service")
     void testCreateService() {
-        // Create a category first
         CategoryJpaEntity category = entityManager.find(CategoryJpaEntity.class, 1);
         
         ServiceJpaEntity service = new ServiceJpaEntity(null, "Service 1", "Description 1", 100.0, "http://example.com/pic1.jpg", category);

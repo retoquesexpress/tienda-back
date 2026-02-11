@@ -68,12 +68,7 @@ public class BookingTest {
             assertEquals(10, booking.getId_booking());
         }
 
-        // @Test
-        // @DisplayName("Debería actualizar total_products correctamente")
-        // void shouldUpdateTotalProducts() {
-        // booking.setTotal_products(10);
-        // assertEquals(10, booking.getTotal_products());
-        // }
+
 
         @Test
         @DisplayName("Debería actualizar total_price correctamente")
@@ -126,22 +121,9 @@ public class BookingTest {
         }
     }
 
-    // @Nested
-    // @DisplayName("Tests para validación de datos")
-    // class DataValidationTests {
-    // @Test
-    // @DisplayName("Debería aceptar total_price negativo")
-    // void shouldAcceptNegativeTotalPrice() {
-    // booking.setTotal_price(-100.0);
-    // assertEquals(-100.0, booking.getTotal_price());
-    // }
 
-    // @Test
-    // @DisplayName("Debería aceptar total_products negativo")
-    // void shouldAcceptNegativeTotalProducts() {
-    // booking.setTotal_products(-5);
-    // assertEquals(-5, booking.getTotal_products());
-    // }
+
+
     @Nested
     @DisplayName("Tests para validación de datos")
     class DataValidationTests {
@@ -152,12 +134,7 @@ public class BookingTest {
             assertEquals(-100.0, booking.getTotal_price());
         }
 
-        // @Test
-        // @DisplayName("Debería aceptar total_products negativo")
-        // void shouldAcceptNegativeTotalProducts() {
-        // booking.setTotal_products(-5);
-        // assertEquals(-5, booking.getTotal_products());
-        // }
+
 
         @Test
         @DisplayName("Debería aceptar id_booking cero")

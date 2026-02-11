@@ -33,7 +33,7 @@ class BookingItemRepositoryImplTest {
         ServiceJpaEntity service = new ServiceJpaEntity();
         service.setIdService(1);
         service.setName("Test Service");
-        service.setPrice(10.0); // Fix NPE in mapping
+        service.setPrice(10.0);
 
         bookingItemJpaEntity = new BookingItemJpaEntity();
         bookingItemJpaEntity.setIdBookingItem(1);
@@ -50,7 +50,7 @@ class BookingItemRepositoryImplTest {
         when(bookingItemJpaDao.save(any(BookingItemJpaEntity.class))).thenAnswer(i -> {
             BookingItemJpaEntity entity = i.getArgument(0);
             if (entity.getService() != null)
-                entity.getService().setPrice(10.0); // Fix NPE
+                entity.getService().setPrice(10.0);
             return entity;
         });
 
@@ -69,7 +69,7 @@ class BookingItemRepositoryImplTest {
         when(bookingItemJpaDao.save(any(BookingItemJpaEntity.class))).thenAnswer(i -> {
             BookingItemJpaEntity entity = i.getArgument(0);
             if (entity.getService() != null)
-                entity.getService().setPrice(10.0); // Fix NPE
+                entity.getService().setPrice(10.0);
             return entity;
         });
 

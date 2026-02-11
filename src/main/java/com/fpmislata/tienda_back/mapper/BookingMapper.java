@@ -102,7 +102,6 @@ public class BookingMapper {
         jpaEntity.setIdBooking(bookingEntity.idBooking());
         jpaEntity.setTotalPrice(bookingEntity.total_price());
         jpaEntity.setUser(UserMapper.getInstance().fromUserEntityToUserJpaEntity(bookingEntity.user()));
-        // Note: BookingItems should be handled in the repository to maintain references
         return jpaEntity;
     }
 
@@ -126,7 +125,7 @@ public class BookingMapper {
         }
         return new BookingDto(
                 null,
-                0.0, // Calculated later
+                0.0,
                 request.items() != null ? request.items().stream()
                         .map(BookingItemMapper.getInstance()::fromBookingItemInsertRequestToBookingItemDto)
                         .collect(Collectors.toList()) : new ArrayList<>(),
