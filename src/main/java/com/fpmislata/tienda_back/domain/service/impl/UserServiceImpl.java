@@ -1,9 +1,11 @@
 package com.fpmislata.tienda_back.domain.service.impl;
 
 import com.fpmislata.tienda_back.domain.repository.UserRepository;
+import com.fpmislata.tienda_back.domain.repository.entity.UserEntity;
 import com.fpmislata.tienda_back.domain.service.UserService;
 import com.fpmislata.tienda_back.domain.service.dto.UserDto;
 import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
+import com.fpmislata.tienda_back.mapper.UserMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -19,23 +21,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findAllUsers() {
-        return userRepository.findAllUsers();
+        return userRepository.findAllUsers().stream().map(UserMapper.getInstance()::fromUserEntityToUserDto).toList();
     }
 
     @Override
     public Optional<UserDto> findUserById(Integer idUser) {
-        Optional<UserDto> user = userRepository.findUserById(idUser);
+        Optional<UserEntity> user = userRepository.findUserById(idUser);
         if (user.isPresent()) {
-            return user;
+            return user.map(UserMapper.getInstance()::fromUserEntityToUserDto);
         } else {
             throw new ResourceNotFoundException("User not found");
         }    }
 
     @Override
     public Optional<UserDto> findUserByUserName(String userName) {
-        Optional<UserDto> user = userRepository.findUserByUserName(userName);
+        Optional<UserEntity> user = userRepository.findUserByUserName(userName);
         if (user.isPresent()) {
-            return user;
+            return user.map(UserMapper.getInstance()::fromUserEntityToUserDto);
         } else {
             throw new ResourceNotFoundException("User not found");
         }
@@ -43,18 +45,18 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto create(UserDto userDto) {
-        Optional<UserDto> user = userRepository.findUserById(userDto.idUser());
+        Optional<UserEntity> user = userRepository.findUserById(userDto.idUser());
         if (user.isEmpty()) {
-            return userRepository.save(userDto);
+            return UserMapper.getInstance().fromUserEntityToUserDto(userRepository.save(user.get()));
         } else {
             throw new IllegalArgumentException("User already exists");
         }    }
     @Transactional
     @Override
     public UserDto update(UserDto userDto) {
-        Optional<UserDto> user = userRepository.findUserById(userDto.idUser());
+        Optional<UserEntity> user = userRepository.findUserById(userDto.idUser());
         if (user.isPresent()) {
-            return userRepository.save(userDto);
+            return UserMapper.getInstance().fromUserEntityToUserDto(userRepository.save(user.get()));
         } else  {
             throw new ResourceNotFoundException("User does not exists");
         }
@@ -62,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void delete(Integer idUser) {
-        Optional<UserDto> user = userRepository.findUserById(idUser);
+        Optional<UserEntity> user = userRepository.findUserById(idUser);
         if (user.isPresent()) {
             userRepository.delete(idUser);
         } else  {
@@ -72,10 +74,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(Integer idUser) {
-        Optional<UserDto> user = userRepository.findUserById(idUser);
+        Optional<UserEntity> user = userRepository.findUserById(idUser);
         if (user.isEmpty()) {
             throw new ResourceNotFoundException("User not found");
         }
-        return user.get();
+        return user.map(UserMapper.getInstance()::fromUserEntityToUserDto).get();
     }
 }

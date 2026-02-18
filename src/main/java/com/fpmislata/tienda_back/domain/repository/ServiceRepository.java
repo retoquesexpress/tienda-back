@@ -1,22 +1,23 @@
 package com.fpmislata.tienda_back.domain.repository;
 
+import com.fpmislata.tienda_back.domain.repository.entity.ServiceEntity;
 import com.fpmislata.tienda_back.domain.service.dto.ServiceDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ServiceRepository {
-    List<ServiceDto> findAll();
+    List<ServiceEntity> findAll();
 
-    ServiceDto getById(Integer idService);
+    ServiceEntity getById(Integer idService);
 
-    Optional<ServiceDto> findById(Integer idService);
+    Optional<ServiceEntity> findById(Integer idService);
 
-    ServiceDto update(ServiceDto serviceEntity);
+    ServiceEntity update(ServiceEntity serviceEntity);
 
-    List<ServiceDto> findByCategory(Integer idCategory);
+    List<ServiceEntity> findByCategory(Integer idCategory);
 
-    ServiceDto create(ServiceDto serviceEntity);
+    ServiceEntity create(ServiceEntity serviceEntity);
 
     void deleteById(Integer idService);
 }

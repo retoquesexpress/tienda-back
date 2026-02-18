@@ -1,6 +1,7 @@
 package com.fpmislata.tienda_back.persistence.repository;
 
 import com.fpmislata.tienda_back.domain.repository.CategoryRepository;
+import com.fpmislata.tienda_back.domain.repository.entity.CategoryEntity;
 import com.fpmislata.tienda_back.domain.service.dto.CategoryDto;
 import com.fpmislata.tienda_back.mapper.CategoryMapper;
 import com.fpmislata.tienda_back.mapper.ServiceMapper;
@@ -20,15 +21,15 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public List<CategoryDto> findAll() {
-        return categoryJpaDao.findAll().stream().map(CategoryMapper.getInstance()::fromCategoryJpaEntityToCategoryDto)
+    public List<CategoryEntity> findAll() {
+        return categoryJpaDao.findAll().stream().map(CategoryMapper.getInstance()::fromCategoryJpaEntityToCategoryEntity)
                 .toList();
     }
 
     @Override
-    public Optional<CategoryDto> findCategoryById(Integer id_category) {
+    public Optional<CategoryEntity> findCategoryById(Integer id_category) {
         return categoryJpaDao.findCategoryById(id_category)
-                .map(CategoryMapper.getInstance()::fromCategoryJpaEntityToCategoryDto);
+                .map(CategoryMapper.getInstance()::fromCategoryJpaEntityToCategoryEntity);
     }
 
     @Override
@@ -37,29 +38,29 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public CategoryDto create(CategoryDto categoryDto) {
-        CategoryJpaEntity entity = CategoryMapper.getInstance().fromCategoryDtoToCategoryJpaEntity(categoryDto);
+    public CategoryEntity create(CategoryEntity categoryEntity) {
+        CategoryJpaEntity entity = CategoryMapper.getInstance().fromCategoryEntityToCategoryJpaEntity(categoryEntity);
         entity.setIdCategory(null);
         CategoryJpaEntity createdEntity = categoryJpaDao.insert(entity);
-        return CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryDto(createdEntity);
+        return CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryEntity(createdEntity);
     }
 
     @Override
-    public CategoryDto update(CategoryDto categoryDto) {
-        Integer categoryId = categoryDto.idCategory();
+    public CategoryEntity update(CategoryEntity categoryEntity) {
+        Integer categoryId = categoryEntity.idCategory();
         CategoryJpaEntity existingEntity = categoryJpaDao.findCategoryById(categoryId).orElseThrow(
                 () -> new EntityNotFoundException("Category con ID " + categoryId + " no encontrado para actualizar."));
         existingEntity.setIdCategory(categoryId);
-        existingEntity.setName(categoryDto.name());
+        existingEntity.setName(categoryEntity.name());
         CategoryJpaEntity updatedEntity = categoryJpaDao.update(existingEntity);
-        return CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryDto(updatedEntity);
+        return CategoryMapper.getInstance().fromCategoryJpaEntityToCategoryEntity(updatedEntity);
 
     }
 
     @Override
-    public CategoryDto getById(Integer id_category) {
+    public CategoryEntity getById(Integer id_category) {
         return categoryJpaDao.findCategoryById(id_category)
-                .map(CategoryMapper.getInstance()::fromCategoryJpaEntityToCategoryDto)
+                .map(CategoryMapper.getInstance()::fromCategoryJpaEntityToCategoryEntity)
                 .orElse(null);
     }
 }

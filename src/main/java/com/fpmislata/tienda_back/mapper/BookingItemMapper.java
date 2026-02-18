@@ -191,4 +191,27 @@ public class BookingItemMapper {
 
         return entity;
     }
+
+    public BookingItemEntity fromBookingItemToBookingItemEntity(BookingItem bookingItem) {
+        if (bookingItem == null) {
+            return null;
+        }
+        return new BookingItemEntity(
+                bookingItem.getIdBookingItem(),
+                null,
+                bookingItem.getQuantity(),
+                bookingItem.getBookingDate(),
+                ServiceMapper.getInstance().fromServiceToServiceEntity(bookingItem.getService()));
+    }
+
+    public BookingItem fromBookingItemEntityToBookingItem(BookingItemEntity bookingItemEntity) {
+        if (bookingItemEntity == null) {
+            return null;
+        }
+        return new BookingItem(
+                bookingItemEntity.idBookingItem(),
+                bookingItemEntity.quantity(),
+                bookingItemEntity.bookingDate(),
+                ServiceMapper.getInstance().fromServiceEntityToService(bookingItemEntity.service()));
+    }
 }

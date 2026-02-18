@@ -1,6 +1,7 @@
 package com.fpmislata.tienda_back.persistence.repository;
 
 import com.fpmislata.tienda_back.domain.repository.UserRepository;
+import com.fpmislata.tienda_back.domain.repository.entity.UserEntity;
 import com.fpmislata.tienda_back.domain.service.dto.UserDto;
 import com.fpmislata.tienda_back.mapper.UserMapper;
 import com.fpmislata.tienda_back.persistence.dao.jpa.UserJpaDao;
@@ -17,12 +18,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<UserDto> findAllUsers() {
-        return userJpaDao.findAllUsers().stream().map(UserMapper.getInstance()::fromUserJpaEntityToUserDto).toList();
+    public List<UserEntity> findAllUsers() {
+        return userJpaDao.findAllUsers().stream().map(UserMapper.getInstance()::fromUserJpaEntityToUserEntity).toList();
     }
 
-    public Optional<UserDto> findUserById(Integer idUser) {
-        return userJpaDao.findUserById(idUser).map(UserMapper.getInstance()::fromUserJpaEntityToUserDto);
+    public Optional<UserEntity> findUserById(Integer idUser) {
+        return userJpaDao.findUserById(idUser).map(UserMapper.getInstance()::fromUserJpaEntityToUserEntity);
     }
 
     public void delete(Integer idUser) {
@@ -30,25 +31,25 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserDto save(UserDto userDto) {
-        if (userDto.idUser() == null) {
-            return UserMapper.getInstance().fromUserJpaEntityToUserDto(
-                    userJpaDao.insert(UserMapper.getInstance().fromUserDtoToUserJpaEntity(userDto)));
+    public UserEntity save(UserEntity userEntity) {
+        if (userEntity.idUser() == null) {
+            return UserMapper.getInstance().fromUserJpaEntityToUserEntity(
+                    userJpaDao.insert(UserMapper.getInstance().fromUserEntityToUserJpaEntity(userEntity)));
         } else {
-            return UserMapper.getInstance().fromUserJpaEntityToUserDto(
-                    userJpaDao.update(UserMapper.getInstance().fromUserDtoToUserJpaEntity(userDto)));
+            return UserMapper.getInstance().fromUserJpaEntityToUserEntity(
+                    userJpaDao.update(UserMapper.getInstance().fromUserEntityToUserJpaEntity(userEntity)));
         }
 
     }
 
-    public UserDto getById(Integer idUser) {
+    public UserEntity getById(Integer idUser) {
         return userJpaDao.findUserById(idUser)
-                .map(UserMapper.getInstance()::fromUserJpaEntityToUserDto)
+                .map(UserMapper.getInstance()::fromUserJpaEntityToUserEntity)
                 .orElse(null);
     }
 
     @Override
-    public Optional<UserDto> findUserByUserName(String userName) {
-        return userJpaDao.findUserByUserName(userName).map(UserMapper.getInstance()::fromUserJpaEntityToUserDto);
+    public Optional<UserEntity> findUserByUserName(String userName) {
+        return userJpaDao.findUserByUserName(userName).map(UserMapper.getInstance()::fromUserJpaEntityToUserEntity);
     }
 }

@@ -2,10 +2,12 @@ package com.fpmislata.tienda_back.persistence.repository;
 
 import com.fpmislata.tienda_back.domain.model.BookingItem;
 import com.fpmislata.tienda_back.domain.repository.BookingItemRepository;
+import com.fpmislata.tienda_back.domain.repository.entity.BookingItemEntity;
 import com.fpmislata.tienda_back.mapper.BookingItemMapper;
 import com.fpmislata.tienda_back.persistence.dao.jpa.BookingItemJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.BookingItemJpaEntity;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class BookingItemRepositoryImpl implements BookingItemRepository {
@@ -17,22 +19,22 @@ public class BookingItemRepositoryImpl implements BookingItemRepository {
     }
 
     @Override
-    public List<BookingItem> findAll() {
+    public List<BookingItemEntity> findAll() {
         return bookingItemJpaDao.findAll().stream()
-                .map(BookingItemMapper.getInstance()::fromBookingItemJpaEntityToBookingItem)
+                .map(BookingItemMapper.getInstance()::fromBookingItemJpaEntityToBookingItemEntity)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public java.util.Optional<BookingItem> findById(Integer id) {
+    public Optional<BookingItemEntity> findById(Integer id) {
         return bookingItemJpaDao.findById(id)
-                .map(BookingItemMapper.getInstance()::fromBookingItemJpaEntityToBookingItem);
+                .map(BookingItemMapper.getInstance()::fromBookingItemJpaEntityToBookingItemEntity);
     }
 
     @Override
-    public BookingItem save(BookingItem bookingItem) {
+    public BookingItemEntity save(BookingItemEntity bookingItemEntity) {
         BookingItemJpaEntity entity = BookingItemMapper.getInstance()
-                .fromBookingItemToBookingItemJpaEntity(bookingItem);
+                .fromBookingItemEntityToBookingItemJpaEntity(bookingItemEntity);
 
         if (entity.getIdBookingItem() != null) {
             bookingItemJpaDao.findById(entity.getIdBookingItem()).ifPresent(existing -> {
@@ -41,7 +43,7 @@ public class BookingItemRepositoryImpl implements BookingItemRepository {
         }
 
         BookingItemJpaEntity savedEntity = bookingItemJpaDao.save(entity);
-        return BookingItemMapper.getInstance().fromBookingItemJpaEntityToBookingItem(savedEntity);
+        return BookingItemMapper.getInstance().fromBookingItemJpaEntityToBookingItemEntity(savedEntity);
     }
 
     @Override
@@ -51,19 +53,41 @@ public class BookingItemRepositoryImpl implements BookingItemRepository {
 
     @Override
     public void increaseQuantityById(Integer id) {
-        BookingItem bookingItem = findById(id).orElse(null);
-        if (bookingItem != null) {
-            bookingItem.setQuantity(bookingItem.getQuantity() + 1);
-            save(bookingItem);
-        }
+//        BookingItemEntity bookingItemEntity = findById(id).orElse(null);
+//        if (bookingItemEntity != null) {
+//            bookingItemEntity.setQuantity(bookingItemEntity.getQuantity() + 1);
+//            save(bookingItemEntity);
+//        }
+        findById(id).ifPresent(item -> {
+            BookingItemEntity updated = new BookingItemEntity(
+                    item.idBookingItem(),
+                    item.idService(),
+                    item.quantity() + 1,
+                    item.bookingDate(),
+                    item.service()
+            );
+            save(updated);
+        });
     }
 
     @Override
     public void decreaseQuantityById(Integer id) {
-        BookingItem bookingItem = findById(id).orElse(null);
-        if (bookingItem != null && bookingItem.getQuantity() > 1) {
-            bookingItem.setQuantity(bookingItem.getQuantity() - 1);
-            save(bookingItem);
-        }
+//        BookingItemEntity bookingItemEntity = findById(id).orElse(null);
+//        if (bookingItemEntity != null && bookingItemEntity.getQuantity() > 1) {
+//            bookingItemEntity.setQuantity(bookingItemEntity.getQuantity() - 1);
+//            save(bookingItemEntity);
+//        }
+        findById(id).ifPresent(item -> {
+            if (item.quantity() > 1) {
+                BookingItemEntity updated = new BookingItemEntity(
+                        item.idBookingItem(),
+                        item.idService(),
+                        item.quantity() - 1,
+                        item.bookingDate(),
+                        item.service()
+                );
+                save(updated);
+            }
+        });
     }
 }

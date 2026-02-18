@@ -2,6 +2,7 @@ package com.fpmislata.tienda_back.domain.service.impl;
 
 import com.fpmislata.tienda_back.domain.model.BookingItem;
 import com.fpmislata.tienda_back.domain.repository.BookingItemRepository;
+import com.fpmislata.tienda_back.domain.repository.entity.BookingItemEntity;
 import com.fpmislata.tienda_back.domain.service.BookingItemService;
 import com.fpmislata.tienda_back.domain.service.dto.BookingItemDto;
 import com.fpmislata.tienda_back.exception.ResourceNotFoundException;
@@ -23,13 +24,14 @@ public class BookingItemServiceImpl implements BookingItemService {
     @Override
     public List<BookingItemDto> findAll() {
         return bookingItemRepository.findAll().stream()
-                .map(BookingItemMapper.getInstance()::fromBookingItemToBookingItemDto)
+                .map(BookingItemMapper.getInstance()::fromBookingItemEntityToBookingItemDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public BookingItemDto findById(Integer id) {
         BookingItem bookingItem = bookingItemRepository.findById(id)
+                .map(BookingItemMapper.getInstance()::fromBookingItemEntityToBookingItem)
                 .orElseThrow(() -> new ResourceNotFoundException("BookingItem not found"));
         return BookingItemMapper.getInstance().fromBookingItemToBookingItemDto(bookingItem);
     }
@@ -37,8 +39,8 @@ public class BookingItemServiceImpl implements BookingItemService {
     @Override
     public BookingItemDto save(BookingItemDto bookingItemDto) {
         BookingItem bookingItem = BookingItemMapper.getInstance().fromBookingItemDtoToBookingItem(bookingItemDto);
-        BookingItem savedBookingItem = bookingItemRepository.save(bookingItem);
-        return BookingItemMapper.getInstance().fromBookingItemToBookingItemDto(savedBookingItem);
+        BookingItemEntity savedBookingItem = bookingItemRepository.save(BookingItemMapper.getInstance().fromBookingItemToBookingItemEntity(bookingItem));
+        return BookingItemMapper.getInstance().fromBookingItemEntityToBookingItemDto(savedBookingItem);
     }
 
     @Override

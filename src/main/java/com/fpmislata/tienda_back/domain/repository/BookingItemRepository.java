@@ -1,16 +1,18 @@
 package com.fpmislata.tienda_back.domain.repository;
 
 import com.fpmislata.tienda_back.domain.model.BookingItem;
+import com.fpmislata.tienda_back.domain.repository.entity.BookingItemEntity;
+
 import java.util.List;
 
 import java.util.Optional;
 
 public interface BookingItemRepository {
-    List<BookingItem> findAll();
+    List<BookingItemEntity> findAll();
 
-    Optional<BookingItem> findById(Integer id);
+    Optional<BookingItemEntity> findById(Integer id);
 
-    BookingItem save(BookingItem bookingItem);
+    BookingItemEntity save(BookingItemEntity bookingItem);
 
     void delete(Integer id);
 

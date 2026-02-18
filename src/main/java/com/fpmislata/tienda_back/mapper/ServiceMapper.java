@@ -200,4 +200,31 @@ public class ServiceMapper {
                 CategoryMapper.getInstance().fromCategoryDtoToCategoryEntity(serviceDto.category()));
 
     }
+
+    public ServiceEntity fromServiceToServiceEntity(Service service) {
+        if (service == null) {
+            return null;
+        }
+        return new ServiceEntity(
+                Integer.valueOf(service.getId()),
+                service.getName(),
+                service.getDescription(),
+                service.getPrice(),
+                service.getPictureUrl(),
+                CategoryMapper.getInstance().fromCategoryToCategoryEntity(service.getCategory()));
+    }
+
+    public Service fromServiceEntityToService(ServiceEntity serviceEntity) {
+        if (serviceEntity == null) {
+            return null;
+        }
+        return new Service(
+                Integer.valueOf(serviceEntity.idService()),
+                serviceEntity.name(),
+                serviceEntity.description(),
+                serviceEntity.price(),
+                serviceEntity.pictureUrl(),
+                CategoryMapper.getInstance().fromCategoryEntityToCategory(serviceEntity.category()));
+    }
+
 }

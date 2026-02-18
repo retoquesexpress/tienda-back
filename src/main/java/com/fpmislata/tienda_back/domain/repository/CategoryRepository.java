@@ -1,20 +1,21 @@
 package com.fpmislata.tienda_back.domain.repository;
 
+import com.fpmislata.tienda_back.domain.repository.entity.CategoryEntity;
 import com.fpmislata.tienda_back.domain.service.dto.CategoryDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CategoryRepository {
-    List<CategoryDto> findAll();
+    List<CategoryEntity> findAll();
 
-    Optional<CategoryDto> findCategoryById(Integer idCategory);
+    Optional<CategoryEntity> findCategoryById(Integer idCategory);
 
     void delete(Integer id_category);
 
-    CategoryDto create(CategoryDto categoryDto);
+    CategoryEntity create(CategoryEntity categoryEntity);
 
-    CategoryDto update(CategoryDto categoryDto);
+    CategoryEntity update(CategoryEntity categoryEntity);
 
-    CategoryDto getById(Integer idCategory);
+    CategoryEntity getById(Integer idCategory);
 }
