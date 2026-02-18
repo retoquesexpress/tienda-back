@@ -1,5 +1,6 @@
 package com.fpmislata.tienda_back.persistence.repository;
 
+import com.fpmislata.tienda_back.domain.repository.entity.CategoryEntity;
 import com.fpmislata.tienda_back.domain.service.dto.CategoryDto;
 import com.fpmislata.tienda_back.persistence.dao.jpa.CategoryJpaDao;
 import com.fpmislata.tienda_back.persistence.dao.jpa.entity.CategoryJpaEntity;
@@ -36,7 +37,7 @@ class CategoryRepositoryImplTest {
                     new CategoryJpaEntity(2, "CATEGORY2")
                 );
             when(categoryJpaDao.findAll()).thenReturn(expectedCategories);
-            List<CategoryDto> actualCategories = categoryRepositoryImpl.findAll();
+            List<CategoryEntity> actualCategories = categoryRepositoryImpl.findAll();
             assertAll(
                     () -> assertEquals(expectedCategories.get(0).getIdCategory(), actualCategories.get(0).idCategory()),
                     () -> assertEquals(expectedCategories.get(0).getName(), actualCategories.get(0).name()),
@@ -51,7 +52,7 @@ class CategoryRepositoryImplTest {
         @DisplayName("Test findAllCategories should return empty list when no categories exist")
         void testFindAllCategories_ReturnsEmptyList_WhenNoCategoriesExist() {
             when(categoryJpaDao.findAll()).thenReturn(List.of());
-            List<CategoryDto> actualCategories = categoryRepositoryImpl.findAll();
+            List<CategoryEntity> actualCategories = categoryRepositoryImpl.findAll();
             assertTrue(actualCategories.isEmpty());
             verify(categoryJpaDao).findAll();
         }
@@ -64,7 +65,7 @@ class CategoryRepositoryImplTest {
         void testFindCategoryById_ReturnsCategory_WhenCategoryExists() {
             CategoryJpaEntity expectedCategory = new CategoryJpaEntity(1, "CATEGORY1");
             when(categoryJpaDao.findCategoryById(expectedCategory.getIdCategory())).thenReturn(Optional.of(expectedCategory));
-            Optional<CategoryDto> actualCategory = categoryRepositoryImpl.findCategoryById(expectedCategory.getIdCategory());
+            Optional<CategoryEntity> actualCategory = categoryRepositoryImpl.findCategoryById(expectedCategory.getIdCategory());
             assertAll(
                     () -> assertEquals(expectedCategory.getIdCategory(), actualCategory.get().idCategory()),
                     () -> assertEquals(expectedCategory.getName(), actualCategory.get().name())
@@ -77,7 +78,7 @@ class CategoryRepositoryImplTest {
         void testFindCategoryById_ReturnsEmpty_WhenCategoryDoesNotExist() {
             Integer categoryId = 111;
             when(categoryJpaDao.findCategoryById(categoryId)).thenReturn(Optional.empty());
-            Optional<CategoryDto> actualCategory = categoryRepositoryImpl.findCategoryById(categoryId);
+            Optional<CategoryEntity> actualCategory = categoryRepositoryImpl.findCategoryById(categoryId);
             assertTrue(actualCategory.isEmpty());
             verify(categoryJpaDao).findCategoryById(categoryId);
         }
@@ -100,12 +101,12 @@ class CategoryRepositoryImplTest {
         @Test
         @DisplayName("Test createCategory should return created category")
         void testCreateCategory_ReturnsCreatedCategory() {
-            CategoryDto categoryDtoToCreate = new CategoryDto(null, "NEW_CATEGORY");
+            CategoryEntity categoryEntity = new CategoryEntity(null, "NEW_CATEGORY");
             CategoryJpaEntity categoryJpaEntityToCreate = new CategoryJpaEntity(null, "NEW_CATEGORY");
             CategoryJpaEntity createdCategoryJpaEntity = new CategoryJpaEntity(1, "NEW_CATEGORY");
 
             when(categoryJpaDao.insert(categoryJpaEntityToCreate)).thenReturn(createdCategoryJpaEntity);
-            CategoryDto actualCreatedCategory = categoryRepositoryImpl.create(categoryDtoToCreate);
+            CategoryEntity actualCreatedCategory = categoryRepositoryImpl.create(categoryEntity);
             assertAll(
                     () -> assertEquals(createdCategoryJpaEntity.getIdCategory(), actualCreatedCategory.idCategory()),
                     () -> assertEquals(createdCategoryJpaEntity.getName(), actualCreatedCategory.name())
@@ -119,18 +120,18 @@ class CategoryRepositoryImplTest {
         @Test
         @DisplayName("Test updateCategory should return updated category when category exists")
         void testUpdateCategory_ReturnsUpdatedCategory_WhenCategoryExists() {
-            CategoryDto categoryDtoToUpdate = new CategoryDto(1, "UPDATED_CATEGORY");
+            CategoryEntity categoryEntityToUpdate = new CategoryEntity(1, "UPDATED_CATEGORY");
             CategoryJpaEntity existingCategoryJpaEntity = new CategoryJpaEntity(1, "OLD_CATEGORY");
             CategoryJpaEntity updatedCategoryJpaEntity = new CategoryJpaEntity(1, "UPDATED_CATEGORY");
 
-            when(categoryJpaDao.findCategoryById(categoryDtoToUpdate.idCategory())).thenReturn(Optional.of(existingCategoryJpaEntity));
+            when(categoryJpaDao.findCategoryById(categoryEntityToUpdate.idCategory())).thenReturn(Optional.of(existingCategoryJpaEntity));
             when(categoryJpaDao.update(existingCategoryJpaEntity)).thenReturn(updatedCategoryJpaEntity);
-            CategoryDto actualUpdatedCategory = categoryRepositoryImpl.update(categoryDtoToUpdate);
+            CategoryEntity actualUpdatedCategory = categoryRepositoryImpl.update(categoryEntityToUpdate);
             assertAll(
                     () ->  assertEquals(updatedCategoryJpaEntity.getIdCategory(), actualUpdatedCategory.idCategory()),
                     () ->  assertEquals(updatedCategoryJpaEntity.getName(), actualUpdatedCategory.name())
             );
-            verify(categoryJpaDao).findCategoryById(categoryDtoToUpdate.idCategory());
+            verify(categoryJpaDao).findCategoryById(categoryEntityToUpdate.idCategory());
             verify(categoryJpaDao).update(existingCategoryJpaEntity);
         }
     }
@@ -142,7 +143,7 @@ class CategoryRepositoryImplTest {
         void testGetCategoryById_ReturnsCategory_WhenCategoryExists() {
             CategoryJpaEntity expectedCategory = new CategoryJpaEntity(1, "CATEGORY1");
             when(categoryJpaDao.findCategoryById(expectedCategory.getIdCategory())).thenReturn(Optional.of(expectedCategory));
-            CategoryDto actualCategory = categoryRepositoryImpl.getById(expectedCategory.getIdCategory());
+            CategoryEntity actualCategory = categoryRepositoryImpl.getById(expectedCategory.getIdCategory());
             assertAll(
                     () -> assertEquals(expectedCategory.getIdCategory(), actualCategory.idCategory()),
                     () -> assertEquals(expectedCategory.getName(), actualCategory.name())
@@ -155,7 +156,7 @@ class CategoryRepositoryImplTest {
         void testGetCategoryById_ReturnsNull_WhenCategoryDoesNotExist() {
             Integer categoryId = 111;
             when(categoryJpaDao.findCategoryById(categoryId)).thenReturn(Optional.empty());
-            CategoryDto actualCategory = categoryRepositoryImpl.getById(categoryId);
+            CategoryEntity actualCategory = categoryRepositoryImpl.getById(categoryId);
             assertNull(actualCategory);
             verify(categoryJpaDao).findCategoryById(categoryId);
         }

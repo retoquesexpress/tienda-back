@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new IllegalArgumentException("User already exists");
         }    }
+
     @Transactional
     @Override
     public UserDto update(UserDto userDto) {
@@ -61,6 +62,7 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("User does not exists");
         }
     }
+
     @Transactional
     @Override
     public void delete(Integer idUser) {
